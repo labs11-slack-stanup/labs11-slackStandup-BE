@@ -1,5 +1,5 @@
 # Labs10-Sentiment
-
+//
 Mood is an application that Creates a non-confrontational yet engaging way for employees to communicate with their managers. It Provides an effective method for teams to generate actionable feedback to improve working conditions, company culture, and productivity.
 
 ## Front End
@@ -86,7 +86,6 @@ Command: heroku config:add TZ="America/New_York" -a botsentiment
 
 | Method | Endpoint      | Description                                                                   | body                  |
 | ------ | ------------- | ----------------------------------------------------------------------------- | --------------------- |
-
 | POST    | /api/team_members | Creates a new team member during initial registration, type and team_id to be determined later | {"firstName": "string", "lastName": "string", "email": "string", "phone": "string", "type": null, "team_id": null}|
 | POST    | /api/teams | Creates a new team |{"name": "string", "memberId": integer}|
 | POST    | /api/surveys | Creates a new survey with a recurring schedule |{"title": "string", "description": "string", "manager_id": integer, "dailyWeeklyMonthly": "string", "hour": integer, "amPm": "string", "timeZone": "string", "min": integer, "preFeelingIdsArray": [ integers ]}|
