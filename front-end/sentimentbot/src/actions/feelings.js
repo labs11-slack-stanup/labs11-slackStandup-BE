@@ -19,7 +19,7 @@ export const SINGLE_FEELINGS_FAILURE = 'SINGLE_FEELINGS_FAILURE';
 export const getFeelings = id => dispatch => {
     dispatch({ type: FETCH_FEELINGS_START });
     axios
-    .get(`https://botsentiment.herokuapp.com/api/feelings/myfeelings/${id}`)
+    .get(`https://labs11-curie-web.herokuapp.com/api/feelings/myfeelings/${id}`)
     .then(response => {
         dispatch({ type: FETCH_FEELINGS_SUCCESS, payload: response.data })
     })
@@ -29,7 +29,7 @@ export const getFeelings = id => dispatch => {
 export const addFeelings = note => dispatch => {
     dispatch({ type: ADD_FEELINGS_START });
     axios
-        .post("https://botsentiment.herokuapp.com/api/feelings", note)
+        .post("https://labs11-curie-web.herokuapp.com/api/feelings", note)
         .then(response => {
             dispatch({ type: ADD_FEELINGS_SUCCESS, payload: response.data });
         })
@@ -39,7 +39,7 @@ export const addFeelings = note => dispatch => {
 export const editFeelings = (id, note) => dispatch => {
     dispatch({ type: EDIT_FEELINGS_START });
     axios
-        .put(`https://botsentiment.herokuapp.com/api/feelings/${id}`, note)
+        .put(`https://labs11-curie-web.herokuapp.com/api/feelings/${id}`, note)
         .then(response => {
             dispatch({ type: EDIT_FEELINGS_SUCCESS, payload: response.data });
         })
@@ -49,7 +49,7 @@ export const editFeelings = (id, note) => dispatch => {
 export const deleteFeelings = id => dispatch => {
     dispatch({ type: DELETE_FEELINGS_START });
     axios
-        .delete(`https://botsentiment.herokuapp.com/api/feelings/${id}`)
+        .delete(`https://labs11-curie-web.herokuapp.com/api/feelings/${id}`)
         .then(response => {
             dispatch({ type: DELETE_FEELINGS_SUCCESS, payload: response.data })
         })
@@ -59,7 +59,7 @@ export const deleteFeelings = id => dispatch => {
 export const fetchSingleFeelings = id => dispatch => {
     dispatch({ type: SINGLE_FEELINGS_START });
     axios
-        .get(`https://botsentiment.herokuapp.com/api/feelings/${id}`)
+        .get(`https://labs11-curie-web.herokuapp.com/api/feelings/${id}`)
         .then(response => {
             dispatch({ type: SINGLE_FEELINGS_SUCCESS, payload: response.data })
         })

@@ -14,7 +14,7 @@ class Billing extends React.Component {
 
   async onToken(token) {
     let response = await fetch(
-      "https://botsentiment.herokuapp.com/api/stripe/subscribe10",
+      "https://labs11-curie-web.herokuapp.com/api/stripe/subscribe10",
       {
         method: "POST",
         headers: {
@@ -36,7 +36,7 @@ class Billing extends React.Component {
 
   async onToken2(token) {
     let response = await fetch(
-      "https://botsentiment.herokuapp.com/stripe/subscribe50",
+      "https://labs11-curie-web.herokuapp.com/stripe/subscribe50",
       {
         method: "POST",
         headers: {
@@ -161,7 +161,7 @@ export default Billing;
 
 //   /* .billing-card-container {
 //       width: 70%;
-//       /* margin-left: 12rem; 
+//       /* margin-left: 12rem;
 //   } */
 // }
 
@@ -216,7 +216,7 @@ export default Billing;
 //   display: flex;
 //   flex-direction: column;
 //   align-items: center;
-//   /* height: 300px; 
+//   /* height: 300px;
 //   color: #000;
 //   border: 4px solid #f58a91;
 //   border-radius: 8px;
@@ -254,14 +254,14 @@ export default Billing;
 // }
 
 // @media (max-width:500px) {
-// /* 
+// /*
 //   .billing-card-title {
-//       /* width: 37%; 
+//       /* width: 37%;
 //       width: 7rem;
 //   }
 
 //   .enhanced {
-//       /* width: 29%; 
+//       /* width: 29%;
 //       width: 6rem;
 //   } */
 // }
@@ -273,7 +273,7 @@ export default Billing;
 // } */
 
 // /* Billing Card Text */
-// /* 
+// /*
 // .billing-card-text {
 //   padding-top: 1.6rem;
 //   padding-left: 1.8rem;

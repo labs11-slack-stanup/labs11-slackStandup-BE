@@ -28,13 +28,13 @@ const type = "team";
 // });
 
 // https://slack.com/oauth/authorize?client_id=553324377632.554405336645&scope=bot,chat:write:bot,commands,emoji:read
-// https://slack.com/oauth/authorize?scope=commands,bot&client_id=553324377632.554405336645&redirect_uri=https://botsentiment.herokuapp.com/api/slackauth&state=id2
-// https://slack.com/oauth/authorize?scope=commands,bot&client_id=553324377632.554405336645&redirect_uri=https://botsentiment.herokuapp.com/api/slackauth&state=id2
+// https://slack.com/oauth/authorize?scope=commands,bot&client_id=553324377632.554405336645&redirect_uri=https://labs11-curie-web.herokuapp.com/api/slackauth&state=id2
+// https://slack.com/oauth/authorize?scope=commands,bot&client_id=553324377632.554405336645&redirect_uri=https://labs11-curie-web.herokuapp.com/api/slackauth&state=id2
 // https://slack.com/oauth/authorize?scope=commands,bot&client_id=553324377632.554405336645&redirect_uri=http://localhost:5002/api/slackauth&state=id
 
 // let uri = "http://localhost:5002/api/slackauth";
 // let uri2 = "http://localhost:5002/api/slackauth/slack-btn/1";
-let uri = "https://botsentiment.herokuapp.com/api/slackauth";
+let uri = "https://labs11-curie-web.herokuapp.com/api/slackauth";
 
 // router.get("/slackbtn/:id", (req, res) => {
 //   // console.log(req.query.code);
@@ -199,12 +199,12 @@ router.get("/all", (req, res) => {
 // router.post("/test", (req, res) => {
 //   let postInfo3 = {
 //     "access_token": "",
-//     "user_id": "", 
-//     "team_name": "", 
-//     "team_id": "TG99JB3JL", 
-//     "bot_user_id": "", 
-//     "bot_access_token": "", 
-//     "member_id": 1, 
+//     "user_id": "",
+//     "team_name": "",
+//     "team_id": "TG99JB3JL",
+//     "bot_user_id": "",
+//     "bot_access_token": "",
+//     "member_id": 1,
 //     "channel_id": ""
 //   };
 //   db.insert(postInfo3)

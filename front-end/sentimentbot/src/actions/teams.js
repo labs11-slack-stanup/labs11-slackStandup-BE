@@ -25,7 +25,7 @@ export const FETCH_TEAMS_MEMBERS_FAILURE = "FETCH_TEAMS_MEMBERS_FAILURE";
 export const getTeams = () => dispatch => {
   dispatch({ type: FETCH_TEAMS_START });
   axios
-    .get("https://botsentiment.herokuapp.com/api/teams")
+    .get("https://labs11-curie-web.herokuapp.com/api/teams")
     .then(response => {
       dispatch({ type: FETCH_TEAMS_SUCCESS, payload: response.data });
     })
@@ -35,7 +35,7 @@ export const getTeams = () => dispatch => {
 export const joinTeam = (id, team_code) => dispatch => {
   dispatch({ type: EDIT_TEAMS_START });
   axios
-    .put(`https://botsentiment.herokuapp.com/api/team_members/${id}/join`, team_code)
+    .put(`https://labs11-curie-web.herokuapp.com/api/team_members/${id}/join`, team_code)
     .then(response => {
       dispatch({ type: EDIT_TEAMS_SUCCESS, payload: response.team_code });
     })
@@ -45,7 +45,7 @@ export const joinTeam = (id, team_code) => dispatch => {
 export const addTeam = data => dispatch => {
   dispatch({ type: ADD_TEAMS_START });
   axios
-    .post("https://botsentiment.herokuapp.com/api/teams", data)
+    .post("https://labs11-curie-web.herokuapp.com/api/teams", data)
     .then(response => {
       dispatch({ type: ADD_TEAMS_SUCCESS, payload: response.data });
     })
@@ -55,7 +55,7 @@ export const addTeam = data => dispatch => {
 export const editTeam = (id, note) => dispatch => {
   dispatch({ type: EDIT_TEAMS_START });
   axios
-    .put(`https://botsentiment.herokuapp.com/api/teams/${id}`, note)
+    .put(`https://labs11-curie-web.herokuapp.com/api/teams/${id}`, note)
     .then(response => {
       dispatch({ type: EDIT_TEAMS_SUCCESS, payload: response.data });
     })
@@ -65,7 +65,7 @@ export const editTeam = (id, note) => dispatch => {
 export const deleteTeam = id => dispatch => {
   dispatch({ type: DELETE_TEAMS_START });
   axios
-    .delete(`https://botsentiment.herokuapp.com/api/teams/${id}`)
+    .delete(`https://labs11-curie-web.herokuapp.com/api/teams/${id}`)
     .then(response => {
       dispatch({ type: DELETE_TEAMS_SUCCESS, payload: response.data });
     })
@@ -75,7 +75,7 @@ export const deleteTeam = id => dispatch => {
 export const getSingleTeam = id => dispatch => {
   dispatch({ type: SINGLE_TEAMS_START });
   axios
-    .get(`https://botsentiment.herokuapp.com/api/teams/${id}`)
+    .get(`https://labs11-curie-web.herokuapp.com/api/teams/${id}`)
     .then(response => {
       dispatch({ type: SINGLE_TEAMS_SUCCESS, payload: response.data });
     })
@@ -85,7 +85,7 @@ export const getSingleTeam = id => dispatch => {
 export const getTeamsMembers = id => dispatch => {
   dispatch({ type: FETCH_TEAMS_MEMBERS_START });
   axios
-    .get(`https://botsentiment.herokuapp.com/api/team_members/team_member/${id}`)
+    .get(`https://labs11-curie-web.herokuapp.com/api/team_members/team_member/${id}`)
     .then(response => {
       dispatch({ type: FETCH_TEAMS_MEMBERS_SUCCESS, payload: response.data });
     })

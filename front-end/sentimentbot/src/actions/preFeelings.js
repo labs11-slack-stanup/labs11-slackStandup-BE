@@ -19,7 +19,7 @@ export const SINGLE_PREFEELING_FAILURE = 'SINGLE_PREFEELING_FAILURE';
 export const getPreFeeling = () => dispatch => {
     dispatch({ type: FETCH_PREFEELING_START });
   axios
-    .get("https://botsentiment.herokuapp.com/api/pre-set-feelings")
+    .get("https://labs11-curie-web.herokuapp.com/api/pre-set-feelings")
     .then(response => {
       dispatch({ type: FETCH_PREFEELING_SUCCESS, payload: response.data });
     })
@@ -29,7 +29,7 @@ export const getPreFeeling = () => dispatch => {
 export const addPreFeeling = note => dispatch => {
     dispatch({ type: ADD_PREFEELING_START });
     axios
-        .post("https://botsentiment.herokuapp.com/api/pre-set-feelings", note)
+        .post("https://labs11-curie-web.herokuapp.com/api/pre-set-feelings", note)
         .then(response => {
             dispatch({ type: ADD_PREFEELING_SUCCESS, payload: response.data });
         })
@@ -39,7 +39,7 @@ export const addPreFeeling = note => dispatch => {
 export const editPreFeeling = (id, note) => dispatch => {
     dispatch({ type: EDIT_PREFEELING_START });
     axios
-        .put(`https://botsentiment.herokuapp.com/api/pre-set-feelings/${id}`, note)
+        .put(`https://labs11-curie-web.herokuapp.com/api/pre-set-feelings/${id}`, note)
         .then(response => {
             dispatch({ type: EDIT_PREFEELING_SUCCESS, payload: response.data });
         })
@@ -49,7 +49,7 @@ export const editPreFeeling = (id, note) => dispatch => {
 export const deletePreFeeling = id => dispatch => {
     dispatch({ type: DELETE_PREFEELING_START });
     axios
-        .delete(`https://botsentiment.herokuapp.com/api/pre-set-feelings/${id}`)
+        .delete(`https://labs11-curie-web.herokuapp.com/api/pre-set-feelings/${id}`)
         .then(response => {
             dispatch({ type: DELETE_PREFEELING_SUCCESS, payload: response.data })
         })
@@ -59,7 +59,7 @@ export const deletePreFeeling = id => dispatch => {
 export const fetchSinglePreFeeling = id => dispatch => {
     dispatch({ type: SINGLE_PREFEELING_START });
     axios
-        .get(`https://botsentiment.herokuapp.com/api/pre-set-feelings/${id}`)
+        .get(`https://labs11-curie-web.herokuapp.com/api/pre-set-feelings/${id}`)
         .then(response => {
             dispatch({ type: SINGLE_PREFEELING_SUCCESS, payload: response.data })
         })

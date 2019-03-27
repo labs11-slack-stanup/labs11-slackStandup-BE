@@ -19,7 +19,7 @@ export const SINGLE_TEAMMEMBERS_FAILURE = "SINGLE_TEAMMEMBERS_FAILURE";
 export const getTeamMembers = () => dispatch => {
   dispatch({ type: FETCH_TEAMMEMBERS_START });
   axios
-    .get("https://botsentiment.herokuapp.com/api/team_members")
+    .get("https://labs11-curie-web.herokuapp.com/api/team_members")
     .then(response => {
       dispatch({ type: FETCH_TEAMMEMBERS_SUCCESS, payload: response.data });
     })
@@ -29,7 +29,7 @@ export const getTeamMembers = () => dispatch => {
 export const addTeamMembers = team => dispatch => {
   dispatch({ type: ADD_TEAMMEMBERS_START });
   axios
-    .post("https://botsentiment.herokuapp.com/api/team_members", team)
+    .post("https://labs11-curie-web.herokuapp.com/api/team_members", team)
     .then(response => {
       dispatch({ type: ADD_TEAMMEMBERS_SUCCESS, payload: response.data });
     })
@@ -39,7 +39,7 @@ export const addTeamMembers = team => dispatch => {
 export const editTeamMembers = (id, body) => dispatch => {
   dispatch({ type: EDIT_TEAMMEMBERS_START });
   axios
-    .put(`https://botsentiment.herokuapp.com/api/team_members/${id}`, body)
+    .put(`https://labs11-curie-web.herokuapp.com/api/team_members/${id}`, body)
     .then(response => {
       dispatch({ type: EDIT_TEAMMEMBERS_SUCCESS, payload: response.data });
     })
@@ -49,7 +49,7 @@ export const editTeamMembers = (id, body) => dispatch => {
 export const deleteTeamMembers = id => dispatch => {
   dispatch({ type: DELETE_TEAMMEMBERS_START });
   axios
-    .delete(`https://botsentiment.herokuapp.com/api/team_members/${id}`)
+    .delete(`https://labs11-curie-web.herokuapp.com/api/team_members/${id}`)
     .then(response => {
       dispatch({ type: DELETE_TEAMMEMBERS_SUCCESS, payload: response.data });
     })
@@ -59,7 +59,7 @@ export const deleteTeamMembers = id => dispatch => {
 export const getSingleTeamMembers = email => dispatch => {
   dispatch({ type: SINGLE_TEAMMEMBERS_START });
   axios
-    .get(`https://botsentiment.herokuapp.com/api/team_members/Email/${email}`)
+    .get(`https://labs11-curie-web.herokuapp.com/api/team_members/Email/${email}`)
     .then(response => {
       dispatch({ type: SINGLE_TEAMMEMBERS_SUCCESS, payload: response.data });
       localStorage.setItem('team_id', response.data[0].team_id)
