@@ -145,7 +145,7 @@ class Profile extends React.Component {
   // }
 
   // fetchAuth = code => {
-  //   const uri = "https://sentimentbot.netlify.com/profile";
+  //   const uri = "https://labs11-curie-web.herokuapp.com/profile";
   //   axios
   //     .get(
   //       `https://slack.com/api/oauth.access?code=${code}&client_id=555765331446.554661112789&client_secret=65618f3ce7feca293e1abae74cae7afc&redirect_uri=${uri}&state=2ndstate`

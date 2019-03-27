@@ -71,7 +71,7 @@ let uri = "https://labs11-curie-web.herokuapp.com/api/slackauth";
 
 // function sendToAuthorization() {
 //   let postOptions = {
-//     uri: "https://sentimentbot.netlify.com/authorization",
+//     uri: "https://labs11-curie-web.herokuapp.com/authorization",
 //     method: "GET"
 //   };
 //   request(postOptions, (error, response, body) => {
@@ -143,7 +143,7 @@ router.get("/", (req, res) => {
             console.log("postInfo", postInfo);
             db.insert(postInfo)
               .then(() => {
-                res.redirect("https://sentimentbot.netlify.com/profile");
+                res.redirect("https://labs11-curie-web.herokuapp.com/profile");
               })
               .catch(serverErrorPost(res));
           } else {
@@ -177,7 +177,7 @@ router.get("/", (req, res) => {
             db.update(id, updateInfo)
               .then(() => {
                 // sendToAuthorization();
-                res.redirect("https://sentimentbot.netlify.com/profile");
+                res.redirect("https://labs11-curie-web.herokuapp.com/profile");
               })
               .catch(serverErrorUpdate500(res, "Auth"));
             // res.status(400).json({
