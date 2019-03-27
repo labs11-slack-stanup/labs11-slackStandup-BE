@@ -7,9 +7,9 @@ export default class Auth {
   expiresAt;
 
   auth0 = new auth0.WebAuth({
-    domain: "bikbik.auth0.com",
-    clientID: "BnXSvU6tE4W8WGMt3gDWra24hXr8qY0e",
-    redirectUri: "https://sentimentbot.netlify.com/callback",
+    domain: "mood-curie.auth0.com",
+    clientID: "fwKGmMskS6szk9XlF696WG1KNQnoT5Db",
+    redirectUri: "https://yourmood.netlify.com/callback",
     // redirectUri: "http://localhost:3000/callback",
     responseType: "token id_token",
     scope: "openid profile email"

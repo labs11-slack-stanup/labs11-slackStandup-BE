@@ -71,7 +71,7 @@ let uri = "https://labs11-curie-web.herokuapp.com/api/slackauth";
 
 // function sendToAuthorization() {
 //   let postOptions = {
-//     uri: "https://sentimentbot.netlify.com/authorization",
+//     uri: "https://labs11-curie-web.herokuapp.com/authorization",
 //     method: "GET"
 //   };
 //   request(postOptions, (error, response, body) => {
