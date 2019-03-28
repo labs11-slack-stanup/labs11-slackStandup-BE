@@ -5,7 +5,7 @@ const {onServerStartScheduleSurveys} = require("./api/routes/surveyRouter.js");
 let port;
 
 if (process.env.DB_ENV === "development") {
-  port = 5002;
+  port = 5003;
 } else if (process.env.DB_ENV === "production") {
   port = process.env.PORT;
 }
