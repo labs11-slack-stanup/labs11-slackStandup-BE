@@ -30,18 +30,8 @@ export default class Auth {
     this.auth0.authorize();
   }
 
-  // handleAuthentication() {
-  //   this.auth0.parseHash((err, authResult) => {
-  //     if (authResult && authResult.accessToken && authResult.idToken) {
-  //       localStorage.setItem("email", authResult.idTokenPayload.email);
-  //       localStorage.setItem('jwt', authResult.idToken)
-  //       this.setSession(authResult);
-  //     } else if (err) {
-  //       history.replace("/");
-  //       console.log(err, 'handle auth');
-  //     }
-  //   });
-  // }
+  //deleted // handleAuthentication() for PR - have it saved in my notes
+  
 
   handleAuthentication() {
     return new Promise((resolve, reject) => {
@@ -77,6 +67,9 @@ export default class Auth {
   getIdToken() {
     return this.idToken;
   }
+
+
+
 
   // setSession(authResult) {
   //   // Set isLoggedIn flag in localStorage
