@@ -1,13 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const knex = require("knex");
-// const request = require("request");
-// const schedule = require("node-schedule");
 
 const db = require("../database/helpers/questionSurveyDb.js");
-// const server = require("../server.js");
-// const moment = require("moment");
-
 
 const {
   postSuccess,
