@@ -9,6 +9,17 @@ const db = require("../database/helpers/questionSurveyDb.js");
 // const moment = require("moment");
 
 // const teamMembersDb = require("../database/helpers/teamMembersDb");
+const {
+  postSuccess,
+  serverErrorPost,
+  getSuccess,
+  serverErrorGet,
+  serverErrorGetID,
+  serverErrorDelete404,
+  serverErrorDelete500,
+  serverErrorUpdate404,
+  serverErrorUpdate500
+} = require("./routeHelpers/helpers.js");
 
 
 
@@ -16,8 +27,8 @@ const db = require("../database/helpers/questionSurveyDb.js");
 //GET //labs11
 router.get('/',  (req, res) => {
   db.get()
-    .then(() => {
-       res.status(200).json();
+    .then((data) => {
+       res.status(200).json(data);
       }) //headers
      .catch((err) => {
         res.status(500).json({ success: false, message: 'The surveys could not be retrieved.' });
@@ -31,10 +42,10 @@ router.get('/:id', (req, res) => {
       const { id } = req.params;
   
       db
-          .getById(id)
+          .getID(id)
           .then((surveys) => {
               if (surveys) {
-                  res.status(200).json({ success: true, surveys });
+                  res.status(200).json(surveys);
               } else {
                   res.status(404).json({ success: false, message: 'The survey with the specified ID does not exist.' });
               }
@@ -64,19 +75,27 @@ router.get('/:id', (req, res) => {
 //   })
 // });
 
+// router.post("/", (req, res) => {
+//   db.insert(req.body)
+//   .then(([id]) => {
+//     db("questionSurveys") 
+//     .where({ id })
+//     .first()
+//     .then(response => {
+//       res.status(200).json(response);
+//     })
+//   })
+//   .catch(err => {
+//     res.status(500).json({message: "could not add new survey"});
+//   })
+// });
+
 router.post("/", (req, res) => {
-  db.insert(req.body)
-  .then(([id]) => {
-    db("questionSurveys") 
-    .where({ id })
-    .first()
-    .then(response => {
-      res.status(200).json(response);
-    })
-  })
-  .catch(err => {
-    res.status(500).json({message: "could not add new survey"});
-  })
+  const postInfo = req.body;
+
+  db.insert(postInfo)
+    .then(postSuccess(res))
+    .catch(serverErrorPost(res));
 });
 
 //DELETE LABS 11
