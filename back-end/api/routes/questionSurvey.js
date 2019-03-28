@@ -25,6 +25,27 @@ router.get('/',  (req, res) => {
 });
 
 
+//GET by Id: LABS 11
+ 
+router.get('/:id', (req, res) => {
+      const { id } = req.params;
+  
+      db
+          .getById(id)
+          .then((surveys) => {
+              if (surveys) {
+                  res.status(200).json({ success: true, surveys });
+              } else {
+                  res.status(404).json({ success: false, message: 'The survey with the specified ID does not exist.' });
+              }
+          })
+          .catch((err) => {
+              res.status(500).json({ success: false, error: 'This survey could not be retrieved.' });
+          });
+  });
+  
+
+
     
 // router.post('/', (req, res) => {
 //   db.insert()
