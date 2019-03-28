@@ -68,7 +68,7 @@ router.post("/", (req, res) => {
     .catch(serverErrorPost(res));
 });
 
-//DELETE LABS 11
+//DELETE LABS 11 -tested by Justin
 router.delete('/:id', (req, res) => {
   const {id} = req.params;
   db.
@@ -85,7 +85,7 @@ router.delete('/:id', (req, res) => {
   })
 })
 
-// PUT LABS 11
+// PUT LABS 11 -tested by Justin
 router.put('/:id', (req, res) => {
   const { id } = req.params;
   const surveyChanges = req.body;
