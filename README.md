@@ -1,4 +1,4 @@
-# Labs10-Sentiment
+# Labs11-Curie
 //
 Mood is an application that Creates a non-confrontational yet engaging way for employees to communicate with their managers. It Provides an effective method for teams to generate actionable feedback to improve working conditions, company culture, and productivity.
 
@@ -30,12 +30,13 @@ Production created with knex.js and Heroku PostgresSQL
 
 ## Authors
 
-* **Austin Blake**  - [dyiar](https://github.com/dyiar)
-* **Joseph Eastman** - [josepheastman](https://github.com/josepheastman)
-* **Samuel Partner**  - [Zatara-Wrought](https://github.com/Zatara-Wrought)
-* **Thomas Claydon**  - [gittc100](https://github.com/gittc100)
-* **Tyrone CartWright**  - [Tyrone-Cartwright](https://github.com/Tyrone-Cartwright)
-* **Michelle Okagbue**  - [Mokagbue](https://github.com/Mokagbue)
+* **Justin Arata**  - [jarata](https://github.com/jarata)
+* **Samantha Soucy** - [SamSoucy](https://github.com/SamSoucy)
+* **Estevan Rodriguez**  - [Esterod215](https://github.com/Esterod215)
+* **Cynthia Ramos**  - [bluelogix](https://github.com/bluelogix)
+* **Sheila Febres**  - [s-hopper01110](https://github.com/s-hopper01110)
+* **Farhan Farooqui**  - [farhanf](https://github.com/farhanf)
+* **CJ Wright** - [cwright0428](https://github.com/cwright0428)
 
 ## License
 
