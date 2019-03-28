@@ -46,7 +46,7 @@ router.get('/',  (req, res) => {
 router.post("/", (req, res) => {
   db.insert(req.body)
   .then(([id]) => {
-    db("questionSurveys")
+    db("questionSurveys") 
     .where({ id })
     .first()
     .then(response => {
@@ -74,6 +74,29 @@ router.delete('/:id', (req, res) => {
           res.status(500).json({ error: "The survey could not be removed" })  
   })
 })
+
+// PUT LABS 11
+router.put('/:id', (req, res) => {
+  const { id } = req.params;
+  const surveyChanges = req.body;
+
+  db.update(id, surveyChanges)
+  .then(data => {
+      if( !data) {
+          res.status(404).json({ success: false, message: 'The survey with the specified ID does not exist.' })
+      }  else if ( !surveyChanges ) {
+          return res.status(400).json({  success: false, errorMessage: 'Please provide info for the survey.' })
+
+      }
+       else {
+          return res.status(200).json({ success: true, surveyChanges })
+      }
+  })
+  .catch(err => {
+      res.status(500).json({  success: false, error: 'This may not be modified'})
+  })
+})
+
 
 // router.post('/', (req, res) => {
 //     // add a role to the database
