@@ -16,8 +16,8 @@ const db = require("../database/helpers/questionSurveyDb.js");
 //GET //labs11
 router.get('/',  (req, res) => {
   db.get()
-    .then((data) => {
-       res.status(200).json({ data});
+    .then(() => {
+       res.status(200).json();
       }) //headers
      .catch((err) => {
         res.status(500).json({ success: false, message: 'The surveys could not be retrieved.' });
@@ -57,6 +57,23 @@ router.post("/", (req, res) => {
     res.status(500).json({message: "could not add new survey"});
   })
 });
+
+//DELETE LABS 11
+router.delete('/:id', (req, res) => {
+  const {id} = req.params;
+  db.
+  remove(id)
+  .then(data => {
+      if (data) {
+          res.status(204).end();
+      } else {
+          res.status(404).json({ success: false, message: "The survey with the specified ID does not exist." });
+      }
+  })
+      .catch(err => {
+          res.status(500).json({ error: "The survey could not be removed" })  
+  })
+})
 
 // router.post('/', (req, res) => {
 //     // add a role to the database
