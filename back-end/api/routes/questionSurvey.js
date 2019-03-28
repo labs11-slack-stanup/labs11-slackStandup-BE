@@ -75,7 +75,7 @@ router.delete('/:id', (req, res) => {
   })
 })
 
-// PUT 
+// PUT LABS 11
 router.put('/:id', (req, res) => {
   const { id } = req.params;
   const surveyChanges = req.body;
@@ -198,7 +198,7 @@ router.put('/:id', (req, res) => {
 //   db.insert(req.body)
   
 //   .then(questionSurvey => {
-//       res.status(200).json();
+//       res.status(200).json({message: 'successful'});
 //   })
 //   .catch(err => {
 //       res.status(err).json()
