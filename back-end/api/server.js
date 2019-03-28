@@ -13,6 +13,7 @@ const stripeRouter = require("./routes/stripeRouter");
 const slashRouter = require("./routes/slashRouter");
 const slackAuth = require("./routes/slackAuth.js");
 const surveyActiveRouter = require("./routes/surveyActiveRouter");
+const questionSurveyRouter = require("./routes/questionSurvey"); //labs11
 
 const stripe = require("stripe")(process.env.SECRETKEY);
 const bodyParser = require("body-parser");
@@ -40,6 +41,7 @@ server.use("/api/stripe", stripeRouter);
 server.use("/api/slash", slashRouter);
 server.use("/api/slackauth", slackAuth);
 server.use("/api/survey_active", surveyActiveRouter);
+server.use("/api/questionSurvey", questionSurveyRouter); //labs11
 
 server.get("/", (req, res) => {
   res.status(200).json("Sanity Check ITS WORKING");

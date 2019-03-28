@@ -10,7 +10,7 @@ exports.up = function(knex, Promise) {
       tbl.string("question_3")
       tbl.string("answer_3").notNullable();
       tbl.integer("manager_id").notNullable();
-      tbl.timestamp("created_at", true)
+      // tbl.timestamp("created_at", true)
     });
   };
   
