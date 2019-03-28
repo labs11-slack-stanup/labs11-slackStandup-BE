@@ -29,7 +29,7 @@ let url = "https://botsentiment.herokuapp.com"
 export const getSurvey = id => dispatch => {
     dispatch({ type: FETCH_SURVEY_START });
     axios
-    .get(`https://botsentiment.herokuapp.com/api/surveys/manager/${id}`)
+    .get(`https://labs11-curie-web.herokuapp.com/api/surveys/manager/${id}`)
     .then(response => {
         dispatch({ type: FETCH_SURVEY_SUCCESS, payload: response.data })
     })
@@ -39,7 +39,7 @@ export const getSurvey = id => dispatch => {
 export const changeSurveyActivity = id => dispatch => {
     dispatch({ type: CHANGE_ACTIVITY_SURVEY_START });
     axios
-    .get(`https://botsentiment.herokuapp.com/api/surveys/changeActivity/${id}`)
+    .get(`https://labs11-curie-web.herokuapp.com/api/surveys/changeActivity/${id}`)
     .then(response => {
         dispatch({ type: CHANGE_ACTIVITY_SURVEY_SUCCESS, payload: response.data })
     })
@@ -59,7 +59,7 @@ export const getSurveyActivity = () => dispatch => {
 export const addSurvey = note => dispatch => {
     dispatch({ type: ADD_SURVEY_START });
     axios
-        .post("https://botsentiment.herokuapp.com/api/surveys", note)
+        .post("https://labs11-curie-web.herokuapp.com/api/surveys", note)
         .then(response => {
             dispatch({ type: ADD_SURVEY_SUCCESS, payload: response.data });
         })
@@ -69,7 +69,7 @@ export const addSurvey = note => dispatch => {
 export const editSurvey = (id, note) => dispatch => {
     dispatch({ type: EDIT_SURVEY_START });
     axios
-        .put(`https://botsentiment.herokuapp.com/api/surveys/${id}`, note)
+        .put(`https://labs11-curie-web.herokuapp.com/api/surveys/${id}`, note)
         .then(response => {
             dispatch({ type: EDIT_SURVEY_SUCCESS, payload: response.data });
         })
@@ -79,7 +79,7 @@ export const editSurvey = (id, note) => dispatch => {
 export const deleteSurvey = id => dispatch => {
     dispatch({ type: DELETE_SURVEY_START });
     axios
-        .delete(`https://botsentiment.herokuapp.com/api/surveys/${id}`)
+        .delete(`https://labs11-curie-web.herokuapp.com/api/surveys/${id}`)
         .then(response => {
             dispatch({ type: DELETE_SURVEY_SUCCESS, payload: response.data })
         })
@@ -89,7 +89,7 @@ export const deleteSurvey = id => dispatch => {
 export const fetchSingleSurvey = id => dispatch => {
     dispatch({ type: SINGLE_SURVEY_START });
     axios
-        .get(`https://botsentiment.herokuapp.com/api/surveys/${id}`)
+        .get(`https://labs11-curie-web.herokuapp.com/api/surveys/${id}`)
         .then(response => {
             dispatch({ type: SINGLE_SURVEY_SUCCESS, payload: response.data })
         })

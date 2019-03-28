@@ -13,6 +13,17 @@ const db = require("../database/helpers/questionSurveyDb.js");
 
 
 
+//GET //labs11
+router.get('/',  (req, res) => {
+  db.get()
+    .then((data) => {
+       res.status(200).json({ data});
+      }) //headers
+     .catch((err) => {
+        res.status(500).json({ success: false, message: 'The surveys could not be retrieved.' });
+    })
+});
+
 
     
 // router.post('/', (req, res) => {

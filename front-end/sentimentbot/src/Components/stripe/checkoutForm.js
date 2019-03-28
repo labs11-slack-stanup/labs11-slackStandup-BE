@@ -14,7 +14,7 @@ class CheckoutForm extends Component {
     let { token } = await this.props.stripe.createToken({ name: "Name" });
 
 
-    let response = await fetch("https://botsentiment.herokuapp.com/stripe/charge", {
+    let response = await fetch("https://labs11-curie-web.herokuapp.com/stripe/charge", {
 
       method: "POST",
       headers: { "Content-Type": "text/plain" },
@@ -30,7 +30,7 @@ class CheckoutForm extends Component {
 
   render() {
     if (this.state.complete) {
-        return ( 
+        return (
           <div className="purchase-complete">
             <h1>Purchase Complete</h1>
           </div>

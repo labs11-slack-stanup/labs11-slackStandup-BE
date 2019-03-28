@@ -19,7 +19,7 @@ export const SINGLE_MANAGERS_FAILURE = 'SINGLE_MANAGERS_FAILURE';
 export const getManagers = id => dispatch => {
     dispatch({ type: FETCH_MANAGERS_START });
     axios
-    .get(`https://botsentiment.herokuapp.com/api/slackauth/single/${id}`)
+    .get(`https://labs11-curie-web.herokuapp.com/api/slackauth/single/${id}`)
     .then(response => {
         dispatch({ type: FETCH_MANAGERS_SUCCESS, payload: response.data })
     })
@@ -29,7 +29,7 @@ export const getManagers = id => dispatch => {
 export const addManager = note => dispatch => {
     dispatch({ type: ADD_MANAGERS_START });
     axios
-        .post("https://botsentiment.herokuapp.com/api/managers", note)
+        .post("https://labs11-curie-web.herokuapp.com/api/managers", note)
         .then(response => {
             dispatch({ type: ADD_MANAGERS_SUCCESS, payload: response.data });
         })
@@ -39,7 +39,7 @@ export const addManager = note => dispatch => {
 export const editManager = (id, note) => dispatch => {
     dispatch({ type: EDIT_MANAGERS_START });
     axios
-        .put(`https://botsentiment.herokuapp.com/api/managers/${id}`, note)
+        .put(`https://labs11-curie-web.herokuapp.com/api/managers/${id}`, note)
         .then(response => {
             dispatch({ type: EDIT_MANAGERS_SUCCESS, payload: response.data });
         })
@@ -49,7 +49,7 @@ export const editManager = (id, note) => dispatch => {
 export const deleteManager = id => dispatch => {
     dispatch({ type: DELETE_MANAGERS_START });
     axios
-        .delete(`https://botsentiment.herokuapp.com/api/managers/${id}`)
+        .delete(`https://labs11-curie-web.herokuapp.com/api/managers/${id}`)
         .then(response => {
             dispatch({ type: DELETE_MANAGERS_SUCCESS, payload: response.data })
         })
@@ -59,7 +59,7 @@ export const deleteManager = id => dispatch => {
 export const fetchSingleManager = id => dispatch => {
     dispatch({ type: SINGLE_MANAGERS_START });
     axios
-        .get(`https://botsentiment.herokuapp.com/api/managers/${id}`)
+        .get(`https://labs11-curie-web.herokuapp.com/api/managers/${id}`)
         .then(response => {
             dispatch({ type: SINGLE_MANAGERS_SUCCESS, payload: response.data })
         })

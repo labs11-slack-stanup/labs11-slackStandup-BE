@@ -145,7 +145,7 @@ class Profile extends React.Component {
   // }
 
   // fetchAuth = code => {
-  //   const uri = "https://sentimentbot.netlify.com/profile";
+  //   const uri = "https://labs11-curie-web.herokuapp.com/profile";
   //   axios
   //     .get(
   //       `https://slack.com/api/oauth.access?code=${code}&client_id=555765331446.554661112789&client_secret=65618f3ce7feca293e1abae74cae7afc&redirect_uri=${uri}&state=2ndstate`
@@ -260,7 +260,7 @@ class Profile extends React.Component {
     }
     const view = this.state.view;
 
-    const uri = "https://botsentiment.herokuapp.com/api/slackauth";
+    const uri = "https://labs11-curie-web.herokuapp.com/api/slackauth";
     // const uri = "http://localhost:3000/authorization";
     console.log(view);
     if (this.state.loading === true) {
@@ -339,7 +339,7 @@ class Profile extends React.Component {
                     {localStorage.getItem('type') === 'manager' ? (<div id="gotosurveymaker" onClick={this.goToSurveyMaker}>Create Survey</div> ) : (null)}
                   </div>
                 </div>
-              </div>   
+              </div>
             </div>
             <div className="reactions">
               {this.props.singleTeamMembers[0].type === "manager" ? (

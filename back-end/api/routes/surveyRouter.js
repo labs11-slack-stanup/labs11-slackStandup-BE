@@ -110,7 +110,7 @@ const onServerStartScheduleSurveys = () => {
                       console.log("botInfo2", botInfo);
                       let postOptions = {
                         uri:
-                          "https://botsentiment.herokuapp.com/api/slash/send-me-buttons",
+                          "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
                         method: "POST",
                         headers: {
                           "Content-type": "application/json"
@@ -268,7 +268,7 @@ const surveyScheduler = (timeInfo, postInfo) => {
                   console.log("botInfo2", botInfo);
                   let postOptions = {
                     uri:
-                      "https://botsentiment.herokuapp.com/api/slash/send-me-buttons",
+                      "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
                     method: "POST",
                     headers: {
                       "Content-type": "application/json"
