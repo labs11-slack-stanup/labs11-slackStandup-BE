@@ -10,13 +10,8 @@ class Login extends React.Component {
   }
 
 
-  // componentDidMount() {
-  //   const { renewSession } = this.props.auth;
-
-  //   if (localStorage.getItem('isLoggedIn') === 'true') {
-  //     renewSession();
-  //   }
-  // }
+  // Removed previously commented componentDidMount() for PR 
+  
 
   render() {
     // let options = {
