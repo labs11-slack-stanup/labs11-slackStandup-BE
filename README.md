@@ -1,6 +1,6 @@
 # Labs11-Curie
 //
-Mood is an application that Creates a non-confrontational yet engaging way for employees to communicate with their managers. It Provides an effective method for teams to generate actionable feedback to improve working conditions, company culture, and productivity.
+Curie is an add-on to Mood that creates easy and user friendly way for employees to generate survey questionnaires. It provides an efficient method of getting feedback from a large pool of questions that can help with group productivity and morale.
 
 ## Front End
 
