@@ -84,4 +84,38 @@ router.post('/subscribe10', (req, res) => {
     })
 })
 
+router.post('/subscribe15', (req, res) => {
+    const stripeToken = req.body.stripeToken;
+    const email = req.body.email;
+
+    stripe.customers.create({
+        email: email,
+        source: stripeToken
+    }, function(err, customer) {
+        if(err) {
+            res.send(
+                serverErrorPost(res)
+            )
+        } else {
+            const { id } = customer
+
+            stripe.subscriptions.create({
+                customer: id,
+                items: [{plan: 'prod_Eo9p70vnViKC6E'}],
+
+            }, function(err, subscription) {
+                if(err) {
+                    res.send(
+                        serverErrorPost(res)
+                    )
+                } else {
+                    res.status(200).json({subscription})
+                        
+                    
+                }
+            })
+        }
+    })
+})
+
 module.exports = router;
