@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const knex = require("knex");
+
 
 const db = require("../database/helpers/questionSurveyDb.js");
 
@@ -54,7 +54,7 @@ router.get('/:id', (req, res) => {
 
     
 
-
+//POST //labs11
 router.post("/", (req, res) => {
   const postInfo = req.body;
 
