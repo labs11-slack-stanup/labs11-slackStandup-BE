@@ -35,7 +35,7 @@ const {
 
             stripe.subscriptions.create({
                 customer: id,
-                items: [{plan: 'plan_EZCIVSUC7Coh7z'}],
+                items: [{plan: 'plan_EoTZWg3g8rXaYL'}],
 
             }, function(err, subscription) {
                 if(err) {
@@ -84,7 +84,7 @@ router.post('/subscribe10', (req, res) => {
     })
 })
 
-router.post('/subscribe15', (req, res) => {
+router.post('/subscribe75', (req, res) => {
     const stripeToken = req.body.stripeToken;
     const email = req.body.email;
 
