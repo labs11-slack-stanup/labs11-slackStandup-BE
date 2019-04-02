@@ -82,6 +82,9 @@ let uri = "https://labs11-curie-web.herokuapp.com/api/slackauth";
 //   });
 // }
 
+const clientID = "596381005414.586225274705";
+const clientSecret = "316bdf6ba2e2e54b53e39b9c9772d90d";
+
 router.get("/", (req, res) => {
   console.log(req.query.code);
   const options = {
@@ -89,9 +92,9 @@ router.get("/", (req, res) => {
       "https://slack.com/api/oauth.access?code=" +
       req.query.code +
       "&client_id=" +
-      "553324377632.554405336645" +
+      clientID +
       "&client_secret=" +
-      "934d342145ffd799890140ec512feac3" +
+      clientSecret +
       "&redirect_uri=" +
       uri,
     method: "GET"

@@ -173,7 +173,7 @@ router.post("/send-me-buttons", urlencodedParser, (req, res) => {
 
   if (reqBody.command === "/send-me-buttons") {
     let responseURL = reqBody.response_url;
-    if (reqBody.token != process.env.VERIFCATION_TOKEN) {
+    if (reqBody.token != process.env.VERIFICATION_TOKEN) { ///// changed spelling of verification
       res.status(403).end("Access forbidden");
     } else {
       let user_id = reqBody.user_id;

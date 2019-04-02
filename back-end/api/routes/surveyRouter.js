@@ -62,7 +62,7 @@ const onServerStartScheduleSurveys = () => {
             .getBySurveyID(survey_id)
             .then(data => {
               console.log("data check", data);
-              if (data[0].active === false || data[0].active === 0) {
+              if (data[0].active === false) {
                 return;
               } else {
                 surveyFeelingsDb
@@ -486,7 +486,7 @@ router.get("/changeActivity/:id", (req, res) => {
       let surveyActiveID = data[0].id;
       console.log("activity", activity);
 
-      if (activity === 1 || activity === false) {
+      if (activity === 1) {
         change = {
           active: false
         };
