@@ -67,7 +67,7 @@ router.post('/subscribe10', (req, res) => {
 
             stripe.subscriptions.create({
                 customer: id,
-                items: [{plan: 'plan_EZB6io5CDBFwN7'}],
+                items: [{plan: 'plan_EoTXFXkRKtTHBa'}],
 
             }, function(err, subscription) {
                 if(err) {
@@ -111,8 +111,39 @@ router.post('/subscribe15', (req, res) => {
                     )
                 } else {
                     res.status(200).json({subscription})
-                        
-                    
+                }
+            })
+        }
+    })
+})
+
+router.post('/subscribe75', (req, res) => {
+    const stripeToken = req.body.stripeToken;
+    const email = req.body.email;
+
+    stripe.customers.create({
+        email: email,
+        source: stripeToken
+    }, function(err, customer) {
+        if(err) {
+            res.send(
+                serverErrorPost(res)
+            )
+        } else {
+            const { id } = customer
+
+            stripe.subscriptions.create({
+
+                customer: id,
+                items: [{plan: 'plan_EoT9diKu1uLPVM'}],
+
+            }, function(err, subscription) {
+                if(err) {
+                    res.send(
+                        serverErrorPost(res)
+                    )
+                } else {
+                    res.status(200).json({subscription})
                 }
             })
         }
