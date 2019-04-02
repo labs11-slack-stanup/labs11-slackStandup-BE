@@ -80,7 +80,7 @@ Command: heroku config:add TZ="America/New_York" -a botsentiment
 | GET    | /api/feelings/:id | responds with feeling associated with specified feeling id [{data}]  |
 | GET    | /api/feelings/:team_id | responds with feelings associated with specified team id [{data}]  |
 | GET    | /api/feelings/myfeelings/:id | responds with all feelings associated with specified team-member [{data}] |
-| GET | /api/questionSurvy | responds with all surveys in data base |
+| GET | /api/questionSurvey | responds with all surveys in data base |
 | GET | /api/questionSurvey | responds with survey associated with specific survey id |
 
 
@@ -111,7 +111,7 @@ Command: heroku config:add TZ="America/New_York" -a botsentiment
 | PUT    | /api/slackauth/slackAuth/:id | Not Implemented |
 | PUT    | /api/pre-set-feelings/:id | Update pre set feeling associated with specified id |{"feeling_text": "string"}|
 | PUT    | /api/feelings/:id | Update feeling associated with specified id |{"feeling_text": "string", "team_member_id": integer}|
-| PUT |  /api/questionsurvey/:id | Updates survey associated with specified id  |
+| PUT |  /api/questionSurvey/:id | Updates survey associated with specified id  |
 ### DELETE : [
 
 | Method | Endpoint      | Description                                                                   |
@@ -123,4 +123,4 @@ Command: heroku config:add TZ="America/New_York" -a botsentiment
 | DELETE    | /api/slackauth/slackAuth/:id | Deletes slack auth with associated id |
 | DELETE    | /api/pre-set-feelings/:id | Deletes pre set feeling with associated id |
 | DELETE    | /api/feelings/:id | Deletes feeling with associated id |
-| DELETE    | /api/questionsurvey | Deletes survey with associated id  |
+| DELETE    | /api/questionSurvey | Deletes survey with associated id  |
