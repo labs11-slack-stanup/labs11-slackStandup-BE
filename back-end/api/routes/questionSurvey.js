@@ -30,6 +30,19 @@ router.get('/',  (req, res) => {
     })
 });
 
+//filtering by date and grabbing all surveys 
+//GET By Date //labs11
+router.get('/created/:date',  (req, res) => {
+  let { date }  = req.params
+  console.log(date)
+  db.getByDate(date)
+    .then((data) => {
+       res.status(200).json(data);
+      }) //headers
+     .catch((err) => {
+        res.status(500).json({ success: false, message: 'The surveys date could not be retrieved.' });
+    })
+});
 
 //GET by Id: LABS 11
  
