@@ -261,6 +261,8 @@ class Profile extends React.Component {
     const view = this.state.view;
 
     const uri = "https://labs11-curie-web.herokuapp.com/api/slackauth";
+    const url1 = "https://slack.com/oauth/authorize?scope=commands,bot&client_id=596381005414.586225274705";
+    const url2 = "https://slack.com/oauth/authorize?scope=commands&client_id=596381005414.586225274705";
     // const uri = "http://localhost:3000/authorization";
     console.log(view);
     if (this.state.loading === true) {
@@ -290,7 +292,7 @@ class Profile extends React.Component {
                   )}
                   {this.props.singleTeamMembers[0].type === "manager" ? (
                     <a
-                      href={`https://slack.com/oauth/authorize?scope=commands,bot&client_id=553324377632.554405336645&redirect_uri=${uri}&state=${
+                      href={`${url1}&redirect_uri=${uri}&state=${
                         this.props.singleTeamMembers[0].id
                       }`}
                     >
@@ -304,7 +306,7 @@ class Profile extends React.Component {
                     </a>
                   ) : (
                     <a
-                      href={`https://slack.com/oauth/authorize?scope=commands&client_id=553324377632.554405336645&redirect_uri=${uri}&state=${
+                      href={`${url2}&redirect_uri=${uri}&state=${
                         this.props.singleTeamMembers[0].id
                       }`}
                     >
