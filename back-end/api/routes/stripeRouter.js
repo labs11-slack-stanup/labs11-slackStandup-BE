@@ -100,8 +100,9 @@ router.post('/subscribe15', (req, res) => {
             const { id } = customer
 
             stripe.subscriptions.create({
+                
                 customer: id,
-                items: [{plan: 'prod_Eo9p70vnViKC6E'}],
+                items: [{plan: 'plan_EoT9REg5JfI6KN'}],
 
             }, function(err, subscription) {
                 if(err) {
