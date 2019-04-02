@@ -117,7 +117,7 @@ router.post('/subscribe75', (req, res) => {
     })
 })
 
-router.post('/subscribe75', (req, res) => {
+router.post('/subscribe15', (req, res) => {
     const stripeToken = req.body.stripeToken;
     const email = req.body.email;
 
