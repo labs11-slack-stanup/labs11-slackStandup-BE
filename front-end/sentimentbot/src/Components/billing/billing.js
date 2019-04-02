@@ -36,7 +36,7 @@ class Billing extends React.Component {
 
   async onToken2(token) {
     let response = await fetch(
-      "https://labs11-curie-web.herokuapp.com/stripe/subscribe50",
+      "https://labs11-curie-web.herokuapp.com/api/stripe/subscribe50",
       {
         method: "POST",
         headers: {
@@ -105,7 +105,7 @@ class Billing extends React.Component {
                 <StripeCheckout
                   className="stripe-checkout"
                   token={this.onToken}
-                  stripeKey="pk_test_IWDsGyB9paFAzC5KQEtIOfLG"
+                  stripeKey="sk_test_UsTtkoRZpYswzuQJ15TTqZeN00xFNybI2L"
                   image="https://i.gyazo.com/59da540e04d2a13f71991c8b168a4ab5.png"
                   description="$10/mo"
                   name="M.O.O.D."
@@ -126,7 +126,7 @@ class Billing extends React.Component {
                 <StripeCheckout
                   className="stripe-checkout"
                   token={this.onToken2}
-                  stripeKey="pk_test_IWDsGyB9paFAzC5KQEtIOfLG"
+                  stripeKey="sk_test_UsTtkoRZpYswzuQJ15TTqZeN00xFNybI2L"
                   image="https://i.gyazo.com/59da540e04d2a13f71991c8b168a4ab5.png"
                   description="$50/mo"
                   name="M.O.O.D."
