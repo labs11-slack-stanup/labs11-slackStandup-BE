@@ -32,7 +32,6 @@ Production created with knex.js and Heroku PostgresSQL
 
 * **Justin Arata**  - [jarata](https://github.com/jarata)
 * **Samantha Soucy** - [SamSoucy](https://github.com/SamSoucy)
-* **Estevan Rodriguez**  - [Esterod215](https://github.com/Esterod215)
 * **Cynthia Ramos**  - [bluelogix](https://github.com/bluelogix)
 * **Sheila Febres**  - [s-hopper01110](https://github.com/s-hopper01110)
 * **Farhan Farooqui**  - [farhanf](https://github.com/farhanf)
