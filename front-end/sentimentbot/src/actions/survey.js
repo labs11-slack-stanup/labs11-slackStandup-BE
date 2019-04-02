@@ -23,7 +23,7 @@ export const CHANGE_ACTIVITY_SURVEY_SUCCESS = 'CHANGE_ACTIVITY_SURVEY_SUCCESS';
 export const CHANGE_ACTIVITY_SURVEY_FAILURE = 'CHANGE_ACTIVITY_SURVEY_FAILURE';
 
 //these routes relate to the use of our surveys between the managers and the users they are communicating with
-let url = "https://botsentiment.herokuapp.com"
+let url = "https://labs11-curie-web.herokuapp.com"
 // let url = "http://localhost:5002"
 
 export const getSurvey = id => dispatch => {
