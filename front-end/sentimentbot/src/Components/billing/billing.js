@@ -36,7 +36,7 @@ class Billing extends React.Component {
 
   async onToken2(token) {
     let response = await fetch(
-      "https://labs11-curie-web.herokuapp.com/stripe/subscribe50",
+      "https://labs11-curie-web.herokuapp.com/api/stripe/subscribe50",
       {
         method: "POST",
         headers: {
@@ -105,7 +105,7 @@ class Billing extends React.Component {
                 <StripeCheckout
                   className="stripe-checkout"
                   token={this.onToken}
-                  stripeKey="pk_test_IWDsGyB9paFAzC5KQEtIOfLG"
+                  stripeKey="pk_test_duHUFLqPSBcHqEFQC0U3RhhZ00yfnpiQNy"
                   image="https://i.gyazo.com/59da540e04d2a13f71991c8b168a4ab5.png"
                   description="$10/mo"
                   name="M.O.O.D."
@@ -126,9 +126,51 @@ class Billing extends React.Component {
                 <StripeCheckout
                   className="stripe-checkout"
                   token={this.onToken2}
-                  stripeKey="pk_test_IWDsGyB9paFAzC5KQEtIOfLG"
+                  stripeKey="pk_test_duHUFLqPSBcHqEFQC0U3RhhZ00yfnpiQNy"
                   image="https://i.gyazo.com/59da540e04d2a13f71991c8b168a4ab5.png"
                   description="$50/mo"
+                  name="M.O.O.D."
+                />
+              </div>
+
+              <div className="billing-card-body">
+                <h2 className="billing-card-title">Professional+</h2>
+                <h3 className="billing-card-subtitle">$75/mo</h3>
+                <p className="billing-card-text">
+                  Click here for $75 a month subscription
+                </p>
+                <ul>
+                  <li>150 Users</li>
+                  <li>Unlimited Messaging</li>
+                  <li>Unlimted Channels</li>
+                </ul>
+                <StripeCheckout
+                  className="stripe-checkout"
+                  token={this.onToken2}
+                  stripeKey="pk_test_duHUFLqPSBcHqEFQC0U3RhhZ00yfnpiQNy"
+                  image="https://i.gyazo.com/59da540e04d2a13f71991c8b168a4ab5.png"
+                  description="$50/mo"
+                  name="M.O.O.D."
+                />
+              </div>
+
+              <div className="billing-card-body">
+                <h2 className="billing-card-title">Enhanced+</h2>
+                <h3 className="billing-card-subtitle">$20/mo</h3>
+                <p className="billing-card-text">
+                  Click here for $20 a month subscription
+                </p>
+                <ul>
+                  <li>50 Users</li>
+                  <li>10000 Messages</li>
+                  <li>50 Channels</li>
+                </ul>
+                <StripeCheckout
+                  className="stripe-checkout"
+                  token={this.onToken}
+                  stripeKey="pk_test_duHUFLqPSBcHqEFQC0U3RhhZ00yfnpiQNy"
+                  image="https://i.gyazo.com/59da540e04d2a13f71991c8b168a4ab5.png"
+                  description="$10/mo"
                   name="M.O.O.D."
                 />
               </div>
