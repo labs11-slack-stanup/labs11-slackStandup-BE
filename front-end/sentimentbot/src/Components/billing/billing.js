@@ -92,78 +92,15 @@ class Billing extends React.Component {
 
             <div className="billing-card-container">
               <div className="billing-card-body">
-                <h2 className="billing-card-title">Enhanced</h2>
+                <h2 className="billing-card-title">Get Curie</h2>
                 <h3 className="billing-card-subtitle">$10/mo</h3>
                 <p className="billing-card-text">
                   Click here for $10 a month subscription
                 </p>
                 <ul>
-                  <li>50 Users</li>
-                  <li>10000 Messages</li>
-                  <li>50 Channels</li>
-                </ul>
-                <StripeCheckout
-                  className="stripe-checkout"
-                  token={this.onToken}
-                  stripeKey="pk_test_duHUFLqPSBcHqEFQC0U3RhhZ00yfnpiQNy"
-                  image="https://i.gyazo.com/59da540e04d2a13f71991c8b168a4ab5.png"
-                  description="$10/mo"
-                  name="M.O.O.D."
-                />
-              </div>
-
-              <div className="billing-card-body">
-                <h2 className="billing-card-title">Professional</h2>
-                <h3 className="billing-card-subtitle">$50/mo</h3>
-                <p className="billing-card-text">
-                  Click here for $50 a month subscription
-                </p>
-                <ul>
-                  <li>150 Users</li>
-                  <li>Unlimited Messaging</li>
-                  <li>Unlimted Channels</li>
-                </ul>
-                <StripeCheckout
-                  className="stripe-checkout"
-                  token={this.onToken2}
-                  stripeKey="pk_test_duHUFLqPSBcHqEFQC0U3RhhZ00yfnpiQNy"
-                  image="https://i.gyazo.com/59da540e04d2a13f71991c8b168a4ab5.png"
-                  description="$50/mo"
-                  name="M.O.O.D."
-                />
-              </div>
-
-              <div className="billing-card-body">
-                <h2 className="billing-card-title">Professional+</h2>
-                <h3 className="billing-card-subtitle">$75/mo</h3>
-                <p className="billing-card-text">
-                  Click here for $75 a month subscription
-                </p>
-                <ul>
-                  <li>150 Users</li>
-                  <li>Unlimited Messaging</li>
-                  <li>Unlimted Channels</li>
-                </ul>
-                <StripeCheckout
-                  className="stripe-checkout"
-                  token={this.onToken2}
-                  stripeKey="pk_test_duHUFLqPSBcHqEFQC0U3RhhZ00yfnpiQNy"
-                  image="https://i.gyazo.com/59da540e04d2a13f71991c8b168a4ab5.png"
-                  description="$50/mo"
-                  name="M.O.O.D."
-                />
-              </div>
-
-              <div className="billing-card-body">
-                <h2 className="billing-card-title">Enhanced+</h2>
-                <h3 className="billing-card-subtitle">$20/mo</h3>
-                <p className="billing-card-text">
-                  Click here for $20 a month subscription
-                </p>
-                <ul>
-                  <li>50 Users</li>
-                  <li>10000 Messages</li>
-                  <li>50 Channels</li>
+                  <li>unlimited Users and Teams</li>
+                  <li>Unlimited Messages</li>
+                  <li>Unlimited Channels</li>
                 </ul>
                 <StripeCheckout
                   className="stripe-checkout"
@@ -175,8 +112,8 @@ class Billing extends React.Component {
                 />
               </div>
             </div>
+            {/* <FooterPage /> */}
           </div>
-          {/* <FooterPage /> */}
         </div>
       );
     }
@@ -185,13 +122,7 @@ class Billing extends React.Component {
 
 export default Billing;
 
-
-
-
 // /* Billing Container */
-
-
-
 
 // /* Billing Card Container */
 // .billing-card-container {
@@ -328,5 +259,3 @@ export default Billing;
 //   width: 55%;
 //   margin-left: 5rem;
 // }   */
-
-
