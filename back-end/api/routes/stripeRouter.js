@@ -34,7 +34,7 @@ router.post('/subscribe10', (req, res) => {
 
             stripe.subscriptions.create({
                 customer: id,
-                items: [{plan: 'plan_EoT9REg5JfI6KN'}],
+                items: [{plan: 'plan_EotAwOluM0kiAT'}],
 
             }, function(err, subscription) {
                 if(err) {
@@ -42,6 +42,7 @@ router.post('/subscribe10', (req, res) => {
                         serverErrorPost(res)
                     )
                 } else {
+                    console.log(subscription)
                     res.status(200).json({subscription})
                         
                     
