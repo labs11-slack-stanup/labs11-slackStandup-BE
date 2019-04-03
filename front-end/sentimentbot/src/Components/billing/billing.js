@@ -111,9 +111,9 @@ class Billing extends React.Component {
                   name="M.O.O.D."
                 />
               </div>
-
+            </div>
+            {/* <FooterPage /> */}
           </div>
-          {/* <FooterPage /> */}
         </div>
       );
     }
@@ -122,13 +122,7 @@ class Billing extends React.Component {
 
 export default Billing;
 
-
-
-
 // /* Billing Container */
-
-
-
 
 // /* Billing Card Container */
 // .billing-card-container {
@@ -265,5 +259,3 @@ export default Billing;
 //   width: 55%;
 //   margin-left: 5rem;
 // }   */
-
-
