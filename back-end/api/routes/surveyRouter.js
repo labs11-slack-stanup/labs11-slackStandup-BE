@@ -13,6 +13,8 @@ const preFeelingsDb = require("../database/helpers/preFeelingsDb");
 const feelingsdb = require("../database/helpers/feelingsDb");
 const surveyAcitveDb = require("../database/helpers/surveysActiveDb");
 
+
+
 const {
   postSuccess,
   serverErrorPost,
@@ -311,7 +313,7 @@ const surveyScheduler = (timeInfo, postInfo) => {
 router.post("/", (req, res) => {
   const postInfo = req.body;
   // body = manager_id/ description/ title / time values
-
+  const curieDB = req.body;
   teamMembersDb
     .get()
     .where("id", postInfo.manager_id)
@@ -320,7 +322,40 @@ router.post("/", (req, res) => {
         res.status(404).json({
           message: `${type2} with ID ${postInfo.manager_id} does not exist.`
         });
-      } else {
+      } 
+
+       else {
+        if( curieDB ){
+
+        //  let curieInfo = {
+        //         title: postCurie.title,
+        //         question_1: postCurie.question_1,
+        //         question_2: postCurie.question_2,
+        //         question_3: postCurie.question_3,
+        //         manager_id: postCurie.manager_id,
+        //       };
+
+        //       curieDB.insert(curieInfo)
+        //     .then(() => {
+        //       db.get()
+        //         .then(data => {
+        //           let newID = Math.max.apply(
+        //             Math,
+        //             data.map(function(o) {
+        //               return o.id;
+        //             })
+        //           );
+        //           let postCurieActive = {
+        //             survey_id: newID,
+        //             active: true
+        //           };
+        //           curieSurveyActiveDb
+        //             .insert(postCurieActive)
+        //             .then(postSuccess(res))
+        //             .catch(serverErrorPost(res));
+
+      } else{
+
         let insertInfo = {
           title: postInfo.title,
           description: postInfo.description,
@@ -392,6 +427,9 @@ router.post("/", (req, res) => {
               .catch(serverErrorGet(res));
           })
           .catch(serverErrorPost(res));
+
+          }
+
       }
     });
 });
