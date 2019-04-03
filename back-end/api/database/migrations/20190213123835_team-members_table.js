@@ -7,6 +7,7 @@ exports.up = function(knex, Promise) {
     tbl.string("phone", 255).notNullable();
     tbl.string("type", 255);
     tbl.integer("team_id");
+    tbl.boolean("status");
   });
 };
 

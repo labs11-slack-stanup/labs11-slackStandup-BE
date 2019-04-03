@@ -42,10 +42,8 @@ router.post('/subscribe10', (req, res) => {
                         serverErrorPost(res)
                     )
                 } else {
-                    console.log(subscription)
                     res.status(200).json({subscription})
-                        
-                    
+
                 }
             })
         }
