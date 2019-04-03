@@ -831,4 +831,4 @@ module.exports = router;
 // heroku logs --tail -a botsentiment
 
 // chnage heroku time zone for moment.js to work
-// heroku config:add TZ="America/New_York" -a botsentiment
+// heroku config:add TZ="America/New_York" -a labs11-curie-web
