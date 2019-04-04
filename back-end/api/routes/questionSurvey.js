@@ -31,7 +31,7 @@ router.get('/',  (req, res) => {
     })
 });
 
-//filtering by date and grabbing all surveys 
+//filtering by date and grabbing all surveys
 //GET By Date //labs11
 router.get('/created/:date',  (req, res) => {
   let { date }  = req.params
@@ -46,10 +46,10 @@ router.get('/created/:date',  (req, res) => {
 });
 
 //GET by Id: LABS 11
- 
+
 router.get('/:id', (req, res) => {
       const { id } = req.params;
-  
+
       db
           .getID(id)
           .then((surveys) => {
@@ -63,13 +63,19 @@ router.get('/:id', (req, res) => {
               res.status(500).json({ success: false, error: 'This survey could not be retrieved.' });
           });
   });
-  
+
+  router.get("/manager/:id", (req, res) => {
+    const { id } = req.params;
+    db.get()
+      .where({ manager_id: id })
+      .then(getSuccess(res))
+      .catch(serverErrorGet(res));
+  });
 
 
-  
   //GET change activity //labs 11 SF
   const type = "survey";
-  
+
   router.get("/changeActivityCurie/:id", (req, res) => {
     let { id } = req.params;
     id = Number(id);
@@ -80,7 +86,7 @@ router.get('/:id', (req, res) => {
         let activity = data[0].active;
         let surveyActiveID = data[0].id;
         console.log("activity", activity);
-  
+
         if (activity === 1) {
           change = {
             active: false
@@ -90,11 +96,11 @@ router.get('/:id', (req, res) => {
             active: false
           };
         }
-        activeSurveyCurieDb 
+        activeSurveyCurieDb
           .update(surveyActiveID, change)
           .then(() => {
-            
-  
+
+
             let stringSurveyId = id.toString();
             stringSurveyId + 'n'
             console.log("stringSurveyId", stringSurveyId);
@@ -112,7 +118,7 @@ router.get('/:id', (req, res) => {
   });
 
 
-    
+
 
 // //POST //labs11
 // router.post("/", (req, res) => {
@@ -136,7 +142,7 @@ router.delete('/:id', (req, res) => {
       }
   })
       .catch(err => {
-          res.status(500).json({ error: "The survey could not be removed" })  
+          res.status(500).json({ error: "The survey could not be removed" })
   })
 })
 
