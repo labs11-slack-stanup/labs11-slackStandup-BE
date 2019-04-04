@@ -12,9 +12,10 @@ module.exports = {
   getByDate: function(value) {
     return db(table).where('created_at', 'like', `%${value}%`);
   },
-  // getManagerID: function(manager_id) {
-  //   return db(table).where("manager_id", manager_id);
-  // },
+  getManagerID: function(manager_id) {
+    return db(table).where("manager_id", manager_id);
+  },
+
   insert: function(post) {
     return db(table)
       .insert(post)
