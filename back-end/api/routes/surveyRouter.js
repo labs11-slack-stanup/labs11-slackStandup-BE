@@ -602,11 +602,7 @@ router.get("/changeActivity/:id", (req, res) => {
         change = {
           active: false
         };
-      } else {
-        change = {
-          active: false
-        };
-      }
+      } 
       surveyAcitveDb
         .update(surveyActiveID, change)
         .then(() => {
