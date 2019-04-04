@@ -43,12 +43,12 @@ router.post('/subscribe10', (req, res) => {
                     )
                 } else {
                     // console.log(req.params)
-                    res.status(200).json({subscription})
+                    // res.status(200).json({subscription})
                     if(subscription.status === 'active') {
                         teamMembersDb
                             .updateEmail(email, { status: true })
                             .then(status => {
-                                res.status(200).json({status, status: true})
+                                res.status(200).json({status})
                             })
                             .catch(e => {
                                 console.log(e)
