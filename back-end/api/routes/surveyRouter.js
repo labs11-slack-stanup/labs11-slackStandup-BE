@@ -336,6 +336,7 @@ router.post("/", (req, res) => {
                 question_2: postInfo.question_2,
                 question_3: postInfo.question_3,
                 manager_id: postInfo.manager_id,
+                ex_time: ""
               };
          let timeInfo = {
               dailyWeeklyMonthly: postInfo.dailyWeeklyMonthly,
@@ -364,7 +365,8 @@ router.post("/", (req, res) => {
                     .insert(postCurieActive)
                     .then(postSuccess(res))
                     .catch(serverErrorPost(res));
-                
+                  
+                    
                   })
          
             }) //.then for curieDB
