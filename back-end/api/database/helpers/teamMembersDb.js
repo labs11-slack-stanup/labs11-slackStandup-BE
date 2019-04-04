@@ -32,5 +32,10 @@ module.exports = {
     return db(table)
       .where("id", id)
       .del();
-  }
+  },
+  updateEmail: function(email, status) {
+    return db(table)
+        .where("email", email)
+        .update(status);
+  },
 };
