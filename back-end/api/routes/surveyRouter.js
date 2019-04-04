@@ -366,8 +366,20 @@ router.post("/", (req, res) => {
                     .then(postSuccess(res))
                     .catch(serverErrorPost(res));
                   
-                    
-                  })
+                let answerInfo = {
+                  answer_1: '',
+                  answer_2: '',
+                  answer_3: '',
+                  team_member_id: '',
+                  survey_id: ''
+                  };
+
+               curieAnswerTable
+                  .insert(answerInfo)
+                  .then(postSuccess(res))
+                  .catch(serverErrorPost(res));
+                  
+              })
          
             }) //.then for curieDB
                  
