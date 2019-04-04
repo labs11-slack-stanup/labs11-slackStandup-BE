@@ -3,6 +3,7 @@ const router = express.Router();
 
 
 const db = require("../database/helpers/questionSurveyDb.js");
+const activeSurveyCurieDb = require("../database/helpers/curieSurveyActiveDb"); // helper that relates to curieSurveyActiveDb.js
 
 const {
   postSuccess,
@@ -63,6 +64,50 @@ router.get('/:id', (req, res) => {
           });
   });
   
+
+
+  //GET DEACTIVATE by id
+  
+  router.get("/changeActivityCurie/:id", (req, res) => {
+    let { id } = req.params;
+    id = Number(id);
+    let change;
+    activeSurveyCurieDb.getBySurveyID(id).then(data => {
+      if (data.length > 0) {
+        console.log("data change", data);
+        let activity = data[0].active;
+        let surveyActiveID = data[0].id;
+        console.log("activity", activity);
+  
+        if (activity === 1) {
+          change = {
+            active: false
+          };
+        } else {
+          change = {
+            active: false
+          };
+        }
+        activeSurveyCurieDb 
+          .update(surveyActiveID, change)
+          .then(() => {
+            
+  
+            let stringSurveyId = id.toString();
+            stringSurveyId + 'n'
+            console.log("stringSurveyId", stringSurveyId);
+            var my_job = schedule.scheduledJobs[stringSurveyId];
+            my_job.cancel();
+            res.status(200).json({ message: `Survey ID: ${id} canceled` });
+          })
+          .catch(() => {
+            serverErrorUpdate500(res, type);
+          });
+      } else {
+        serverErrorUpdate404(res, type, id);
+      }
+    });
+  });
 
 
     
