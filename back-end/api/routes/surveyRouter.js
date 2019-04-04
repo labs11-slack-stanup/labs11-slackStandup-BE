@@ -16,6 +16,7 @@ const surveyAcitveDb = require("../database/helpers/surveysActiveDb");
 //Labs 11
 const curieDB = require("../database/helpers/questionSurveyDb.js");
 const curieActive = require("../database/helpers/curieSurveyActiveDb.js"); //this is the helper for curieSurveyActive
+const curieAnswers = require("../database/helpers/curieAnswersDb.js");
 
 const {
   postSuccess,
@@ -424,6 +425,21 @@ router.post("/", (req, res) => {
                   .insert(postCurieActive)
                   .then(postSuccess(res))
                   .catch(serverErrorPost(res));
+
+
+                let answerInfo = {
+                   answer_1: '',
+                   answer_2: '',
+                   answer_3: '',
+                   team_member_id: '',
+                   survey_id: ''
+                  };
+                
+                curieAnswers
+                  .insert(answerInfo)
+                  .then(postSuccess(res))
+                  .catch(serverErrorPost(res));
+                
               });
             }) //.then for curieDB
 
@@ -431,6 +447,7 @@ router.post("/", (req, res) => {
               surveyScheduler(timeInfo, curieInfo);
             })
             .catch(serverErrorGet(res));
+            
         } else {
           let insertInfo = {
             title: postInfo.title,
