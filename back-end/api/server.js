@@ -14,6 +14,7 @@ const slashRouter = require("./routes/slashRouter");
 const slackAuth = require("./routes/slackAuth.js");
 const surveyActiveRouter = require("./routes/surveyActiveRouter");
 const questionSurveyRouter = require("./routes/questionSurvey"); //labs11
+const curieActiveSurveyRouter = require("./routes/curieActiveSurvey"); //labs11
 
 
 const stripe = require("stripe")(process.env.SECRETKEY);
@@ -43,6 +44,8 @@ server.use("/api/slash", slashRouter);
 server.use("/api/slackauth", slackAuth);
 server.use("/api/survey_active", surveyActiveRouter);
 server.use("/api/questionSurvey", questionSurveyRouter); //labs11
+server.use("/api/curieActiveSurvey", curieActiveSurveyRouter); //labs11
+
 
 server.get("/", (req, res) => {
   res.status(200).json("Sanity Check ITS WORKING");
