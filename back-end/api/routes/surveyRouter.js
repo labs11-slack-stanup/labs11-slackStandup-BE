@@ -348,7 +348,7 @@ router.post("/", (req, res) => {
 
          curieDB.insert(curieInfo)
             .then(() => {
-              db.get()
+              curieDB.get()
                 .then(data => {
                   let newID = Math.max.apply(
                     Math,
