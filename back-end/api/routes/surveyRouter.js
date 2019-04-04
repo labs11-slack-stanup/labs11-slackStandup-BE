@@ -469,6 +469,50 @@ router.post("/", (req, res) => {
                     .then(postSuccess(res))
                     .catch(serverErrorPost(res));
 
+
+
+        
+
+     } else {
+
+        let insertInfo = {
+          title: postInfo.title,
+          description: postInfo.description,
+          manager_id: postInfo.manager_id,
+          ex_time: ""
+        };
+
+        let timeInfo = {
+          dailyWeeklyMonthly: postInfo.dailyWeeklyMonthly,
+          hour: postInfo.hour,
+          amPm: postInfo.amPm,
+          timeZone: postInfo.timeZone,
+          min: postInfo.min
+        };
+
+        let preFeelingIdsArray = postInfo.preFeelingIdsArray;
+
+        db.insert(insertInfo)
+          .then(() => {
+            db.get()
+              .then(data => {
+                let newID = Math.max.apply(
+                  Math,
+                  data.map(function(o) {
+                    return o.id;
+                  })
+                );
+                console.log("insert data", newID);
+                let postActive = {
+                  survey_id: newID,
+                  active: true
+                };
+                surveyAcitveDb
+                  .insert(postActive)
+                  .then(postSuccess(res))
+                  .catch(serverErrorPost(res));
+
+
                   console.log({
                     timeInfo: timeInfo,
                     insertInfo: insertInfo
