@@ -66,7 +66,9 @@ router.get('/:id', (req, res) => {
   
 
 
-  //GET DEACTIVATE by id
+  
+  //GET change activity //labs 11 SF
+  const type = "survey";
   
   router.get("/changeActivityCurie/:id", (req, res) => {
     let { id } = req.params;
