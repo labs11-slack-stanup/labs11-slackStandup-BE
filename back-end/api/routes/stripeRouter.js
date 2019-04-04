@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const teamMembersDb = require("../database/helpers/teamMembersDb");
 require('dotenv').config();
 
 const stripe = require('stripe')(process.env.SECRETKEY);
@@ -42,8 +43,18 @@ router.post('/subscribe10', (req, res) => {
                         serverErrorPost(res)
                     )
                 } else {
-                    res.status(200).json({subscription})
-
+                    // console.log(req.params)
+                    // res.status(200).json({subscription})
+                    if(subscription.status === 'active') {
+                        teamMembersDb
+                            .updateEmail(email, { status: true })
+                            .then(status => {
+                                res.status(200).json({subscription})
+                            })
+                            .catch(e => {
+                                console.log(e)
+                            })
+                    }
                 }
             })
         }
