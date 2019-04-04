@@ -16,6 +16,7 @@ const surveyAcitveDb = require("../database/helpers/surveysActiveDb");
 //Labs 11
 const curieDB = require("../database/helpers/questionSurveyDb.js");
 const curieActive = require("../database/helpers/curieSurveyActiveDb.js"); //this is the helper for curieSurveyActive
+const curieAnswers = require("../database/helpers/curieAnswersDb.js");
 
 const {
   postSuccess,
@@ -228,7 +229,7 @@ const surveyScheduler = (timeInfo, postInfo) => {
           };
           curieDb
             .update(survey_id, updatePost)
-            .then(data => {
+            .then((data) => {
               console.log("Curie what ails ya", data);
 
               let botInfo = {
@@ -236,11 +237,12 @@ const surveyScheduler = (timeInfo, postInfo) => {
                 // member_id: manager_id,
                 // survey_id: survey_id,
                 // title: title,
+
               };
 
               console.log("botInfo", botInfo);
               let stringSurveyId = survey_id.toString();
-              stringSurveyId += "n";
+              stringSurveyId += 'n';
               console.log("stringSurveyId", stringSurveyId);
 
               schedule.scheduleJob(stringSurveyId, exTime, function() {
@@ -395,8 +397,7 @@ router.post("/", (req, res) => {
             question_1: postInfo.question_1,
             question_2: postInfo.question_2,
             question_3: postInfo.question_3,
-            manager_id: postInfo.manager_id,
-            ex_time: ""
+            manager_id: postInfo.manager_id
           };
           let timeInfo = {
             dailyWeeklyMonthly: postInfo.dailyWeeklyMonthly,
@@ -424,6 +425,21 @@ router.post("/", (req, res) => {
                   .insert(postCurieActive)
                   .then(postSuccess(res))
                   .catch(serverErrorPost(res));
+
+
+                let answerInfo = {
+                   answer_1: '',
+                   answer_2: '',
+                   answer_3: '',
+                   team_member_id: '',
+                   survey_id: ''
+                  };
+                
+                curieAnswers
+                  .insert(answerInfo)
+                  .then(postSuccess(res))
+                  .catch(serverErrorPost(res));
+                
               });
             }) //.then for curieDB
 
@@ -431,6 +447,7 @@ router.post("/", (req, res) => {
               surveyScheduler(timeInfo, curieInfo);
             })
             .catch(serverErrorGet(res));
+            
         } else {
           let insertInfo = {
             title: postInfo.title,
@@ -468,50 +485,6 @@ router.post("/", (req, res) => {
                     .insert(postActive)
                     .then(postSuccess(res))
                     .catch(serverErrorPost(res));
-
-
-
-        
-
-     } else {
-
-        let insertInfo = {
-          title: postInfo.title,
-          description: postInfo.description,
-          manager_id: postInfo.manager_id,
-          ex_time: ""
-        };
-
-        let timeInfo = {
-          dailyWeeklyMonthly: postInfo.dailyWeeklyMonthly,
-          hour: postInfo.hour,
-          amPm: postInfo.amPm,
-          timeZone: postInfo.timeZone,
-          min: postInfo.min
-        };
-
-        let preFeelingIdsArray = postInfo.preFeelingIdsArray;
-
-        db.insert(insertInfo)
-          .then(() => {
-            db.get()
-              .then(data => {
-                let newID = Math.max.apply(
-                  Math,
-                  data.map(function(o) {
-                    return o.id;
-                  })
-                );
-                console.log("insert data", newID);
-                let postActive = {
-                  survey_id: newID,
-                  active: true
-                };
-                surveyAcitveDb
-                  .insert(postActive)
-                  .then(postSuccess(res))
-                  .catch(serverErrorPost(res));
-
 
                   console.log({
                     timeInfo: timeInfo,
@@ -646,11 +619,7 @@ router.get("/changeActivity/:id", (req, res) => {
         change = {
           active: false
         };
-      } else {
-        change = {
-          active: false
-        };
-      }
+      } 
       surveyAcitveDb
         .update(surveyActiveID, change)
         .then(() => {
