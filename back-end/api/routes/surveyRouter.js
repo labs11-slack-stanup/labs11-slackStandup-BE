@@ -13,6 +13,9 @@ const preFeelingsDb = require("../database/helpers/preFeelingsDb");
 const feelingsdb = require("../database/helpers/feelingsDb");
 const surveyAcitveDb = require("../database/helpers/surveysActiveDb");
 
+//Labs 11 
+const curieDB = require("../database/helpers/questionSurveyDb.js");
+const curieActive = require("../database/helpers/curieSurveyActiveDb.js") //this is the helper for curieSurveyActive
 
 
 const {
@@ -313,7 +316,8 @@ const surveyScheduler = (timeInfo, postInfo) => {
 router.post("/", (req, res) => {
   const postInfo = req.body;
   // body = manager_id/ description/ title / time values
-  const curieDB = req.body;
+  const postCurie = req.body;
+
   teamMembersDb
     .get()
     .where("id", postInfo.manager_id)
@@ -325,36 +329,38 @@ router.post("/", (req, res) => {
       } 
 
        else {
-        if( curieDB ){
+        if( postCurie ){
 
-        //  let curieInfo = {
-        //         title: postCurie.title,
-        //         question_1: postCurie.question_1,
-        //         question_2: postCurie.question_2,
-        //         question_3: postCurie.question_3,
-        //         manager_id: postCurie.manager_id,
-        //       };
+         let curieInfo = {
+                title: postCurie.title,
+                question_1: postCurie.question_1,
+                question_2: postCurie.question_2,
+                question_3: postCurie.question_3,
+                manager_id: postCurie.manager_id,
+              };
 
-        //       curieDB.insert(curieInfo)
-        //     .then(() => {
-        //       db.get()
-        //         .then(data => {
-        //           let newID = Math.max.apply(
-        //             Math,
-        //             data.map(function(o) {
-        //               return o.id;
-        //             })
-        //           );
-        //           let postCurieActive = {
-        //             survey_id: newID,
-        //             active: true
-        //           };
-        //           curieSurveyActiveDb
-        //             .insert(postCurieActive)
-        //             .then(postSuccess(res))
-        //             .catch(serverErrorPost(res));
+         curieDB.insert(curieInfo)
+            .then(() => {
+              db.get()
+                .then(data => {
+                  let newID = Math.max.apply(
+                    Math,
+                    data.map(function(o) {
+                      return o.id;
+                    })
+                  );
+                  let postCurieActive = {
+                    survey_id: newID,
+                    active: true
+                  };
+                  curieActive
+                    .insert(postCurieActive)
+                    .then(postSuccess(res))
+                    .catch(serverErrorPost(res));
+                
+                  }) })
 
-      } else{
+     } else {
 
         let insertInfo = {
           title: postInfo.title,
@@ -428,11 +434,14 @@ router.post("/", (req, res) => {
           })
           .catch(serverErrorPost(res));
 
-          }
+          } //end else for mood survey
+        // }); 
+      } //main else
+      
+    }
 
-      }
-    });
-});
+    ) //.then parenthesis
+}); // end post 
 
 router.get("/manager/:id", (req, res) => {
   const { id } = req.params;
