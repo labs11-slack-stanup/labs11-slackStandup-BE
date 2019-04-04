@@ -49,7 +49,7 @@ router.post('/subscribe10', (req, res) => {
                         teamMembersDb
                             .updateEmail(email, { status: true })
                             .then(status => {
-                                res.status(200).json({subscription})
+                                res.status(200).json({subscription, status})
                             })
                             .catch(e => {
                                 console.log(e)
