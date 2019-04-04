@@ -1,6 +1,6 @@
 db = require("../dbConfig.js");
 
-const table = "questionSurveys";
+const table = "curieAnswer";
 
 module.exports = {
   get: function() {
@@ -8,12 +8,6 @@ module.exports = {
   },
   getID: function(id) {
     return db(table).where("id", id);
-  },
-  getByDate: function(value) {
-    return db(table).where('created_at', 'like', `%${value}%`);
-  },
-  getManagerID: function(manager_id) {
-    return db(table).where("manager_id", manager_id);
   },
 
   insert: function(post) {

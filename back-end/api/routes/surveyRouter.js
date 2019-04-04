@@ -13,9 +13,9 @@ const preFeelingsDb = require("../database/helpers/preFeelingsDb");
 const feelingsdb = require("../database/helpers/feelingsDb");
 const surveyAcitveDb = require("../database/helpers/surveysActiveDb");
 
-//Labs 11 
+//Labs 11
 const curieDB = require("../database/helpers/questionSurveyDb.js");
-const curieActive = require("../database/helpers/curieSurveyActiveDb.js") //this is the helper for curieSurveyActive
+const curieActive = require("../database/helpers/curieSurveyActiveDb.js"); //this is the helper for curieSurveyActive
 
 const {
   postSuccess,
@@ -205,94 +205,158 @@ const surveyScheduler = (timeInfo, postInfo) => {
 
   console.log("exTime", exTime);
 
-  surveyDb
-    .getManagerID(manager_id)
-    .then(data => {
-      console.log("survey data", data);
-      let survey_id = Math.max.apply(
-        Math,
-        data.map(function(o) {
-          return o.id;
-        })
-      );
-
-      console.log("survey id", survey_id);
-      if (data.length === 0) {
-        console.log({
-          error: `Survey with Manager Id: ${manager_id} does not exist.`
-        });
-      } else {
-        let updatePost = {
-          ex_time: exTime
-        };
-        surveyDb
-          .update(survey_id, updatePost)
-          .then(() => {
-            surveyFeelingsDb
-              .getSurveyID(survey_id)
-              .then(data => {
-                console.log("survey feeling array", data);
-                let feelingTextArray = [];
-
-                for (let i = 0; i < data.length; i++) {
-                  let { feelings_id } = data[i];
-                  preFeelingsDb
-                    .getID(feelings_id)
-                    .then(data => {
-                      console.log("pre feeling array", data);
-                      if (data.length === 0) {
-                        // res.status(404).json({
-                        console.log({
-                          error: `Pre Feeling with Id: ${feelings_id} does not exist.`
-                        });
-                      } else {
-                        let { feeling_text } = data[0];
-                        feelingTextArray.push(feeling_text);
-                      }
-                    })
-                    .catch(err => console.log(err));
-                }
-
-                console.log(feelingTextArray);
-                let botInfo = {
-                  message: true,
-                  member_id: manager_id,
-                  survey_id: survey_id,
-                  title: title,
-                  description: description,
-                  options: feelingTextArray
-                };
-
-                console.log("botInfo", botInfo);
-                let stringSurveyId = survey_id.toString();
-                console.log("stringSurveyId", stringSurveyId);
-
-                schedule.scheduleJob(stringSurveyId, exTime, function() {
-                  console.log("Schedule Processed");
-                  console.log("botInfo2", botInfo);
-                  let postOptions = {
-                    uri:
-                      "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
-                    method: "POST",
-                    headers: {
-                      "Content-type": "application/json"
-                    },
-                    json: botInfo
-                  };
-                  request(postOptions, (error, response, body) => {
-                    if (error) {
-                      // handle errors as you see fit
-                      res.json({ error: "Error." });
-                    }
-                  });
-                });
-              })
-              .catch(err => console.log(err));
+  if (postInfo.question_1) {
+    curieDB
+      .getManagerID(manager_id)
+      .then(data => {
+        console.log("survey data", data);
+        let survey_id = Math.max.apply(
+          Math,
+          data.map(function(o) {
+            return o.id;
           })
-          .catch(err => console.log(err));
-      }
-    })
-    .catch(err => console.log(err));
+        );
+
+        console.log("survey id", survey_id);
+        if (data.length === 0) {
+          console.log({
+            error: `Survey with Manager Id: ${manager_id} does not exist.`
+          });
+        } else {
+          let updatePost = {
+            ex_time: exTime
+          };
+          curieDb
+            .update(survey_id, updatePost)
+            .then(data => {
+              console.log("Curie what ails ya", data);
+
+              let botInfo = {
+                // message: true,
+                // member_id: manager_id,
+                // survey_id: survey_id,
+                // title: title,
+              };
+
+              console.log("botInfo", botInfo);
+              let stringSurveyId = survey_id.toString();
+              stringSurveyId += "n";
+              console.log("stringSurveyId", stringSurveyId);
+
+              schedule.scheduleJob(stringSurveyId, exTime, function() {
+                console.log("Schedule Processed");
+                console.log("botInfo2", botInfo);
+                let postOptions = {
+                  uri:
+                    "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
+                  method: "POST",
+                  headers: {
+                    "Content-type": "application/json"
+                  },
+                  json: botInfo
+                };
+                request(postOptions, (error, response, body) => {
+                  if (error) {
+                    // handle errors as you see fit
+                    res.json({ error: "Error." });
+                  }
+                });
+              });
+            })
+            .catch(err => console.log(err));
+        }
+      })
+      .catch(err => console.log(err));
+  } else {
+    surveyDb
+      .getManagerID(manager_id)
+      .then(data => {
+        console.log("survey data", data);
+        let survey_id = Math.max.apply(
+          Math,
+          data.map(function(o) {
+            return o.id;
+          })
+        );
+
+        console.log("survey id", survey_id);
+        if (data.length === 0) {
+          console.log({
+            error: `Survey with Manager Id: ${manager_id} does not exist.`
+          });
+        } else {
+          let updatePost = {
+            ex_time: exTime
+          };
+          surveyDb
+            .update(survey_id, updatePost)
+            .then(() => {
+              surveyFeelingsDb
+                .getSurveyID(survey_id)
+                .then(data => {
+                  console.log("survey feeling array", data);
+                  let feelingTextArray = [];
+
+                  for (let i = 0; i < data.length; i++) {
+                    let { feelings_id } = data[i];
+                    preFeelingsDb
+                      .getID(feelings_id)
+                      .then(data => {
+                        console.log("pre feeling array", data);
+                        if (data.length === 0) {
+                          // res.status(404).json({
+                          console.log({
+                            error: `Pre Feeling with Id: ${feelings_id} does not exist.`
+                          });
+                        } else {
+                          let { feeling_text } = data[0];
+                          feelingTextArray.push(feeling_text);
+                        }
+                      })
+                      .catch(err => console.log(err));
+                  }
+
+                  console.log(feelingTextArray);
+                  let botInfo = {
+                    message: true,
+                    member_id: manager_id,
+                    survey_id: survey_id,
+                    title: title,
+                    description: description,
+                    options: feelingTextArray
+                  };
+
+                  console.log("botInfo", botInfo);
+                  let stringSurveyId = survey_id.toString();
+                  console.log("stringSurveyId", stringSurveyId);
+
+                  schedule.scheduleJob(stringSurveyId, exTime, function() {
+                    console.log("Schedule Processed");
+                    console.log("botInfo2", botInfo);
+                    let postOptions = {
+                      uri:
+                        "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
+                      method: "POST",
+                      headers: {
+                        "Content-type": "application/json"
+                      },
+                      json: botInfo
+                    };
+                    request(postOptions, (error, response, body) => {
+                      if (error) {
+                        // handle errors as you see fit
+                        res.json({ error: "Error." });
+                      }
+                    });
+                  });
+                })
+                .catch(err => console.log(err));
+            })
+            .catch(err => console.log(err));
+        }
+      })
+      .catch(err => console.log(err));
+  }
 };
 
 // function sendMessageToSlackResponseURL(responseURL, JSONmessage) {
@@ -315,7 +379,6 @@ const surveyScheduler = (timeInfo, postInfo) => {
 router.post("/", (req, res) => {
   const postInfo = req.body;
   // body = manager_id/ description/ title / time values
-  
 
   teamMembersDb
     .get()
@@ -325,30 +388,70 @@ router.post("/", (req, res) => {
         res.status(404).json({
           message: `${type2} with ID ${postInfo.manager_id} does not exist.`
         });
-      } 
+      } else {
+        if (postInfo.question_1) {
+          let curieInfo = {
+            title: postInfo.title,
+            question_1: postInfo.question_1,
+            question_2: postInfo.question_2,
+            question_3: postInfo.question_3,
+            manager_id: postInfo.manager_id,
+            ex_time: ""
+          };
+          let timeInfo = {
+            dailyWeeklyMonthly: postInfo.dailyWeeklyMonthly,
+            hour: postInfo.hour,
+            amPm: postInfo.amPm,
+            timeZone: postInfo.timeZone,
+            min: postInfo.min
+          };
 
-       else {
-        if( postInfo.question_1 ){
-
-         let curieInfo = {
-                title: postInfo.title,
-                question_1: postInfo.question_1,
-                question_2: postInfo.question_2,
-                question_3: postInfo.question_3,
-                manager_id: postInfo.manager_id,
-              };
-         let timeInfo = {
-              dailyWeeklyMonthly: postInfo.dailyWeeklyMonthly,
-              hour: postInfo.hour,
-              amPm: postInfo.amPm,
-              timeZone: postInfo.timeZone,
-              min: postInfo.min
-              };
-          
-
-         curieDB.insert(curieInfo)
+          curieDB
+            .insert(curieInfo)
             .then(() => {
-              curieDB.get()
+              db.get().then(data => {
+                let newID = Math.max.apply(
+                  Math,
+                  data.map(function(o) {
+                    return o.id;
+                  })
+                );
+                let postCurieActive = {
+                  survey_id: newID,
+                  active: true
+                };
+                curieActive
+                  .insert(postCurieActive)
+                  .then(postSuccess(res))
+                  .catch(serverErrorPost(res));
+              });
+            }) //.then for curieDB
+
+            .then(() => {
+              surveyScheduler(timeInfo, curieInfo);
+            })
+            .catch(serverErrorGet(res));
+        } else {
+          let insertInfo = {
+            title: postInfo.title,
+            description: postInfo.description,
+            manager_id: postInfo.manager_id,
+            ex_time: ""
+          };
+
+          let timeInfo = {
+            dailyWeeklyMonthly: postInfo.dailyWeeklyMonthly,
+            hour: postInfo.hour,
+            amPm: postInfo.amPm,
+            timeZone: postInfo.timeZone,
+            min: postInfo.min
+          };
+
+          let preFeelingIdsArray = postInfo.preFeelingIdsArray;
+
+          db.insert(insertInfo)
+            .then(() => {
+              db.get()
                 .then(data => {
                   let newID = Math.max.apply(
                     Math,
@@ -356,24 +459,17 @@ router.post("/", (req, res) => {
                       return o.id;
                     })
                   );
-                  let postCurieActive = {
+                  console.log("insert data", newID);
+                  let postActive = {
                     survey_id: newID,
                     active: true
                   };
-                  curieActive
-                    .insert(postCurieActive)
+                  surveyAcitveDb
+                    .insert(postActive)
                     .then(postSuccess(res))
                     .catch(serverErrorPost(res));
-                
-                  })
-         
-            }) //.then for curieDB
-                 
-            
-            .then(() => {
-              surveyScheduler(timeInfo, curieInfo);
-          })
-          .catch(serverErrorGet(res));
+
+
 
         
 
@@ -416,50 +512,45 @@ router.post("/", (req, res) => {
                   .then(postSuccess(res))
                   .catch(serverErrorPost(res));
 
-                console.log({
-                  timeInfo: timeInfo,
-                  insertInfo: insertInfo
-                });
-                db.getManagerID(postInfo.manager_id) 
-                  .then(data => {
-                    console.log("survey manager", data);
 
-                    let survey_ID = Math.max.apply(
-                      Math,
-                      data.map(function(o) {
-                        return o.id;
-                      })
-                    );
+                  console.log({
+                    timeInfo: timeInfo,
+                    insertInfo: insertInfo
+                  });
+                  db.getManagerID(postInfo.manager_id)
+                    .then(data => {
+                      console.log("survey manager", data);
 
-                    for (let i = 0; i < preFeelingIdsArray.length; i++) {
-                      let post = {
-                        survey_id: survey_ID,
-                        feelings_id: preFeelingIdsArray[i]
-                      };
-                      surveyFeelingsDb
-                        .insert(post)
-                        .then(getSuccess(res))
-                        .catch(serverErrorGet(res));
-                    }
-                  })
-                  .then(() => {
-                    surveyScheduler(timeInfo, insertInfo);
-                  })
-                  .catch(serverErrorGet(res));
-              })
-              .catch(serverErrorGet(res));
-          })
-          .catch(serverErrorPost(res));
+                      let survey_ID = Math.max.apply(
+                        Math,
+                        data.map(function(o) {
+                          return o.id;
+                        })
+                      );
 
-          } //end else for mood survey
-      
+                      for (let i = 0; i < preFeelingIdsArray.length; i++) {
+                        let post = {
+                          survey_id: survey_ID,
+                          feelings_id: preFeelingIdsArray[i]
+                        };
+                        surveyFeelingsDb
+                          .insert(post)
+                          .then(getSuccess(res))
+                          .catch(serverErrorGet(res));
+                      }
+                    })
+                    .then(() => {
+                      surveyScheduler(timeInfo, insertInfo);
+                    })
+                    .catch(serverErrorGet(res));
+                })
+                .catch(serverErrorGet(res));
+            })
+            .catch(serverErrorPost(res));
+        } //end else for mood survey
       } //main else
-      
-    }
-
-    ) //.then parenthesis
-}); // end post 
-
+    }); //.then parenthesis
+}); // end post
 
 router.get("/manager/:id", (req, res) => {
   const { id } = req.params;
