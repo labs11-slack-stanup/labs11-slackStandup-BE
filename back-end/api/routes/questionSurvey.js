@@ -114,14 +114,14 @@ router.get('/:id', (req, res) => {
 
     
 
-//POST //labs11
-router.post("/", (req, res) => {
-  const postInfo = req.body;
+// //POST //labs11
+// router.post("/", (req, res) => {
+//   const postInfo = req.body;
 
-  db.insert(postInfo)
-    .then(postSuccess(res))
-    .catch(serverErrorPost(res));
-});
+//   db.insert(postInfo)
+//     .then(postSuccess(res))
+//     .catch(serverErrorPost(res));
+// });
 
 //DELETE LABS 11 -tested by Justin
 router.delete('/:id', (req, res) => {
