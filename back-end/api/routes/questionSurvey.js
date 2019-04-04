@@ -92,11 +92,6 @@ router.get('/:id', (req, res) => {
             active: false
           };
         } 
-        else {
-          change = {
-            active: false
-          };
-        }
         activeSurveyCurieDb
           .update(surveyActiveID, change)
           .then(() => {
