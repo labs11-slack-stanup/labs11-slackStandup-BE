@@ -42,8 +42,18 @@ router.post('/subscribe10', (req, res) => {
                         serverErrorPost(res)
                     )
                 } else {
+                    // console.log(req.params)
                     res.status(200).json({subscription})
-
+                    if(subscription.status === 'active') {
+                        teamMembersDb
+                            .updateEmail(email, { status: true })
+                            .then(status => {
+                                res.status(200).json({status, status: true})
+                            })
+                            .catch(e => {
+                                console.log(e)
+                            })
+                    }
                 }
             })
         }
