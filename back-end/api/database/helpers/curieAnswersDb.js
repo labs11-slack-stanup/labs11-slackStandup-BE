@@ -17,7 +17,7 @@ module.exports = {
   },
   update: function(id, post) {
     return db(table)
-      .where("id", id)
+      .where("id", id) //modify id to reference survey_id 
       .update(post);
   },
   remove: function(id) {
