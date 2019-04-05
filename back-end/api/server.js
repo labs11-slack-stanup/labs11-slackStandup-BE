@@ -15,7 +15,7 @@ const slackAuth = require("./routes/slackAuth.js");
 const surveyActiveRouter = require("./routes/surveyActiveRouter");
 const questionSurveyRouter = require("./routes/questionSurvey"); //labs11
 const curieActiveSurveyRouter = require("./routes/curieActiveSurvey"); //labs11
-
+const curieAnswers = require("./routes/curieAnswerRouter"); //labs11
 
 const stripe = require("stripe")(process.env.SECRETKEY);
 const bodyParser = require("body-parser");
@@ -45,6 +45,7 @@ server.use("/api/slackauth", slackAuth);
 server.use("/api/survey_active", surveyActiveRouter);
 server.use("/api/questionSurvey", questionSurveyRouter); //labs11
 server.use("/api/curieActiveSurvey", curieActiveSurveyRouter); //labs11
+server.use("/api/curieAnswers", curieAnswers); //labs11
 
 
 server.get("/", (req, res) => {
