@@ -51,17 +51,17 @@ router.get("/:id", (req, res) => {
     .then(getSuccess(res))
     .catch(serverErrorGetID(res, type, id));
 });
-// GET BY SURVEY ID
-router.get("/:survey_id", (req, res) => {
-  const { survey_id } = req.params;
-  db.getSurveyID(survey_id)
-    .then(getSuccess(res))
-    .catch(serverErrorGetID(res, type, id));
-});
 // GET BY TEAM ID
 router.get("/:team_id", (req, res) => {
   const { team_id } = req.params;
   db.getByTeamId(team_id)
+    .then(getSuccess(res))
+    .catch(serverErrorGetID(res, type, id));
+});
+// GET BY SURVEY ID
+router.get("/:survey_id", (req, res) => {
+  const { survey_id } = req.params;
+  db.getSurveyID(survey_id)
     .then(getSuccess(res))
     .catch(serverErrorGetID(res, type, id));
 });
