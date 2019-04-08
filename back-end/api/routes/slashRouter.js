@@ -554,7 +554,8 @@ router.post("/send-me-buttons", urlencodedParser, (req, res) => {
                                       feeling_text:
                                         jsonPayload.actions[0].value,
                                       team_member_id: team_member_id,
-                                      survey_time_stamp: survey_time_stamp
+                                      survey_time_stamp: survey_time_stamp,
+                                      survey_id: surveyID
                                     };
                                   } else {
                                     postFeel = {
@@ -562,7 +563,8 @@ router.post("/send-me-buttons", urlencodedParser, (req, res) => {
                                         jsonPayload.actions[0]
                                           .selected_options[0].value,
                                       team_member_id: team_member_id,
-                                      survey_time_stamp: survey_time_stamp
+                                      survey_time_stamp: survey_time_stamp,
+                                      survey_id: surveyID
                                     };
                                   }
 
@@ -702,7 +704,8 @@ router.post("/send-me-buttons", urlencodedParser, (req, res) => {
                                           jsonPayload.actions[0]
                                             .selected_options[0].value,
                                         team_member_id: team_member_id,
-                                        survey_time_stamp: survey_time_stamp
+                                        survey_time_stamp: survey_time_stamp,
+                                        survey_id: surveyID
                                       };
                                       // }
 

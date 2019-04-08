@@ -9,6 +9,9 @@ module.exports = {
   getID: function(id) {
     return db(table).where("id", id);
   },
+  getSurveyID: function(survey_id) {
+    return db(table).where("survey_id", survey_id);
+  },
   getByMemberAndSurveyTimeStamp: function(team_member_id, survey_time_stamp) {
     return db(table).where({ survey_time_stamp: survey_time_stamp, team_member_id: team_member_id });
   },
