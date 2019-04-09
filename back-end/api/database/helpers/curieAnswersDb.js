@@ -19,12 +19,22 @@ module.exports = {
   },
   update: function(id, post) {
     return db(table)
-      .where("id", id) //modify id to reference survey_id 
+      .where("id", id) //modify id to reference survey_id
       .update(post);
+  },
+  updateSurvey: function(id, post) {
+    return db(table)
+        .where("survey_id", id) //modify id to reference survey_id
+        .update(post);
   },
   remove: function(id) {
     return db(table)
       .where("id", id)
       .del();
+  },
+  getActiveSurvey: function(id, ) {
+    return db('active_curie_surveys')
+        .where('survey_id' === true)
+        .then( )
   }
 };
