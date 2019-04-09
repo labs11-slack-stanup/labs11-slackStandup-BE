@@ -435,12 +435,12 @@ router.post("/", (req, res) => {
                 //    team_member_id: '',
                 //    survey_id: newID
                 //   };
-                
+
                 // curieAnswers
                 //   .insert(answerInfo)
                 //   .then(postSuccess(res))
                 //   .catch(serverErrorPost(res));
-                
+
               });
             }) //.then for curieDB
 
@@ -545,6 +545,64 @@ router.get("/manager/:id", (req, res) => {
 //   })
 
 // });
+////////// 1 / ios/ surveyRouter
+
+router.get("/surveys/team-member/:id", (req, res) => {
+  const { id } = req.params;
+  teamMembersDb
+    .getID(id)
+    .then(data => {
+      let teamID = data[0].team_id;
+      teamMembersDb
+        .getManager(teamID)
+        .then(data => {
+          let managerID = data[0].id;
+          db.getManagerID(managerID)
+            .then(data => {
+              res.status(200).json(data);
+            })
+            .catch(serverErrorGet(res));
+        })
+        .catch(serverErrorGet(res));
+    })
+    .catch(serverErrorGet(res));
+});
+
+router.get("/surveys/survey-id/:id", (req, res) => {
+  const { id } = req.params;
+  db.getID(id)
+    .then(surveyData => {
+      surveyFeelingsDb
+        .getSurveyID(id)
+        .then(fsData => {
+          let preFeelingsArray = [];
+          for(let f = 0; f < fsData.length; f++){
+             let preFeelID = fsData[f].feelings_id;
+              preFeelingsDb
+              .getID(preFeelID)
+              .then(preData=>{
+                let preText = preData[0].feeling_text;
+                preFeelingsArray.push(preText);
+              })
+              .catch(serverErrorGet(res));
+          }
+          let resultObject = {
+            survey_id: surveyData[0].id,
+            title: surveyData[0].title,
+            description: surveyData[0].description,
+            created_at: surveyData[0].created_at,
+            manager_id: surveyData[0].manager_id,
+            survey_time_stamp: surveyData[0].survey_time_stamp,
+            ex_time: surveyData[0].ex_time,
+            answers: preFeelingsArray
+          };
+          res.status(200).json(resultObject);
+        })
+        .catch(serverErrorGet(res));
+    })
+    .catch(serverErrorGet(res));
+});
+
 
 router.get("/:id", (req, res) => {
   const { id } = req.params;
@@ -620,7 +678,7 @@ router.get("/changeActivity/:id", (req, res) => {
         change = {
           active: false
         };
-      } 
+      }
       surveyAcitveDb
         .update(surveyActiveID, change)
         .then(() => {
