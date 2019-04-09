@@ -28,10 +28,19 @@ router.get('/',  (req, res) => {
           res.status(500).json({ success: false, message: 'The answers could not be retrieved.' });
       })
   });
-  
 
-  //make a put route 
-  // dynamic variable survey_id and team 
+//GET/team/teamMember/:id (answers)
+router.get('/', (req, res) => {
+
+})
+
+//GET/team/:id (answers)
+router.get('/', (req, res) => {
+
+})
+
+//make a put route
+// dynamic variable survey_id and team
 
 //POST 
 //answer create own route provide survey_id, team_member_id, and first answer in initial value 
