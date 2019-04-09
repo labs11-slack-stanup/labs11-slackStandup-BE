@@ -98,7 +98,7 @@ class Billing extends React.Component {
                   Click here for $10 a month subscription
                 </p>
                 <ul>
-                  <li>unlimited Users and Teams</li>
+                  <li>Unlimited Users and Teams</li>
                   <li>Unlimited Messages</li>
                   <li>Unlimited Channels</li>
                 </ul>
