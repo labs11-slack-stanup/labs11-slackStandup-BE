@@ -12,6 +12,9 @@ module.exports = {
   getBySurveyIdTeamMemberId: function(survey_id, team_member_id) {
     return db(table).where({"survey_id": survey_id, "team_member_id": team_member_id});
   },
+  // getByTeamMemberId: function(team_member_id) {
+  //   return db(table).where({"team_member_id": team_member_id});
+  // },
   insert: function(post) {
     return db(table)
       .insert(post)
@@ -36,5 +39,11 @@ module.exports = {
     return db('active_curie_surveys')
         .where('survey_id' === true)
         .then( )
-  }
+  },
+  getManager: function(team_member_id) {
+    return db(table).where({team_member_id: team_member_id});
+  },
+  getManagerID: function(manager_id) {
+    return db(table).where("manager_id", manager_id);
+  },
 };
