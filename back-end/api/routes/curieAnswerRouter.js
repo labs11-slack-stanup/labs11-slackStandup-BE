@@ -51,10 +51,32 @@ router.get("/questions_id/:id", (req, res) => {
 });
 
 
-
-//GET/team/:id (answers)
-router.get('/', (req, res) => {
-
+//get surveys, answers, team_id, 
+// Manager GET Questions and Answers
+router.get('/team/:id', (req, res) => {
+  const {id} = req.params;
+  // const body = req.body
+  // let manager_id = managerCheck[0].id
+  teamMembersDb.getByTeamId(id)
+  .then(teams => {
+    
+    questionsDb.getManagerID(id)
+    .then(managerCheck => {
+      console.log(managerCheck)
+        db.getBySurveyId(id)
+        // .where({"survey_id": })
+        .then(answerCheck => {
+          // console.log(body)
+          res.status(200).json({message: "grabbing teams", teams, managerCheck, answerCheck } )
+        })
+        
+     
+      
+    })
+  })
+  .catch(err => {
+    res.status(500).json(err)
+  })
 })
 
 
