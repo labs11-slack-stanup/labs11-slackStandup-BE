@@ -3,6 +3,8 @@ const router = express.Router();
 
 
 const db = require("../database/helpers/curieAnswersDb.js");
+const questionsDb = require("../database/helpers/questionSurveyDb");
+const teamMembersDb = require("../database/helpers/teamMembersDb");
 
 
 const {
@@ -18,6 +20,7 @@ const {
 } = require("./routeHelpers/helpers.js");
 
 
+
 //GET 
 router.get('/',  (req, res) => {
     db.get()
@@ -29,15 +32,33 @@ router.get('/',  (req, res) => {
       })
   });
 
-//GET/team/teamMember/:id (answers)
-router.get('/', (req, res) => {
 
-})
+//GET Questions and Answers
+router.get("/questions_id/:id", (req, res) => {
+  const { id } = req.params;
+  questionsDb
+    .getID(id)
+    .then(question => {
+      const answers = db
+        .getID(id)
+        .then(answers => {
+          res.status(200).json({message: "it's working", question, answers})
+      })
+     })
+    .catch(err => {
+      res.status(500).json({message: "not working yet"})
+    })
+});
+
+
 
 //GET/team/:id (answers)
 router.get('/', (req, res) => {
 
 })
+
+
+
 
 //make a put route
 // dynamic variable survey_id and team
