@@ -35,8 +35,7 @@ class Profile extends React.Component {
       jointeam: "",
       createTeam: "",
       loading: true,
-      added: false,
-      status: "",
+      added: false
     };
   }
 
@@ -45,7 +44,6 @@ class Profile extends React.Component {
     this.props.getSingleTeamMembers(localStorage.getItem("email"));
     this.props.getSurvey(localStorage.getItem("id"));
     this.props.getTeams();
-    this.props.getSingleTeamMembers(localStorage.getItem("status"));
     this.props.getManagers(localStorage.getItem("id"));
     this.props.getSingleTeam(localStorage.getItem("team_id"));
     this.props.getFeelings(localStorage.getItem("id"));
@@ -280,7 +278,7 @@ class Profile extends React.Component {
             <div className="name-container">
               {" "}
               <h1 className="welcome-container" style={{fontFamily: 'Roboto Slab, serif', fontSize: '4rem', marginTop: '4%' }}>
-                Welcome, {this.props.singleTeamMembers[0].firstName}! {this.props.singleTeamMembers[0].status}
+                Welcome, {this.props.singleTeamMembers[0].firstName}!
                 </h1>
               <div className="sub-container-1">
                 <div className="sub-container-2">
