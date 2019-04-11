@@ -35,8 +35,7 @@ class Profile extends React.Component {
       jointeam: "",
       createTeam: "",
       loading: true,
-      added: false,
-      status: false
+      added: false
     };
   }
 
@@ -272,6 +271,7 @@ class Profile extends React.Component {
       this.props.singleTeams.length > 0 &&
       localStorage.getItem("team_id") != null
     ) {
+      console.log(this.props.singleTeamMembers[0].status)
       return (
         <div className="profilepage-container background-color">
           <NavBar />
@@ -281,6 +281,7 @@ class Profile extends React.Component {
               <h1 className="welcome-container" style={{fontFamily: 'Roboto Slab, serif', fontSize: '4rem', marginTop: '4%' }}>
                 Welcome, {this.props.singleTeamMembers[0].firstName}!
                 </h1>
+              <p>Curie Active: {this.props.singleTeamMembers[0].status.toString()}</p>
               <div className="sub-container-1">
                 <div className="sub-container-2">
                   {this.props.managers.length === 0 ? (
