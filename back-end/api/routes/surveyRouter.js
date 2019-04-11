@@ -534,18 +534,9 @@ router.get("/manager/:id", (req, res) => {
     .catch(serverErrorGet(res));
 });
 
-// router.get("/:id", (req, res) => {
-//   const { id } = req.params;
-//   feelingsdb.get().where({ survey_id: id }).then(data => {
-//     db.getID(id)
-//     .then(response => {
-//       res.status(200).json({ response, data})
-//     })
-//     .catch(serverErrorGetID(res, type, id));
-//   })
 
-// });
-////////// 1 / ios/ surveyRouter
+
+//1 / ios/ surveyRouter
 
 router.get("/surveys/team-member/:id", (req, res) => {
   const { id } = req.params;
