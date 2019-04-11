@@ -260,10 +260,10 @@ class Profile extends React.Component {
     }
     const view = this.state.view;
 
-    // const uri = "https://labs11-curie-web.herokuapp.com/api/slackauth";
+    const uri = "https://labs11-curie-web.herokuapp.com/api/slackauth";
     const url1 = "https://slack.com/oauth/authorize?scope=commands,bot&client_id=596381005414.586225274705";
     const url2 = "https://slack.com/oauth/authorize?scope=commands&client_id=596381005414.586225274705";
-    const uri = "http://localhost:3000/authorization";
+    // const uri = "http://localhost:3000/authorization";
     console.log(view);
     if (this.state.loading === true) {
       return <img className="loadinggif" src={loadinggif} alt="loading" />;
