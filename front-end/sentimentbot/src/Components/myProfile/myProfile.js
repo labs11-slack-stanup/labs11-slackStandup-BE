@@ -41,7 +41,6 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-      console.log(this.props);
     //new code
     this.props.getSingleTeamMembers(localStorage.getItem("email"));
     this.props.getSurvey(localStorage.getItem("id"));
@@ -281,7 +280,7 @@ class Profile extends React.Component {
             <div className="name-container">
               {" "}
               <h1 className="welcome-container" style={{fontFamily: 'Roboto Slab, serif', fontSize: '4rem', marginTop: '4%' }}>
-                Welcome, {this.props.singleTeamMembers[0].firstName}!
+                Welcome, {this.props.singleTeamMembers[0].firstName}! {this.props.singleTeamMembers[0].status}
                 </h1>
               <div className="sub-container-1">
                 <div className="sub-container-2">
