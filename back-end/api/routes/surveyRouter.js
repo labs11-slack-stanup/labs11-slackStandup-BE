@@ -583,8 +583,10 @@ router.get("/surveys/survey-id/:id", (req, res) => {
               .then(preData=>{
                 let preText = preData[0].feeling_text;
                 preFeelingsArray.push(preText);
+                
               })
               .catch(serverErrorGet(res));
+              
           }
           let resultObject = {
             survey_id: surveyData[0].id,
@@ -597,6 +599,7 @@ router.get("/surveys/survey-id/:id", (req, res) => {
             answers: preFeelingsArray
           };
           res.status(200).json(resultObject);
+          
         })
         .catch(serverErrorGet(res));
     })

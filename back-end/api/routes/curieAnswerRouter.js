@@ -52,26 +52,18 @@ router.get("/questions_id/:id", (req, res) => {
 
 
 //get surveys, answers, team_id, 
-// Manager GET Questions and Answers
+// Manager GET Questions and Answers for all users 
 router.get('/team/:id', (req, res) => {
   const {id} = req.params;
-  // const body = req.body
-  // let manager_id = managerCheck[0].id
   teamMembersDb.getByTeamId(id)
   .then(teams => {
-    
     questionsDb.getManagerID(id)
     .then(managerCheck => {
       console.log(managerCheck)
         db.getBySurveyId(id)
-        // .where({"survey_id": })
         .then(answerCheck => {
-          // console.log(body)
           res.status(200).json({message: "grabbing teams", teams, managerCheck, answerCheck } )
         })
-        
-     
-      
     })
   })
   .catch(err => {
