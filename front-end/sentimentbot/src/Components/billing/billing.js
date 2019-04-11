@@ -9,7 +9,7 @@ class Billing extends React.Component {
     this.state = { complete: false };
 
     this.onToken = this.onToken.bind(this);
-    this.onToken2 = this.onToken2.bind(this);
+    // this.onToken2 = this.onToken2.bind(this);
   }
 
   async onToken(token) {
@@ -34,28 +34,28 @@ class Billing extends React.Component {
       });
   }
 
-  async onToken2(token) {
-    let response = await fetch(
-      "https://labs11-curie-web.herokuapp.com/api/stripe/subscribe50",
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          stripeToken: token.id,
-          email: token.email
-        })
-      }
-    );
-
-    if (response.ok)
-      this.setState({
-        complete: true
-      });
-    console.log("Purchase Complete!");
-  }
+  // async onToken2(token) {
+  //   let response = await fetch(
+  //     "https://labs11-curie-web.herokuapp.com/api/stripe/subscribe50",
+  //     {
+  //       method: "POST",
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify({
+  //         stripeToken: token.id,
+  //         email: token.email
+  //       })
+  //     }
+  //   );
+  //
+  //   if (response.ok)
+  //     this.setState({
+  //       complete: true
+  //     });
+  //   console.log("Purchase Complete!");
+  // }
 
   render() {
     if (!localStorage.getItem("email")) {

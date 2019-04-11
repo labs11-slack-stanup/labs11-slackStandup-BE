@@ -66,8 +66,9 @@ class accountSettings extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     axios
-      .post("https://bikbik.auth0.com/dbconnections/change_password", {
-        client_id: "BnXSvU6tE4W8WGMt3gDWra24hXr8qY0e",
+      .post("https://mood-curie.auth0.com/dbconnections/change_password", {
+        // client_id: "BnXSvU6tE4W8WGMt3gDWra24hXr8qY0e",
+        client_id: "fwKGmMskS6szk9XlF696WG1KNQnoT5Db",
         email: this.state.email,
         connection: "Username-Password-Authentication"
       })
