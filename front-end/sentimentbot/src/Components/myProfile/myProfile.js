@@ -49,7 +49,6 @@ class Profile extends React.Component {
     this.props.getSingleTeam(localStorage.getItem("team_id"));
     this.props.getFeelings(localStorage.getItem("id"));
     this.props.getSurveyActivity();
-    this.props.getSingleTeamMembers(localStorage.getItem("status"));
     if (this.props.survey.length > 0) {
       this.props.fetchSingleSurvey(this.props.survey[0].survey_time_stamp);
       this.setState({
@@ -280,7 +279,7 @@ class Profile extends React.Component {
             <div className="name-container">
               {" "}
               <h1 className="welcome-container" style={{fontFamily: 'Roboto Slab, serif', fontSize: '4rem', marginTop: '4%' }}>
-                Welcome, {this.props.singleTeamMembers[0].firstName}! {this.props.singleTeamMembers[0].status}
+                Welcome, {this.props.singleTeamMembers[0].firstName}!
                 </h1>
               <div className="sub-container-1">
                 <div className="sub-container-2">
