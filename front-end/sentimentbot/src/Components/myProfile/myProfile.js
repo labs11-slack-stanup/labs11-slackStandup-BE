@@ -35,7 +35,8 @@ class Profile extends React.Component {
       jointeam: "",
       createTeam: "",
       loading: true,
-      added: false
+      added: false,
+      status: false
     };
   }
 

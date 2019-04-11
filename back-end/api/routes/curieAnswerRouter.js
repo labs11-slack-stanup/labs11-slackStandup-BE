@@ -7,19 +7,6 @@ const questionsDb = require("../database/helpers/questionSurveyDb");
 const teamMembersDb = require("../database/helpers/teamMembersDb");
 
 
-const {
-  postSuccess,
-  serverErrorPost,
-  getSuccess,
-  serverErrorGet,
-  serverErrorGetID,
-  serverErrorDelete404,
-  serverErrorDelete500,
-  serverErrorUpdate404,
-  serverErrorUpdate500
-} = require("./routeHelpers/helpers.js");
-
-
 
 //GET 
 router.get('/',  (req, res) => {
