@@ -278,7 +278,7 @@ class Profile extends React.Component {
             <div className="name-container">
               {" "}
               <h1 className="welcome-container" style={{fontFamily: 'Roboto Slab, serif', fontSize: '4rem', marginTop: '4%' }}>
-                Welcome, {this.props.singleTeamMembers[0].firstName}! {this.props.getManagers[0].status}
+                Welcome, {this.props.singleTeamMembers[0].firstName}! {this.props.singleTeamMembers[0].status}
                 </h1>
               <div className="sub-container-1">
                 <div className="sub-container-2">
