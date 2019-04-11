@@ -260,10 +260,10 @@ class Profile extends React.Component {
     }
     const view = this.state.view;
 
-    const uri = "https://labs11-curie-web.herokuapp.com/api/slackauth";
+    // const uri = "https://labs11-curie-web.herokuapp.com/api/slackauth";
     const url1 = "https://slack.com/oauth/authorize?scope=commands,bot&client_id=596381005414.586225274705";
     const url2 = "https://slack.com/oauth/authorize?scope=commands&client_id=596381005414.586225274705";
-    // const uri = "http://localhost:3000/authorization";
+    const uri = "http://localhost:3000/authorization";
     console.log(view);
     if (this.state.loading === true) {
       return <img className="loadinggif" src={loadinggif} alt="loading" />;
@@ -278,7 +278,7 @@ class Profile extends React.Component {
             <div className="name-container">
               {" "}
               <h1 className="welcome-container" style={{fontFamily: 'Roboto Slab, serif', fontSize: '4rem', marginTop: '4%' }}>
-                Welcome, {this.props.singleTeamMembers[0].firstName}!
+                Welcome, {this.props.singleTeamMembers[0].firstName}! {this.props.getManagers[0].status}
                 </h1>
               <div className="sub-container-1">
                 <div className="sub-container-2">
