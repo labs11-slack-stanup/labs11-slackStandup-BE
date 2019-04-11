@@ -35,7 +35,8 @@ class Profile extends React.Component {
       jointeam: "",
       createTeam: "",
       loading: true,
-      added: false
+      added: false,
+      status: "",
     };
   }
 
@@ -44,6 +45,7 @@ class Profile extends React.Component {
     this.props.getSingleTeamMembers(localStorage.getItem("email"));
     this.props.getSurvey(localStorage.getItem("id"));
     this.props.getTeams();
+    this.props.getManagers(localStorage.getItem("status"));
     this.props.getManagers(localStorage.getItem("id"));
     this.props.getSingleTeam(localStorage.getItem("team_id"));
     this.props.getFeelings(localStorage.getItem("id"));

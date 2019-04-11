@@ -21,6 +21,7 @@ export const getManagers = id => dispatch => {
     axios
     .get(`https://labs11-curie-web.herokuapp.com/api/slackauth/single/${id}`)
     .then(response => {
+        console.log(response.data)
         dispatch({ type: FETCH_MANAGERS_SUCCESS, payload: response.data })
     })
     .catch(err => dispatch({ type: FETCH_MANAGERS_FAILURE, payload: err }))
