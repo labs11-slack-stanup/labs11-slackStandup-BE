@@ -41,6 +41,7 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
+      console.log(this.props);
     //new code
     this.props.getSingleTeamMembers(localStorage.getItem("email"));
     this.props.getSurvey(localStorage.getItem("id"));
