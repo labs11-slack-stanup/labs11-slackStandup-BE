@@ -35,7 +35,8 @@ class Profile extends React.Component {
       jointeam: "",
       createTeam: "",
       loading: true,
-      added: false
+      added: false,
+      status: false
     };
   }
 
@@ -48,6 +49,7 @@ class Profile extends React.Component {
     this.props.getSingleTeam(localStorage.getItem("team_id"));
     this.props.getFeelings(localStorage.getItem("id"));
     this.props.getSurveyActivity();
+    this.props.getSingleTeamMembers(localStorage.getItem("status"));
     if (this.props.survey.length > 0) {
       this.props.fetchSingleSurvey(this.props.survey[0].survey_time_stamp);
       this.setState({
