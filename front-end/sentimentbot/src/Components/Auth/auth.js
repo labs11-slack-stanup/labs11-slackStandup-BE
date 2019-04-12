@@ -122,7 +122,6 @@ export default class Auth {
     localStorage.removeItem("id");
     localStorage.removeItem("team_id");
     localStorage.removeItem("type");
-    localStorage.removeItem("status");
     // navigate to the home route
     history.replace("/home");
   }
