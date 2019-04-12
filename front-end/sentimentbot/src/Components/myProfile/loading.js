@@ -34,7 +34,7 @@ class Loading extends React.Component {
       this.props.getSingleTeamMembers(localStorage.getItem('email'))
       setTimeout(() => {
         window.location.reload();
-      }, 1500);
+      }, 2000);
     }
 //     if (this.state.complete2 === true && this.state.complete1 === true) {
 //       return (
