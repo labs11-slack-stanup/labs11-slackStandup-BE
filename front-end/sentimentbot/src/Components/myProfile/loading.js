@@ -19,11 +19,11 @@ class Loading extends React.Component {
 
   componentDidMount() {
     this.props.getSingleTeamMembers(localStorage.getItem('email'))
-   
+
       setTimeout(() =>{
         this.props.history.push('/profile')
       }, 1500)
- 
+
   }
 
 
@@ -34,7 +34,7 @@ class Loading extends React.Component {
       this.props.getSingleTeamMembers(localStorage.getItem('email'))
       setTimeout(() => {
         window.location.reload();
-      }, 1000);
+      }, 2000);
     }
 //     if (this.state.complete2 === true && this.state.complete1 === true) {
 //       return (
@@ -56,7 +56,7 @@ class Loading extends React.Component {
 //     } else {
 
       return (
-         <> 
+         <>
           <div className="fake-nav" />
           <div className="container">
             <img src={loadinggif} alt="loading" className="loadinggif" />
