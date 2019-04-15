@@ -39,7 +39,7 @@ function GenerateSurveyList(props) {
         }
       }
       console.log("value", value);
-    
+      //Add curie survey list here? //
 
       if (value) {
         divs.push(

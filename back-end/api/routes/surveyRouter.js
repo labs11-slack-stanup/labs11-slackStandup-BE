@@ -534,18 +534,9 @@ router.get("/manager/:id", (req, res) => {
     .catch(serverErrorGet(res));
 });
 
-// router.get("/:id", (req, res) => {
-//   const { id } = req.params;
-//   feelingsdb.get().where({ survey_id: id }).then(data => {
-//     db.getID(id)
-//     .then(response => {
-//       res.status(200).json({ response, data})
-//     })
-//     .catch(serverErrorGetID(res, type, id));
-//   })
 
-// });
-////////// 1 / ios/ surveyRouter
+
+//1 / ios/ surveyRouter
 
 router.get("/surveys/team-member/:id", (req, res) => {
   const { id } = req.params;
@@ -588,6 +579,22 @@ router.get("/curie/surveys/team-member/:id", (req, res) => {
     })
     .catch(serverErrorGet(res));
 });
+=======
+const sur = (res, surveyData, preFeelingsArray ) => {
+
+  let resultObject = {
+    survey_id: surveyData[0].id,
+    title: surveyData[0].title,
+    description: surveyData[0].description,
+    created_at: surveyData[0].created_at,
+    manager_id: surveyData[0].manager_id,
+    survey_time_stamp: surveyData[0].survey_time_stamp,
+    ex_time: surveyData[0].ex_time,
+    answers: preFeelingsArray
+  };
+  res.status(200).json(resultObject);
+}
+
 
 router.get("/surveys/survey-id/:id", (req, res) => {
   const { id } = req.params;
@@ -604,20 +611,16 @@ router.get("/surveys/survey-id/:id", (req, res) => {
               .then(preData=>{
                 let preText = preData[0].feeling_text;
                 preFeelingsArray.push(preText);
+                
+                if(f === fsData.length - 1 ) {
+                    sur(res, surveyData, preFeelingsArray);
+                }
               })
               .catch(serverErrorGet(res));
+              
           }
-          let resultObject = {
-            survey_id: surveyData[0].id,
-            title: surveyData[0].title,
-            description: surveyData[0].description,
-            created_at: surveyData[0].created_at,
-            manager_id: surveyData[0].manager_id,
-            survey_time_stamp: surveyData[0].survey_time_stamp,
-            ex_time: surveyData[0].ex_time,
-            answers: preFeelingsArray
-          };
-          res.status(200).json(resultObject);
+          
+          
         })
         .catch(serverErrorGet(res));
     })

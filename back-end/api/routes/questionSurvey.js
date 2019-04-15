@@ -45,8 +45,8 @@ router.get('/created/:date',  (req, res) => {
     })
 });
 
-//GET by Id: LABS 11
 
+//GET by Id: LABS 11
 router.get('/:id', (req, res) => {
       const { id } = req.params;
 
@@ -116,14 +116,6 @@ router.get('/:id', (req, res) => {
 
 
 
-// //POST //labs11
-// router.post("/", (req, res) => {
-//   const postInfo = req.body;
-
-//   db.insert(postInfo)
-//     .then(postSuccess(res))
-//     .catch(serverErrorPost(res));
-// });
 
 //DELETE LABS 11 -tested by Justin
 router.delete('/:id', (req, res) => {
@@ -141,6 +133,7 @@ router.delete('/:id', (req, res) => {
           res.status(500).json({ error: "The survey could not be removed" })
   })
 })
+
 
 // PUT LABS 11 -tested by Justin
 router.put('/:id', (req, res) => {
