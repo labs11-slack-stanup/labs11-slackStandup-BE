@@ -281,7 +281,7 @@ class Profile extends React.Component {
               <h1 className="welcome-container" style={{fontFamily: 'Roboto Slab, serif', fontSize: '4rem', marginTop: '4%' }}>
                 Welcome, {this.props.singleTeamMembers[0].firstName}!
                 </h1>
-              <p>Curie Active: {this.props.singleTeamMembers[0].status.toString()}</p>
+              {/*<p>Curie Active: {this.props.singleTeamMembers[0].status.toString()}</p>*/}
               <div className="sub-container-1">
                 <div className="sub-container-2">
                   {this.props.managers.length === 0 ? (
