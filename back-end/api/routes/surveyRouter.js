@@ -579,7 +579,7 @@ router.get("/curie/surveys/team-member/:id", (req, res) => {
     })
     .catch(serverErrorGet(res));
 });
-=======
+
 const sur = (res, surveyData, preFeelingsArray ) => {
 
   let resultObject = {
