@@ -568,6 +568,27 @@ router.get("/surveys/team-member/:id", (req, res) => {
     .catch(serverErrorGet(res));
 });
 
+router.get("/curie/surveys/team-member/:id", (req, res) => {
+  const { id } = req.params;
+  teamMembersDb
+    .getID(id)
+    .then(data => {
+      let teamID = data[0].team_id;
+      teamMembersDb
+        .getManager(teamID)
+        .then(data => {
+          let managerID = data[0].id;
+          curieDB.getManagerID(managerID)
+            .then(data => {
+              res.status(200).json(data);
+            })
+            .catch(serverErrorGet(res));
+        })
+        .catch(serverErrorGet(res));
+    })
+    .catch(serverErrorGet(res));
+});
+
 router.get("/surveys/survey-id/:id", (req, res) => {
   const { id } = req.params;
   db.getID(id)
