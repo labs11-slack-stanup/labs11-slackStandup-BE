@@ -143,7 +143,8 @@ const onServerStartScheduleSurveys = () => {
   //////////////////////////////////////////////////////////////
 };
 
-const surveyScheduler = (timeInfo, postInfo) => {
+const surveyScheduler = (timeInfo, postInfo, res) => {
+  console.log(res)
   let hour;
   let min = timeInfo.min;
   let exTime = "";
@@ -339,6 +340,10 @@ const surveyScheduler = (timeInfo, postInfo) => {
                     let postOptions = {
                       uri:
                         "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
+                        // uri:
+                        // "https://infodio.serveo.net/api/slash/send-me-buttons",
+                        // uri:
+                        // "http://localhost:5003/api/slash/send-me-buttons",
                       method: "POST",
                       headers: {
                         "Content-type": "application/json"
@@ -346,10 +351,12 @@ const surveyScheduler = (timeInfo, postInfo) => {
                       json: botInfo
                     };
                     request(postOptions, (error, response, body) => {
-                      if (error) {
-                        // handle errors as you see fit
-                        res.json({ error: "Error." });
-                      }
+                      // console.log(res)
+                      // if (error) {
+                      //   // handle errors as you see fit
+                      //   res.json({ error: "Error." });
+                      //   console.log(error)
+                      // }
                     });
                   });
                 })
@@ -445,7 +452,7 @@ router.post("/", (req, res) => {
             }) //.then for curieDB
 
             .then(() => {
-              surveyScheduler(timeInfo, curieInfo);
+              surveyScheduler(timeInfo, curieInfo, res);
             })
             .catch(serverErrorGet(res));
 
