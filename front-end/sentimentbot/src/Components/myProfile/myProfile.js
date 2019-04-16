@@ -175,7 +175,7 @@ class Profile extends React.Component {
     currentMember.type = "manager";
     // this.props.getSingleTeamMembers(localStorage.getItem("email"));
     localStorage.setItem("joined", true);
-    alert("Our Mood Bots are on it");
+    // alert("Our Mood Bots are on it");
     // localStorage.setItem('type', 'manager')
     // this.props.getTeams();
     // this.props.history.push(<Callback />);
@@ -229,7 +229,7 @@ class Profile extends React.Component {
     // localStorage.setItem('team_id', futureTeamId)
     // localStorage.setItem('type', 'team_member')
     localStorage.setItem("joined", true);
-    alert("Our Mood Bots are on it");
+    // alert("Our Mood Bots are on it");
 
     // window.location.reload();
     this.props.history.push("/loading");
