@@ -108,7 +108,7 @@ class accountSettings extends React.Component {
     // localStorage.setItem("team_id", null);
     // localStorage.setItem("type", null);
     localStorage.setItem("abandoned", true);
-    alert("Our Mood Bots are on it");
+    // alert("Our Mood Bots are on it");
 
     setTimeout(() => {
       this.props.history.push("/loading");
