@@ -41,7 +41,7 @@ module.exports = {
         .then( )
   },
   getManager: function(team_member_id) {
-    return db(table).where({team_member_id: team_member_id});
+    return db(table).where("team_member_id", team_member_id);
   },
   getManagerID: function(manager_id) {
     return db(table).where("manager_id", manager_id);
