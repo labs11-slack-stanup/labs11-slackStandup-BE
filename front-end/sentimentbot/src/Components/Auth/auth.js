@@ -31,7 +31,7 @@ export default class Auth {
   }
 
   //deleted // handleAuthentication() for PR - have it saved in my notes
-  
+
 
   handleAuthentication() {
     return new Promise((resolve, reject) => {
