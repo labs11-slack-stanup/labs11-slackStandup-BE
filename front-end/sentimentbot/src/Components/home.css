@@ -8,6 +8,8 @@
 
 .landingIntro {
   display: flex;
+  margin-top: 2%;
+  justify-content: center;
   flex-direction: row;
   width: 100%;
 }
