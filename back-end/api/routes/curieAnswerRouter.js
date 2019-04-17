@@ -39,6 +39,7 @@ router.get("/questions_id/:id", (req, res) => {
 
 //get surveys, answers, team_id,
 // Manager GET Questions and Answers for all users
+//For clarifcation this endpoint only needs parsing to grab either all info for a manager or individual user
 router.get("/team/:id", (req, res) => {
   const { id } = req.params;
   teamMembersDb
@@ -60,6 +61,8 @@ router.get("/team/:id", (req, res) => {
       res.status(500).json(err);
     });
 });
+
+
 
 //make a put route
 // dynamic variable survey_id and team
