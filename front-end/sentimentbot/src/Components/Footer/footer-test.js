@@ -4,8 +4,9 @@ import FooterBanner from "../PNG/MOODfooterBANNER6.png";
 
 const FooterPage = () => {
   return (
-    <img className="footer-img"src={FooterBanner} alt="footer" />
-  );
+    <div>
+    </div>
+    );
 }
 
 export default FooterPage;
