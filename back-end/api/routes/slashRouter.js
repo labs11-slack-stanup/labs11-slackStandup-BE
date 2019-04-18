@@ -14,6 +14,11 @@ const surveyFeelingsDb = require("../database/helpers/surveysFeelingsDb");
 const preFeelingsDb = require("../database/helpers/preFeelingsDb");
 const surveysActiveDb = require("../database/helpers/surveysActiveDb");
 
+//labs11 helpers 
+const questionDb = require("../database/helpers/questionSurveyDb.js");
+const activeCurieDb = require("../database/helpers/curieSurveyActiveDb");
+const curieAnswerDb = require("../database/helpers/curieAnswersDb.js");
+
 const {
   postSuccess,
   serverErrorPost,
@@ -51,6 +56,24 @@ function sendMessageToSlackResponseURL(responseURL, JSONmessage) {
     }
   });
 }
+// part 1 add a function for direct message 
+function postPrivateMessage(JSONmessage, token) {
+  let postMessage = {
+    uri: `https://slack.com/api/conversations.open`,
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${token}`
+    },
+    json: JSONmessage
+  };
+  request(postMessage, (error, response, body) => {
+    if (error) {
+      res.json({ error: "Error." });
+    }
+  });
+}
+
 
 function postMessage(JSONmessage, token) {
   let postOptions = {
@@ -182,7 +205,9 @@ router.post("/send-me-buttons", urlencodedParser, (req, res) => {
         .then(data => {
           if (data.length === 0) {
             console.log({ error: "User is not Authorized" });
-          } else {
+          }
+          //mood survey 
+          else {
             let member_id = data[0].member_id; ///// team_member_id
             dbTeamMembers
               .getID(member_id)
@@ -396,21 +421,7 @@ router.post("/send-me-buttons", urlencodedParser, (req, res) => {
         .catch(err => console.log(err));
     }
   }
-  // else if (reqBody.callback_id === "button_tutorial") {
-  //   res.status(200).end(); // best practice to respond with 200 status
-  //   let actionJSONPayload = JSON.parse(req.body.payload); // parse URL-encoded payload JSON string
-  //   let jsonbody = JSON.parse(req.body);
-  //   console.log("jsonbody", jsonbody);
-  //   let message = {
-  //     text:
-  //       actionJSONPayload.user.name +
-  //       " clicked: " +
-  //       actionJSONPayload.actions[0].name,
-  //     replace_original: false
-  //   };
-  // console.log("actionJSONPayload", actionJSONPayload);
-  //   sendMessageToSlackResponseURL(actionJSONPayload.response_url, message);
-  // }
+
   else if (reqBody.message === true) {
     let surveyId = reqBody.survey_id;
     console.log("surveyId", surveyId);
@@ -473,7 +484,68 @@ router.post("/send-me-buttons", urlencodedParser, (req, res) => {
         }
       })
       .catch(err => err);
-  } else if (reqBody.payload) {
+  } 
+  else if (reqBody.message === "curie") { //curie
+    console.log("testing curie") //grabbing data from survey router 
+    let curieSurveyId = reqBody.survey_id;
+
+
+    
+    console.log("curieSurveyId", curieSurveyId);
+        let title = reqBody.title;
+        let question_1 = reqBody.question_1;
+        let question_2 = reqBody.question_2;
+        let question_3 = reqBody.question_3;
+    
+    // let postQuestion = {
+    //     title = reqBody.title,
+    //     question_1 = reqBody.question_1,
+    //     question_2 = reqBody.question_2,
+    //     question_3 = reqBody.question_3,
+    //     manager_id = reqBody.manager_id
+    // }
+    
+
+    dbAuth
+    .getBySlackUserId(reqBody.user_id)
+      .then(data => {
+        const curieBotToken = data[0].bot_access_token;
+        console.log("curieBotToken", curieBotToken);
+        const { user_id } = data[0];
+        console.log("user_id", user_id);
+        if (user_id === 0) {
+          res.status(404).json("Team member is equal to null");
+        } else {
+          let curieMessage = {
+            user_id: user_id,
+            as_user: false,
+            attachments: [
+              {
+                title: `${title}`,
+                text: `${question_1}`,
+                pretext: `Survey #${curieSurveyId}`,
+                color: "#3AA3E3",
+                attachment_type: "default",
+                // callback_id: "feeling_menu",
+                // actions: [
+                //   {
+                //     name: "feeling_list",
+                //     text: "Pick a feeling...",
+                //     type: "text",
+                //     options: arrayOptions
+                //   }
+                // ]
+              }
+            ]
+          };
+          postPrivateMessage(curieMessage, curieBotToken);
+        }
+      })
+      .catch(err => err);
+  
+   
+  }
+  else if (reqBody.payload) {
     let jsonPayload = JSON.parse(reqBody.payload);
     let userIdSlack = jsonPayload.user.id;
     let callbackIDSlash = jsonPayload.callback_id;
@@ -758,6 +830,21 @@ router.post("/send-me-buttons", urlencodedParser, (req, res) => {
   }
 });
 
+  // else if (reqBody.callback_id === "button_tutorial") { line 399 commented code
+  //   res.status(200).end(); // best practice to respond with 200 status
+  //   let actionJSONPayload = JSON.parse(req.body.payload); // parse URL-encoded payload JSON string
+  //   let jsonbody = JSON.parse(req.body);
+  //   console.log("jsonbody", jsonbody);
+  //   let message = {
+  //     text:
+  //       actionJSONPayload.user.name +
+  //       " clicked: " +
+  //       actionJSONPayload.actions[0].name,
+  //     replace_original: false
+  //   };
+  // console.log("actionJSONPayload", actionJSONPayload);
+  //   sendMessageToSlackResponseURL(actionJSONPayload.response_url, message);
+  // } 
 // router.post("/send-me-buttons", urlencodedParser, (req, res) => {
 //   res.status(200).end(); // best practice to respond with 200 status
 //   var actionJSONPayload = JSON.parse(req.body.payload); // parse URL-encoded payload JSON string
