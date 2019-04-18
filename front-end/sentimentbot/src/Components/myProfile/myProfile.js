@@ -348,7 +348,7 @@ class Profile extends React.Component {
                     {localStorage.getItem('type') === 'manager' ? (<div id="gotosurveymaker" onClick={this.goToSurveyMaker}>Get Moods</div> ) : (null)}
                   </div>
                   <div>
-                    {localStorage.getItem('type') === 'manager' ? (<div id="gotosurveymaker" onClick={this.goToSurveyMaker}>Start Standup</div> ) : (null)}
+                    {localStorage.getItem('type') === 'manager' ? (<div id="gotosurveymaker" onClick={this.goToCurieSurveyMaker}>Start Standup</div> ) : (null)}
                   </div>
                 </div>
               </div>
