@@ -21,6 +21,7 @@ import Loading from './myProfile/loading';
 import EmojiLoading from './Survey/loading';
 import SurveySubmitLoading from './Survey/surveysubmitloading';
 import FooterPage from "./Footer/footer-test";
+import ModalCurieSurvey from "./Survey/ModalMainCuriePage";
 
 const auth = new Auth();
 
@@ -77,6 +78,10 @@ export const makeMainRoutes = () => {
           <Route
             path="/survey"
             render={props => <ModalSurvey {...props} auth={auth} />}
+          />
+          <Route
+              path="/standup"
+              render={props => <ModalCurieSurvey {...props} auth={auth} />}
           />
           <Route
             path="/reports"
