@@ -251,7 +251,6 @@ const surveyScheduler = (timeInfo, postInfo, res) => {
               stringSurveyId += 'n';
               console.log("stringSurveyId", stringSurveyId);
 
-              schedule.scheduleJob(stringSurveyId, exTime, function() {
                 console.log("Schedule Curie Processed");
                 console.log("CurieBotInfo2", curieBotInfo);
                 let postOptions = {
@@ -271,7 +270,27 @@ const surveyScheduler = (timeInfo, postInfo, res) => {
                     res.json({ error: "Error." });
                   }
                 });
-              });
+              // schedule.scheduleJob(stringSurveyId, exTime, function() {
+              //   console.log("Schedule Curie Processed");
+              //   console.log("CurieBotInfo2", curieBotInfo);
+              //   let postOptions = {
+              //     // uri:
+              //     //   "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
+              //     uri:
+              //     "https://occasum.serveo.net/api/slash/send-me-buttons",
+              //     method: "POST",
+              //     headers: {
+              //       "Content-type": "application/json"
+              //     },
+              //     json: curieBotInfo
+              //   };
+              //   request(postOptions, (error, response, body) => {
+              //     if (error) {
+              //       // handle errors as you see fit
+              //       res.json({ error: "Error." });
+              //     }
+              //   });
+              // });
             })
             .catch(err => console.log(err));
         }

@@ -32,9 +32,9 @@ const type = "team";
 // https://slack.com/oauth/authorize?scope=commands,bot&client_id=553324377632.554405336645&redirect_uri=https://labs11-curie-web.herokuapp.com/api/slackauth&state=id2
 // https://slack.com/oauth/authorize?scope=commands,bot&client_id=553324377632.554405336645&redirect_uri=http://localhost:5002/api/slackauth&state=id
 
-// let uri = "http://localhost:5002/api/slackauth";
+let uri = "http://localhost:5003/api/slackauth";
 // let uri2 = "http://localhost:5002/api/slackauth/slack-btn/1";
-let uri = "https://labs11-curie-web.herokuapp.com/api/slackauth";
+// let uri = "https://labs11-curie-web.herokuapp.com/api/slackauth";
 
 // router.get("/slackbtn/:id", (req, res) => {
 //   // console.log(req.query.code);
