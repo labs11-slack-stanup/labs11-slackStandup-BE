@@ -184,10 +184,15 @@ class Profile extends React.Component {
       this.props.history.push("/loading");
     }, 500);
   };
-
+  // Mood
   goToSurveyMaker = event => {
     event.preventDefault();
     this.props.history.push("/survey");
+  }
+  // Curie
+  goToCurieSurveyMaker = event => {
+    event.preventDefault();
+    this.props.history.push("/standup");
   }
 
   addCodeToMember = event => {

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import NavBar from '../NavBar/NavBar';
 import "./Modal.css";
 import ModalTitles from './ModalTitles';
-import ModalPrefeelings from './ModalPrefeelings';
+import ModalCurie from './ModalCurie';
 import ModalSchedule from './ModalSchedule';
 import Confirmation from './confirmation';
 
@@ -22,7 +22,7 @@ import { fetchSingleSurvey } from "../../actions/survey";
 import { addPreFeeling, getFeelings, getPreFeeling } from "../../actions";
 import StepZilla from 'react-stepzilla';
 
-class ModalSurvey extends React.Component {
+class ModalCurieSurvey extends React.Component {
     constructor() {
       super();
       this.state = {
@@ -325,61 +325,61 @@ class ModalSurvey extends React.Component {
     alert('Choices have been saved!')
   }
 
-  createSurvey = event => {
+  createCurieSurvey = event => {
     event.preventDefault();
     let title = this.state.title;
-    let description = this.state.description; 
-    let manager_id = this.props.singleTeamMembers[0].id; 
+    let description = this.state.description;
+    let manager_id = this.props.singleTeamMembers[0].id;
     let dailyWeeklyMonthly= this.state.dailyWeeklyMonthly;
     let hour = this.state.hour;
     let amPm = this.state.amPm;
     let timeZone = this.state.timeZone;
     let min = this.state.min;
-    let preFeelingIdsArray = this.state.preFeelingIdsArray;
+    // let preFeelingIdsArray = this.state.preFeelingIdsArray;
     const combine = {
-      title: title, 
-      description: description, 
-      manager_id: manager_id, 
+      title: title,
+      description: description,
+      manager_id: manager_id,
       dailyWeeklyMonthly: dailyWeeklyMonthly,
       hour: hour,
       amPm: amPm,
       timeZone: timeZone,
       min: min,
-      preFeelingIdsArray: preFeelingIdsArray
+      // preFeelingIdsArray: preFeelingIdsArray
     }
-      this.props.addSurvey(combine)
-      this.props.getSurvey(localStorage.getItem('id'));
-      alert('Survey has been submitted')
-      this.setState({
-        title: "",
-        description: "",
-        manager_id: 0,
-        dailyWeeklyMonthly: "daily",
-        hour: 1,
-        min: 1,
-        amPm: "AM",
-        timeZone: "EST",
-        option1: ['', ':joy:'],
-        option2: ['',':sunglasses:'],
-        option3: ['',':sob:'],
-        textArray: [':joy:',':sunglasses:',':scream:',':pensive:'],
-        strArr: ["happy", ":joy:"],
-        option4: ['',':skull:'],
-        preFeelingIdsArray: [],
-      })
+    this.props.addSurvey(combine)
+    this.props.getSurvey(localStorage.getItem('id'));
+    alert('Survey has been submitted')
+    this.setState({
+      title: "",
+      description: "",
+      manager_id: 0,
+      dailyWeeklyMonthly: "daily",
+      hour: 1,
+      min: 1,
+      amPm: "AM",
+      timeZone: "EST",
+      option1: ['', ':joy:'],
+      option2: ['',':sunglasses:'],
+      option3: ['',':sob:'],
+      textArray: [':joy:',':sunglasses:',':scream:',':pensive:'],
+      strArr: ["happy", ":joy:"],
+      // option4: ['',':skull:'],
+      preFeelingIdsArray: [],
+    })
 
-      setTimeout(() => {
-        this.props.history.push('/profile')
-      }, 1000);
-      // this.props.history.push("/surveysubmitloading")
-    };
+    setTimeout(() => {
+      this.props.history.push('/profile')
+    }, 1000);
+    // this.props.history.push("/surveysubmitloading")
+  };
 
     render() {
 
       
       const steps = [
         {name: "Step 1: Title & Description", component: <ModalTitles state={this.state} titleChangeHandler={this.titleChangeHandler}/>},
-        {name: "Step 2: Select your response options", component: <ModalPrefeelings state={this.state} onConfirmation={this.onConfirmation} onSelectTest1={this.onSelectTest1} emojiPicker={this.emojiPicker} emojiPicker2={this.emojiPicker2} emojiPicker3={this.emojiPicker3} emojiPicker4={this.emojiPicker4} addCustom={this.addCustom} onChangeHandler={this.onChangeHandler} onChangeHandler2={this.onChangeHandler2} onChangeHandler3={this.onChangeHandler3} onChangeHandler4={this.onChangeHandler4}/>},
+        {name: "Step 2: Select your question options", component: <ModalCurie state={this.state} onConfirmation={this.onConfirmation} onSelectTest1={this.onSelectTest1} emojiPicker={this.emojiPicker} emojiPicker2={this.emojiPicker2} emojiPicker3={this.emojiPicker3} emojiPicker4={this.emojiPicker4} addCustom={this.addCustom} onChangeHandler={this.onChangeHandler} onChangeHandler2={this.onChangeHandler2} onChangeHandler3={this.onChangeHandler3} onChangeHandler4={this.onChangeHandler4}/>},
         {name: "Step 3: Schedule when to send it out", component: <ModalSchedule state={this.state} onChangeDropDown ={this.onChangeDropDown} />},
         {name: "Step 4: Finalize and create", component: <Confirmation state={this.state} createSurvey={this.createSurvey} history={this.props.history} />}
       ]
@@ -451,4 +451,4 @@ function mapStateToProps(state) {
       getFeelings,
       getPreFeeling
     }
-  )(ModalSurvey);
+  )(ModalCurieSurvey);
