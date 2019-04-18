@@ -340,18 +340,45 @@ class Profile extends React.Component {
                     height="58"
                   />
                   <div>
-                    {localStorage.getItem('type') === 'manager' ? (<div id="gotosurveymaker" onClick={this.goToSurveyMaker}>Create Survey</div> ) : (null)}
+                    {localStorage.getItem('type') === 'manager' ? (<div id="gotosurveymaker" onClick={this.goToSurveyMaker}>Get Moods</div> ) : (null)}
+                  </div>
+                  <div>
+                    {localStorage.getItem('type') === 'manager' ? (<div id="gotosurveymaker" onClick={this.goToSurveyMaker}>Start Standup</div> ) : (null)}
                   </div>
                 </div>
               </div>
             </div>
             <div className="reactions">
               {this.props.singleTeamMembers[0].type === "manager" ? (
-                <p>Your Surveys:</p>
+                <p>Your Moods:</p>
               ) : (
                 <p>Your Reactions:</p>
               )}
               <div className="reactions-scroll">
+                {this.props.singleTeamMembers[0].type === "manager" ? (
+                  this.props.survey.length > 0 ? (
+                    <p>
+                      <GenerateSurveys />
+                    </p>
+                  ) : (
+                    <p>Oops! You haven't created any moods yet!</p>
+                  )
+                ) : this.props.feelings.length > 0 ? (
+                  <p>
+                    <GenerateTeams />
+                  </p>
+                ) : (
+                  <p>Oops! You haven't responded to any moods yet!</p>
+                )}
+                </div>
+                </div>
+                <div className="standups">
+            {this.props.singleTeamMembers[0].type === "manager" ? (
+              <p>Your Surveys:</p>
+              ) : (
+                <p>Your standups:</p>
+              )}
+              <div className="standups-scroll">
                 {this.props.singleTeamMembers[0].type === "manager" ? (
                   this.props.survey.length > 0 ? (
                     <p>
