@@ -9,8 +9,8 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: "mood-curie.auth0.com",
     clientID: "fwKGmMskS6szk9XlF696WG1KNQnoT5Db",
-    redirectUri: "https://yourmood.netlify.com/callback",
-    // redirectUri: "http://localhost:3000/callback",
+    //redirectUri: "https://yourmood.netlify.com/callback",
+    redirectUri: "http://localhost:3000/callback",
     responseType: "token id_token",
     scope: "openid profile email"
   });

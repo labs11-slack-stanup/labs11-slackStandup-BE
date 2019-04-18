@@ -144,7 +144,7 @@ const onServerStartScheduleSurveys = () => {
 };
 
 const surveyScheduler = (timeInfo, postInfo, res) => {
-  console.log(res)
+  // console.log(res)
   let hour;
   let min = timeInfo.min;
   let exTime = "";
@@ -234,38 +234,44 @@ const surveyScheduler = (timeInfo, postInfo, res) => {
             .then((data) => {
               console.log("Curie what ails ya", data);
 
-              let botInfo = {
-                // message: true,
-                // member_id: manager_id,
-                // survey_id: survey_id,
-                // title: title,
+              let curieBotInfo = {
+                message: "curie",
+                manager_id: manager_id,
+                survey_id: survey_id,
+                title: postInfo.title,
+                question_1: postInfo.question_1,
+                question_2: postInfo.question_2,
+                question_3: postInfo.question_3
+               
 
               };
 
-              console.log("botInfo", botInfo);
+              console.log("curieBotInfo", curieBotInfo);
               let stringSurveyId = survey_id.toString();
               stringSurveyId += 'n';
               console.log("stringSurveyId", stringSurveyId);
 
-              // schedule.scheduleJob(stringSurveyId, exTime, function() {
-              //   console.log("Schedule Processed");
-              //   console.log("botInfo2", botInfo);
-              //   let postOptions = {
-              //     uri:
-              //       "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
-              //     method: "POST",
-              //     headers: {
-              //       "Content-type": "application/json"
-              //     },
-              //     json: botInfo
-              //   };
-              //   request(postOptions, (error, response, body) => {
-              //     if (error) {
-              //       // handle errors as you see fit
-              //       res.json({ error: "Error." });
-              //     }
-              //   });
-              // });
+              schedule.scheduleJob(stringSurveyId, exTime, function() {
+                console.log("Schedule Curie Processed");
+                console.log("CurieBotInfo2", curieBotInfo);
+                let postOptions = {
+                  // uri:
+                  //   "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
+                  uri:
+                  "https://occasum.serveo.net/api/slash/send-me-buttons",
+                  method: "POST",
+                  headers: {
+                    "Content-type": "application/json"
+                  },
+                  json: curieBotInfo
+                };
+                request(postOptions, (error, response, body) => {
+                  if (error) {
+                    // handle errors as you see fit
+                    res.json({ error: "Error." });
+                  }
+                });
+              });
             })
             .catch(err => console.log(err));
         }
@@ -338,10 +344,10 @@ const surveyScheduler = (timeInfo, postInfo, res) => {
                     console.log("Schedule Processed");
                     console.log("botInfo2", botInfo);
                     let postOptions = {
-                      uri:
-                        "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
-                        // uri:
-                        // "https://infodio.serveo.net/api/slash/send-me-buttons",
+                      // uri:
+                      //   "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
+                        uri:
+                        "https://occasum.serveo.net/api/slash/send-me-buttons",
                         // uri:
                         // "http://localhost:5003/api/slash/send-me-buttons",
                       method: "POST",
@@ -433,20 +439,6 @@ router.post("/", (req, res) => {
                   .insert(postCurieActive)
                   .then(postSuccess(res))
                   .catch(serverErrorPost(res));
-
-
-                // let answerInfo = {
-                //    answer_1: '',
-                //    answer_2: '',
-                //    answer_3: '',
-                //    team_member_id: '',
-                //    survey_id: newID
-                //   };
-
-                // curieAnswers
-                //   .insert(answerInfo)
-                //   .then(postSuccess(res))
-                //   .catch(serverErrorPost(res));
 
               });
             }) //.then for curieDB
