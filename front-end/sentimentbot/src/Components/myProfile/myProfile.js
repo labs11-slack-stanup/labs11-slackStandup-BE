@@ -261,12 +261,12 @@ class Profile extends React.Component {
     const view = this.state.view;
                
                     
-            "https://slack.com/oauth/authorize?scope=commands,bot&client_id=596381005414.586225274705&redirect_uri=http://localhost:5003/api/slackauth&state="
-            "https://slack.com/oauth/authorize?scope=commands&client_id=596381005414.586225274705&redirect_uri=http://localhost:5003/api/slackauth&state="
-    // const uri = "https://labs11-curie-web.herokuapp.com/api/slackauth";
+            // "https://slack.com/oauth/authorize?scope=commands,bot&client_id=596381005414.586225274705&redirect_uri=http://localhost:5003/api/slackauth&state="
+            // "https://slack.com/oauth/authorize?scope=commands&client_id=596381005414.586225274705&redirect_uri=http://localhost:5003/api/slackauth&state="
+    const uri = "https://labs11-curie-web.herokuapp.com/api/slackauth";
     const url1 = "https://slack.com/oauth/authorize?scope=commands,bot&client_id=596381005414.586225274705";
     const url2 = "https://slack.com/oauth/authorize?scope=commands&client_id=596381005414.586225274705";
-    const uri = "http://localhost:5003/api/slackauth";
+    // const uri = "http://localhost:5003/api/slackauth";
     console.log(view);
     if (this.state.loading === true) {
       return <img className="loadinggif" src={loadinggif} alt="loading" />;

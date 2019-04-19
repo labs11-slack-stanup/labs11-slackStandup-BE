@@ -269,4 +269,12 @@ router.get("/single/:id", (req, res) => {
     .catch(serverErrorGetID(res, type, id));
 });
 
+router.get("/test/:id", (req, res) => {
+  const { id } = req.params;
+  db.getBySlackTeamId(id)
+    .then(getSuccess(res))
+    .catch(serverErrorGetID(res, type, id));
+});
+
+
 module.exports = router;

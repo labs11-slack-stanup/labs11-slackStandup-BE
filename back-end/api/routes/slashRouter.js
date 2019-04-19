@@ -73,7 +73,38 @@ function postPrivateMessage(message, token) {
     }
   });
 }
-
+// function conversationMessage(message, token) {
+//   let getMessage = {
+//     uri: `https://slack.com/api/conversations.history`,
+//     method: "GET",
+//     headers: {
+//       "Content-type": "application/json",
+//       Authorization: `Bearer ${token}`
+//     },
+//     json: message
+//   };
+//   request(getMessage, (error, response, body) => {
+//     if (error) {
+//       res.json({ error: "Error." });
+//     }
+//   });
+// }
+function conversationMessage(token, channel) {
+  const postOptions = {
+    uri:
+      "https://slack.com/api/conversations.history?token=" +
+      token +
+      "&channel=" +
+      channel,
+    method: "GET"
+  };
+  request(postOptions, (error, response, body) => {
+    if (error) {
+      // handle errors as you see fit
+      res.json({ error: "Error." });
+    }
+  });
+}
 function postMessage(JSONmessage, token) {
   let postOptions = {
     uri: `https://slack.com/api/chat.postMessage`,
@@ -112,27 +143,6 @@ function postEphMessage(JSONmessage, token) {
 
 // '1551240654.863992',
 //  message_ts: '1551240449.011400',
-
-// function postMessage(botToken) {
-//   const postOptions = {
-//     uri:
-//       "https://slack.com/api/chat.postMessage?token=" +
-//       botToken +
-//       "&channel=" +
-//       "CG9EQ53QR" +
-//       "&text=" +
-//       "Testing" +
-//       "&as_user=" +
-//       "false",
-//     method: "POST"
-//   };
-//   request(postOptions, (error, response, body) => {
-//     if (error) {
-//       // handle errors as you see fit
-//       res.json({ error: "Error." });
-//     }
-//   });
-// }
 
 // https://slack.com/api/chat.postMessage?token=xoxb-553324377632-553511725281-WtIU01FxATAkavAPlFn6BPz2&channel=CG9EQ53QR&text=Test
 
@@ -186,7 +196,34 @@ router.post("/connect-channel-to-survey", urlencodedParser, (req, res) => {
     );
 });
 
-// let surveyIdDep;
+//event post
+router.post("/events", (req, res) => {
+  let reqBody = req.body;
+
+  res.status(200).send(reqBody.challenge);
+  console.log("event message", reqBody);
+  let slackTeamId = reqBody.team_id;
+  let conChannel = reqBody.event.channel ;
+  console.log("conChannel", conChannel);
+  dbAuth.getBySlackBot(slackTeamId).then(data => {
+    console.log("resConsole", data);
+    let managerIDD;
+    for (let i = 0; i < data.length; i++) {
+      dbTeamMembers.getID(data[i].member_id).then(loop => {
+        console.log("loop", loop);
+        if (loop[0].type === "manager") {
+          managerIDD = loop[0].id;
+        } else if (i === data.length - 1) {
+          dbAuth.getByMemberId(managerIDD).then(date => {
+            let botToken = date[0].bot_access_token;
+            console.log("botToken", botToken);
+            conversationMessage(botToken, conChannel);
+          });
+        }
+      });
+    }
+  });
+});
 
 router.post("/send-me-buttons", urlencodedParser, (req, res) => {
   // res.status(200).end(); // best practice to respond with empty 200 status code
@@ -484,11 +521,11 @@ router.post("/send-me-buttons", urlencodedParser, (req, res) => {
       .catch(err => err);
   } else if (reqBody.message === "curie") {
     //curie
-    console.log("testing curie"); //grabbing data from survey router
+    // console.log("testing curie"); //grabbing data from survey router
     let curieSurveyId = reqBody.survey_id;
     let managerID = reqBody.manager_id;
-    console.log("managerId", managerID);
-    console.log("curieSurveyId", curieSurveyId);
+    // console.log("managerId", managerID);
+    // console.log("curieSurveyId", curieSurveyId);
     let title = reqBody.title;
     let question_1 = reqBody.question_1;
     let question_2 = reqBody.question_2;
@@ -497,19 +534,21 @@ router.post("/send-me-buttons", urlencodedParser, (req, res) => {
     // "https://slack.com/oauth/authorize?scope=commands&client_id=596381005414.586225274705&redirect_uri=http://localhost:5003/api/slackauth&state="
 
     dbAuth.getByMemberId(managerID).then(managerSlack => {
-      console.log("mangerslack", managerSlack);
+      // console.log("mangerslack", managerSlack);
       const curieBotToken = managerSlack[0].bot_access_token;
-      console.log("curieBotToken", curieBotToken);
+      // console.log("curieBotToken", curieBotToken);
       dbTeamMembers.getManager(managerID).then(manager => {
-        console.log(manager);
+        // console.log(manager);
         dbTeamMembers.getTeamMember(manager[0].team_id).then(team => {
-          console.log(team);
+          // console.log(team);
           //for looooooop goes here
           dbAuth.getByMemberId(team[0].id).then(slackUser => {
-            console.log(slackUser);
+            // console.log(slackUser);
             let curieMessage = {
               channel: slackUser[0].user_id,
-              as_user: false,
+              as_user: true,
+              reply_broadcast: true,
+              // callback_id:
               attachments: [
                 {
                   title: `${title}`,
@@ -517,7 +556,8 @@ router.post("/send-me-buttons", urlencodedParser, (req, res) => {
                   pretext: `Survey #${curieSurveyId}`
                 }
               ]
-            }; console.log("posting private message")
+            };
+            console.log("posting private message");
             postPrivateMessage(curieMessage, curieBotToken);
           });
         });
