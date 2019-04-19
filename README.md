@@ -66,6 +66,8 @@ Command: heroku config:add TZ="America/New_York" -a botsentiment
 | GET    | /api/surveys/manager/:id | responds with all survey's [{data}]  |
 | GET    | /api/surveys/:id |  responds with a survey associated with the specified id [{data}]  |
 | GET    | /api/surveys/changeActivity/:id |  changes the activity of a survey to inactive associated with the specified id [{data}] |
+| GET    | /api/surveys/surveys/team-member/:id  | responds with the surveys by team member id for IOS  |
+| GET    | /api/surveys/curie/surveys/team-member/:id | respond with the curie surveys for team member by id  | 
 | GET    | /api/survey_active | responds with all survey's activity info in the Data Base [{data}]  |      
 | GET    | /api/survey_feelings | responds with all survey feelings in the Data Base [{data}]  |
 | GET    | /api/survey_feelings/:id | responds with survey feeling associated with specified survey feeling id [{data}] |   
@@ -85,6 +87,8 @@ Command: heroku config:add TZ="America/New_York" -a botsentiment
 | GET | /api/questionSurvey/changeActivityCurie/:id | responds with survey associated with activity change and id |
 | GET | /api/curieActiveSurvey | responds with all active surveys in data base |
 | GET | /api/curieAnswers | responds with all answers for curie surveys |
+| GET | /api/curieAnswers/questions_id/:id | responds with questions and answers for the curie surveys by ID for team members |
+| Get | /api/curieAnswers/team/:id | responds with questions and answers for a manger to get them for all members of their team members using team id |
 
 
 
@@ -102,6 +106,7 @@ Command: heroku config:add TZ="America/New_York" -a botsentiment
 | POST    | /api/feelings | Creates a new feeling |{"feeling_text": "string", "team_member_id": integer}|
 | POST    | /api/questionSurvey  | Creates a new survey  |
 | POST    | /api/curieAnswers  | Creates answers for Curie survey  |
+| POST    |/api/curieAnswers/ios | Creates answers for IOS curie surveys |
 
 ### PUT : [
 
