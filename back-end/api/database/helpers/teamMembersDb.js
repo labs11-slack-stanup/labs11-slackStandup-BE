@@ -15,6 +15,9 @@ module.exports = {
   getManager: function(team_id) {
     return db(table).where({team_id: team_id, type: "manager"});
   },
+  getTeamMember: function(team_id) {
+    return db(table).where({team_id: team_id, type: "team_member"});
+  },
   getEmail: function(email) {
     return db(table).where("email", email);
   },
