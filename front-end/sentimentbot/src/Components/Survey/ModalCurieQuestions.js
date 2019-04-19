@@ -10,7 +10,9 @@ class SurveyTitles extends React.Component {
 		this.state = {
 			modal: false,
 			title: "",
-			description: "",
+			question_1: "",
+			question_2: "",
+			question_3: "",
 		};
 
 		this.toggle = this.toggle.bind(this);
@@ -21,7 +23,6 @@ class SurveyTitles extends React.Component {
 			modal: !prevState.modal
 		}));
 	}
-
 
 	render() {
 		return (
@@ -45,8 +46,8 @@ class SurveyTitles extends React.Component {
 					<label className="survey-inputlabel">Question 1</label>
 					<input
 						type="text"
-						value={this.props.state.description}
-						name="description"
+						value={this.props.state.question_1}
+						name="question_1"
 						placeholder="Survey question 1"
 						onChange={this.props.titleChangeHandler}
 					/>
@@ -55,8 +56,8 @@ class SurveyTitles extends React.Component {
 					<label className="survey-inputlabel">Question 2</label>
 					<input
 						type="text"
-						value={this.props.state.description}
-						name="description"
+						value={this.props.state.question_2}
+						name="question_2"
 						placeholder="Survey question 2"
 						onChange={this.props.titleChangeHandler}
 					/>
@@ -65,8 +66,8 @@ class SurveyTitles extends React.Component {
 					<label className="survey-inputlabel">Question 3</label>
 					<input
 						type="text"
-						value={this.props.state.description}
-						name="description"
+						value={this.props.state.question_3}
+						name="question_3"
 						placeholder="Survey question 3"
 						onChange={this.props.titleChangeHandler}
 					/>
@@ -80,4 +81,5 @@ class SurveyTitles extends React.Component {
 		);
 	}
 }
+
 export default SurveyTitles;
