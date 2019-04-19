@@ -224,7 +224,7 @@ router.post("/events", (req, res) => {
     }
   });
 });
-
+// slash command to recieve mood surveys and curie surveys
 router.post("/send-me-buttons", urlencodedParser, (req, res) => {
   // res.status(200).end(); // best practice to respond with empty 200 status code
   let reqBody = req.body;
