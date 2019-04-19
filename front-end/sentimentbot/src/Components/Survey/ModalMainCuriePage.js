@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import NavBar from '../NavBar/NavBar';
 import "./Modal.css";
@@ -35,6 +35,9 @@ class ModalCurieSurvey extends React.Component {
 			min: 1,
 			amPm: "AM",
 			timeZone: "EST",
+			question_1: "",
+			question_2: "",
+			question_3: "",
 			// option1: ['', ':joy:'],
 			// option2: ['',':sunglasses:'],
 			// option3: ['',':sob:'],
@@ -52,8 +55,8 @@ class ModalCurieSurvey extends React.Component {
 		this.props.getSingleTeamMembers(localStorage.getItem("email"));
 		this.props.getSurvey(localStorage.getItem('id'));
 		this.props.getSingleTeam(localStorage.getItem('team_id'));
-		this.props.getFeelings(localStorage.getItem('id'));
-		this.props.getPreFeeling();
+		// this.props.getFeelings(localStorage.getItem('id'));
+		// this.props.getPreFeeling();
 		if (this.props.survey.length > 0) {
 			this.props.fetchSingleSurvey(this.props.survey[0].survey_time_stamp);
 			this.setState({
@@ -67,8 +70,6 @@ class ModalCurieSurvey extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		// if(this.props.prefeelings.length !== prevProps.prefeelings.length) {
-		// }
 		if(this.props.isFetching === false && this.state.added === true)  {
 			this.props.getPreFeeling();
 			if(this.props.prefeelings.length !== prevProps.prefeelings.length && this.props.isFetching === false && this.state.added === true) {
@@ -89,7 +90,7 @@ class ModalCurieSurvey extends React.Component {
 		this.setState({
 			[event.target.name]: event.target.value
 		})
-	}
+	};
 
 	onChangeHandler = event => {
 		// this.setState({
@@ -322,14 +323,17 @@ class ModalCurieSurvey extends React.Component {
 				this.state.option2,
 				this.state.option3,
 				this.state.option4]
-		})
+		});
 		alert('Choices have been saved!')
-	}
+	};
 
 	createCurieSurvey = event => {
 		event.preventDefault();
 		let title = this.state.title;
-		let description = this.state.description;
+		// let description = this.state.description;
+		let question_1 = this.state.question_1;
+		let question_2 = this.state.question_2;
+		let question_3 = this.state.question_3;
 		let manager_id = this.props.singleTeamMembers[0].id;
 		let dailyWeeklyMonthly= this.state.dailyWeeklyMonthly;
 		let hour = this.state.hour;
@@ -339,7 +343,9 @@ class ModalCurieSurvey extends React.Component {
 		// let preFeelingIdsArray = this.state.preFeelingIdsArray;
 		const combine = {
 			title: title,
-			description: description,
+			question_1: question_1,
+			question_2: question_2,
+			question_3: question_3,
 			manager_id: manager_id,
 			dailyWeeklyMonthly: dailyWeeklyMonthly,
 			hour: hour,
@@ -347,27 +353,29 @@ class ModalCurieSurvey extends React.Component {
 			timeZone: timeZone,
 			min: min,
 			// preFeelingIdsArray: preFeelingIdsArray
-		}
+		};
 		this.props.addSurvey(combine)
 		this.props.getSurvey(localStorage.getItem('id'));
 		alert('Survey has been submitted')
 		this.setState({
 			title: "",
-			description: "",
+			question_1: "",
+			question_2: "",
+			question_3: "",
 			manager_id: 0,
 			dailyWeeklyMonthly: "daily",
 			hour: 1,
 			min: 1,
 			amPm: "AM",
 			timeZone: "EST",
-			option1: ['', ':joy:'],
-			option2: ['',':sunglasses:'],
-			option3: ['',':sob:'],
-			textArray: [':joy:',':sunglasses:',':scream:',':pensive:'],
-			strArr: ["happy", ":joy:"],
+			// option1: ['', ':joy:'],
+			// option2: ['',':sunglasses:'],
+			// option3: ['',':sob:'],
+			// textArray: [':joy:',':sunglasses:',':scream:',':pensive:'],
+			// strArr: ["happy", ":joy:"],
 			// option4: ['',':skull:'],
-			preFeelingIdsArray: [],
-		})
+			// preFeelingIdsArray: [],
+		});
 
 		setTimeout(() => {
 			this.props.history.push('/profile')
@@ -383,32 +391,16 @@ class ModalCurieSurvey extends React.Component {
 			// {name: "Step 2: Enter your questions for your survey", component: <ModalCurie state={this.state} onConfirmation={this.onConfirmation} onSelectTest1={this.onSelectTest1} emojiPicker={this.emojiPicker} emojiPicker2={this.emojiPicker2} emojiPicker3={this.emojiPicker3} emojiPicker4={this.emojiPicker4} addCustom={this.addCustom} onChangeHandler={this.onChangeHandler} onChangeHandler2={this.onChangeHandler2} onChangeHandler3={this.onChangeHandler3} onChangeHandler4={this.onChangeHandler4}/>},
 			{name: "Step 2: Schedule when to send it out", component: <ModalSchedule state={this.state} onChangeDropDown ={this.onChangeDropDown} />},
 			{name: "Step 3: Finalize and create", component: <ConfirmationCurie state={this.state} createCurieSurvey={this.createCurieSurvey} history={this.props.history} />}
-		]
+		];
 
 		return (
 			<div className="modalpage-container background-color">
 				<NavBar />
 				<div className="modalsurvey-container">
-					{/*<div className="modalsurvey-title">
-                        <h1 className="modal-header">Survey Maker</h1>
-                    </div>
-                    <div className="modalsurvey-carousel">
-                        <MoodBotCarousel />
-                    </div>
-                    <div className="modalsurvey-buttonbox">
-                        <button className="survey-modalbutton 1">Title <ModalTitles state={this.state} onChangeHandler={this.onChangeHandler} /></button>
-                        <button className="survey-modalbutton 2">Responses <ModalPrefeelings state={this.state} onConfirmation={this.onConfirmation} onSelectTest1={this.onSelectTest1} onSelectTest2={this.onSelectTest2} onSelectTest3={this.onSelectTest3} onSelectTest4={this.onSelectTest4} emojiPicker={this.emojiPicker} addCustom={this.addCustom} /></button>
-                        <button className="survey-modalbutton">Schedule <ModalSchedule state={this.state} onChangeDropDown ={this.onChangeDropDown} /></button>
-                        <button className="surveysubmit-button" onClick={this.createSurvey}>Submit</button>
-
-                      </div>
-                      
-                  </div> */}
 					<h1 className="survey-header">Start a Stand-Up</h1>
 					<StepZilla steps={steps} />
 				</div>
 				{/* <FooterPage /> */}
-
 				{/* <div className="modalfooter">
                   <p className="modalcopyright-words">© Copyright M.O.O.D All Rights Reserved.</p>
                   <div className="modalfooterimg-box">
@@ -418,7 +410,7 @@ class ModalCurieSurvey extends React.Component {
 			</div>
 		)
 	}
-};
+}
 
 function mapStateToProps(state) {
 	return {
