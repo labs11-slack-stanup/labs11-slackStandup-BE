@@ -107,6 +107,7 @@ Command: heroku config:add TZ="America/New_York" -a botsentiment
 | POST    | /api/questionSurvey  | Creates a new survey  |
 | POST    | /api/curieAnswers  | Creates answers for Curie survey  |
 | POST    |/api/curieAnswers/ios | Creates answers for IOS curie surveys |
+| POST    | /api/stripe | creates a subscription to curie surveys |
 
 ### PUT : [
 
