@@ -28,7 +28,7 @@ class ModalCurieSurvey extends React.Component {
 		super();
 		this.state = {
 			title: "",
-			description: "",
+			// description: "",
 			manager_id: 0,
 			dailyWeeklyMonthly: "daily",
 			hour: 1,
@@ -69,22 +69,22 @@ class ModalCurieSurvey extends React.Component {
 		}
 	}
 
-	componentDidUpdate(prevProps, prevState) {
-		if(this.props.isFetching === false && this.state.added === true)  {
-			this.props.getPreFeeling();
-			if(this.props.prefeelings.length !== prevProps.prefeelings.length && this.props.isFetching === false && this.state.added === true) {
-				let feel = this.props.prefeelings.length -1
-				let text = this.props.prefeelings
-				setTimeout(() => {
-					this.setState({
-						added: false,
-						preFeelingIdsArray: [text[feel-3].id, text[feel-2].id, text[feel-1].id, text[feel].id],
-						textArray: [text[feel-3].feeling_text, text[feel-2].feeling_text, text[feel-1].feeling_text, text[feel].feeling_text]
-					})
-				}, 2000);
-			}
-		}
-	}
+	// componentDidUpdate(prevProps, prevState) {
+	// 	if(this.props.isFetching === false && this.state.added === true)  {
+	// 		this.props.getPreFeeling();
+	// 		if(this.props.prefeelings.length !== prevProps.prefeelings.length && this.props.isFetching === false && this.state.added === true) {
+	// 			let feel = this.props.prefeelings.length -1
+	// 			let text = this.props.prefeelings
+	// 			setTimeout(() => {
+	// 				this.setState({
+	// 					added: false,
+	// 					preFeelingIdsArray: [text[feel-3].id, text[feel-2].id, text[feel-1].id, text[feel].id],
+	// 					textArray: [text[feel-3].feeling_text, text[feel-2].feeling_text, text[feel-1].feeling_text, text[feel].feeling_text]
+	// 				})
+	// 			}, 2000);
+	// 		}
+	// 	}
+	// }
 
 	titleChangeHandler= event => {
 		this.setState({
@@ -92,156 +92,156 @@ class ModalCurieSurvey extends React.Component {
 		})
 	};
 
-	onChangeHandler = event => {
-		// this.setState({
-		//   [event.target.name]: [event.target.value, this.state.custom[1]],
-		// })
-		// let string = event.target.value
-		// let strArr = string.split(" ")
-		// if (strArr.length > 2) {
-		//   strArr.splice(1, strArr.length-2,)
-		// }
-		// this.setState({
-		//   strArr: [strArr[0], this.state.strArr[1]]
-		// })
-		let string = event.target.value;
-		let strArr = string.split(" ")
-		if(strArr.length > 2) {
-			strArr.splice(1, strArr.length-2,)
-		}
-		this.setState({
-			option1: [strArr[0], this.state.option1[1]]
-		})
-		// this.setState({
-		//   [event.target.name]: [event.target.value, this.state.custom[1]]
-		// });
-	};
+	// onChangeHandler = event => {
+	// 	// this.setState({
+	// 	//   [event.target.name]: [event.target.value, this.state.custom[1]],
+	// 	// })
+	// 	// let string = event.target.value
+	// 	// let strArr = string.split(" ")
+	// 	// if (strArr.length > 2) {
+	// 	//   strArr.splice(1, strArr.length-2,)
+	// 	// }
+	// 	// this.setState({
+	// 	//   strArr: [strArr[0], this.state.strArr[1]]
+	// 	// })
+	// 	let string = event.target.value;
+	// 	let strArr = string.split(" ")
+	// 	if(strArr.length > 2) {
+	// 		strArr.splice(1, strArr.length-2,)
+	// 	}
+	// 	this.setState({
+	// 		option1: [strArr[0], this.state.option1[1]]
+	// 	})
+	// 	// this.setState({
+	// 	//   [event.target.name]: [event.target.value, this.state.custom[1]]
+	// 	// });
+	// };
 
-	onChangeHandler2 = event => {
-		let string = event.target.value;
-		let strArr = string.split(" ")
-		if(strArr.length > 2) {
-			strArr.splice(1, strArr.length-2,)
-		}
-		this.setState({
-			option2: [strArr[0], this.state.option2[1]]
-		})
-	}
+	// onChangeHandler2 = event => {
+	// 	let string = event.target.value;
+	// 	let strArr = string.split(" ")
+	// 	if(strArr.length > 2) {
+	// 		strArr.splice(1, strArr.length-2,)
+	// 	}
+	// 	this.setState({
+	// 		option2: [strArr[0], this.state.option2[1]]
+	// 	})
+	// }
 
-	onChangeHandler3 = event => {
-		let string = event.target.value;
-		let strArr = string.split(" ")
-		if(strArr.length > 2) {
-			strArr.splice(1, strArr.length-2,)
-		}
-		this.setState({
-			option3: [strArr[0], this.state.option3[1]]
-		})
-	}
+	// onChangeHandler3 = event => {
+	// 	let string = event.target.value;
+	// 	let strArr = string.split(" ")
+	// 	if(strArr.length > 2) {
+	// 		strArr.splice(1, strArr.length-2,)
+	// 	}
+	// 	this.setState({
+	// 		option3: [strArr[0], this.state.option3[1]]
+	// 	})
+	// }
 
-	onChangeHandler4 = event => {
-		let string = event.target.value;
-		let strArr = string.split(" ")
-		if(strArr.length > 2) {
-			strArr.splice(1, strArr.length-2,)
-		}
-		this.setState({
-			option4: [strArr[0], this.state.option4[1]]
-		})
-	}
+	// onChangeHandler4 = event => {
+	// 	let string = event.target.value;
+	// 	let strArr = string.split(" ")
+	// 	if(strArr.length > 2) {
+	// 		strArr.splice(1, strArr.length-2,)
+	// 	}
+	// 	this.setState({
+	// 		option4: [strArr[0], this.state.option4[1]]
+	// 	})
+	// }
 
-	emojiPicker = (emoji, event) =>  {
-		event.preventDefault();
-		// let string = this.state.custom.join(" ")
-		// let strArr = string.split(" ")
-		if (this.state.option1.length > 2) {
-			this.state.option1.splice(1, this.state.option1.length-2,)
-			this.setState({
-				option1: [this.state.option1[0], emoji.colons]
-			})
-		}
-		this.setState({
-			option1: [this.state.option1[0], emoji.colons]
-		})
-		// console.log(string)
-		// console.log(strArr)
-	}
+	// emojiPicker = (emoji, event) =>  {
+	// 	event.preventDefault();
+	// 	// let string = this.state.custom.join(" ")
+	// 	// let strArr = string.split(" ")
+	// 	if (this.state.option1.length > 2) {
+	// 		this.state.option1.splice(1, this.state.option1.length-2,)
+	// 		this.setState({
+	// 			option1: [this.state.option1[0], emoji.colons]
+	// 		})
+	// 	}
+	// 	this.setState({
+	// 		option1: [this.state.option1[0], emoji.colons]
+	// 	})
+	// 	// console.log(string)
+	// 	// console.log(strArr)
+	// }
 
-	emojiPicker2 = (emoji, event) =>  {
-		event.preventDefault();
-		if (this.state.option2.length > 2) {
-			this.state.option2.splice(1, this.state.option2.length-2,)
-			this.setState({
-				option2: [this.state.option2[0], emoji.colons]
-			})
-		}
-		this.setState({
-			option2: [this.state.option2[0], emoji.colons]
-		})
-	}
+	// emojiPicker2 = (emoji, event) =>  {
+	// 	event.preventDefault();
+	// 	if (this.state.option2.length > 2) {
+	// 		this.state.option2.splice(1, this.state.option2.length-2,)
+	// 		this.setState({
+	// 			option2: [this.state.option2[0], emoji.colons]
+	// 		})
+	// 	}
+	// 	this.setState({
+	// 		option2: [this.state.option2[0], emoji.colons]
+	// 	})
+	// }
 
-	emojiPicker3 = (emoji, event) =>  {
-		event.preventDefault();
-		if (this.state.option3.length > 2) {
-			this.state.option3.splice(1, this.state.option3.length-2,)
-			this.setState({
-				option3: [this.state.option3[0], emoji.colons]
-			})
-		}
-		this.setState({
-			option3: [this.state.option3[0], emoji.colons]
-		})
-	}
+	// emojiPicker3 = (emoji, event) =>  {
+	// 	event.preventDefault();
+	// 	if (this.state.option3.length > 2) {
+	// 		this.state.option3.splice(1, this.state.option3.length-2,)
+	// 		this.setState({
+	// 			option3: [this.state.option3[0], emoji.colons]
+	// 		})
+	// 	}
+	// 	this.setState({
+	// 		option3: [this.state.option3[0], emoji.colons]
+	// 	})
+	// }
 
-	emojiPicker4 = (emoji, event) =>  {
-		event.preventDefault();
-		if (this.state.option4.length > 2) {
-			this.state.option4.splice(1, this.state.option4.length-2,)
-			this.setState({
-				option4: [this.state.option4[0], emoji.colons]
-			})
-		}
-		this.setState({
-			option4: [this.state.option4[0], emoji.colons]
-		})
-	}
+	// emojiPicker4 = (emoji, event) =>  {
+	// 	event.preventDefault();
+	// 	if (this.state.option4.length > 2) {
+	// 		this.state.option4.splice(1, this.state.option4.length-2,)
+	// 		this.setState({
+	// 			option4: [this.state.option4[0], emoji.colons]
+	// 		})
+	// 	}
+	// 	this.setState({
+	// 		option4: [this.state.option4[0], emoji.colons]
+	// 	})
+	// }
 
-	addCustom = event => {
-		// event.preventDefault();
-		// let string = this.state.custom.join(" ")
-		// let strArr = string.split(" ")
-		// if (strArr.length > 2) {
-		//   strArr.splice(1, strArr.length-2,)
-		// }
-		// this.setState({
-		//   custom: [, this.state.custom[1]],
-		//   strArr: strArr
-		// })
-		const custom1 = {feeling_text: this.state.option1.join(" ")};
-		const custom2 = {feeling_text: this.state.option2.join(" ")};
-		const custom3 = {feeling_text: this.state.option3.join(" ")};
-		const custom4 = {feeling_text: this.state.option4.join(" ")};
-		this.props.addPreFeeling(custom1)
-		setTimeout(() => {
-			this.props.addPreFeeling(custom2)
-		}, 1000);
-		setTimeout(() => {
-			this.props.addPreFeeling(custom3)
-		}, 1100);
-		setTimeout(() => {
-			this.props.addPreFeeling(custom4)
-		}, 1200);
-		// this.props.getPreFeeling();
-		this.setState({
-			option1: ['', ':joy:'],
-			option2: ['',':sunglasses:'],
-			option3: ['',':sob:'],
-			option4: ['',':skull:'],
-			added: true,
-		})
-		// alert('Your custom emoji was added!')
-		// this.props.history.push("/emojiloading")
-	}
+	// addCustom = event => {
+	// 	// event.preventDefault();
+	// 	// let string = this.state.custom.join(" ")
+	// 	// let strArr = string.split(" ")
+	// 	// if (strArr.length > 2) {
+	// 	//   strArr.splice(1, strArr.length-2,)
+	// 	// }
+	// 	// this.setState({
+	// 	//   custom: [, this.state.custom[1]],
+	// 	//   strArr: strArr
+	// 	// })
+	// 	const custom1 = {feeling_text: this.state.option1.join(" ")};
+	// 	const custom2 = {feeling_text: this.state.option2.join(" ")};
+	// 	const custom3 = {feeling_text: this.state.option3.join(" ")};
+	// 	const custom4 = {feeling_text: this.state.option4.join(" ")};
+	// 	this.props.addPreFeeling(custom1)
+	// 	setTimeout(() => {
+	// 		this.props.addPreFeeling(custom2)
+	// 	}, 1000);
+	// 	setTimeout(() => {
+	// 		this.props.addPreFeeling(custom3)
+	// 	}, 1100);
+	// 	setTimeout(() => {
+	// 		this.props.addPreFeeling(custom4)
+	// 	}, 1200);
+	// 	// this.props.getPreFeeling();
+	// 	this.setState({
+	// 		option1: ['', ':joy:'],
+	// 		option2: ['',':sunglasses:'],
+	// 		option3: ['',':sob:'],
+	// 		option4: ['',':skull:'],
+	// 		added: true,
+	// 	})
+	// 	// alert('Your custom emoji was added!')
+	// 	// this.props.history.push("/emojiloading")
+	// }
 
 	onChangeDropDown = event => {
 		console.log(event.target.value, event.target.id);
@@ -307,25 +307,25 @@ class ModalCurieSurvey extends React.Component {
 	//   });
 	// }
 
-	onConfirmation = event => {
-		event.preventDefault();
-		console.log("clicked!");
-		if (this.state.preFeelingIdsArray.length > 3) {
-			this.state.preFeelingIdsArray.shift()
-			this.state.preFeelingIdsArray.shift()
-			this.state.preFeelingIdsArray.shift()
-			this.state.preFeelingIdsArray.shift()
-		}
-		this.setState({
-			preFeelingIdsArray: [
-				...this.state.preFeelingIdsArray,
-				this.state.option1,
-				this.state.option2,
-				this.state.option3,
-				this.state.option4]
-		});
-		alert('Choices have been saved!')
-	};
+	// onConfirmation = event => {
+	// 	event.preventDefault();
+	// 	console.log("clicked!");
+	// 	if (this.state.preFeelingIdsArray.length > 3) {
+	// 		this.state.preFeelingIdsArray.shift()
+	// 		this.state.preFeelingIdsArray.shift()
+	// 		this.state.preFeelingIdsArray.shift()
+	// 		this.state.preFeelingIdsArray.shift()
+	// 	}
+	// 	this.setState({
+	// 		preFeelingIdsArray: [
+	// 			...this.state.preFeelingIdsArray,
+	// 			this.state.option1,
+	// 			this.state.option2,
+	// 			this.state.option3,
+	// 			this.state.option4]
+	// 	});
+	// 	alert('Choices have been saved!')
+	// };
 
 	createCurieSurvey = event => {
 		event.preventDefault();
