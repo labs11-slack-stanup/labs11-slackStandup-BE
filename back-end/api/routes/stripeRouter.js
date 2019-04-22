@@ -17,7 +17,7 @@ const {
     serverErrorUpdate404,
     serverErrorUpdate500
 } = require("./routeHelpers/helpers.js");
-  
+//  creates a subscription to curie
 router.post('/subscribe10', (req, res) => {
     const stripeToken = req.body.stripeToken;
     const email = req.body.email;
