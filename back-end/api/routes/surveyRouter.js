@@ -257,7 +257,7 @@ const surveyScheduler = (timeInfo, postInfo, res) => {
                   uri:
                     "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
                   // uri:
-                  // "https://occasum.serveo.net/api/slash/send-me-buttons",
+                  // " https://occasum.serveo.net/api/slash/send-me-buttons",
                   method: "POST",
                   headers: {
                     "Content-type": "application/json"
@@ -363,10 +363,10 @@ const surveyScheduler = (timeInfo, postInfo, res) => {
                     console.log("Schedule Processed");
                     console.log("botInfo2", botInfo);
                     let postOptions = {
-                      // uri:
-                      //   "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
-                        uri:
-                        "https://occasum.serveo.net/api/slash/send-me-buttons",
+                      uri:
+                        "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
+                        // uri:
+                        // "https://occasum.serveo.net/api/slash/send-me-buttons",
                         // uri:
                         // "http://localhost:5003/api/slash/send-me-buttons",
                       method: "POST",
