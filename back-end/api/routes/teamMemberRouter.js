@@ -18,7 +18,7 @@ const {
 
 const type = "team member";
 const type2 = "team";
-
+// create a team member
 router.post("/", (req, res) => {
   const postInfo = req.body;
 
@@ -64,13 +64,13 @@ router.post("/", (req, res) => {
     .then(postSuccess(res))
     .catch(serverErrorPost(res));
 });
-
+// all team members
 router.get("/", (req, res) => {
   db.get()
     .then(getSuccess(res))
     .catch(serverErrorGet(res));
 });
-
+// team members by id
 router.get("/:id", (req, res) => {
   const { id } = req.params;
   db.getID(id)
@@ -84,14 +84,14 @@ router.get("/team_member/:id", (req, res) => {
     .then(getSuccess(res))
     .catch(serverErrorGetID(res, type, id));
 });
-
+// team members by email
 router.get("/Email/:email", (req, res) => {
   const { email } = req.params;
   db.getEmail(email)
     .then(getSuccess(res))
     .catch(serverErrorGetEmail(res, type, email));
 });
-
+// delete a team member
 router.delete(`/:id`, (req, res) => {
   const { id } = req.params;
   db.getID(id)
@@ -108,7 +108,7 @@ router.delete(`/:id`, (req, res) => {
       serverErrorDelete500(res, type);
     });
 });
-
+// update a team member
 router.put("/:id", (req, res) => {
   const { id } = req.params;
   const changes = req.body;
@@ -127,7 +127,7 @@ router.put("/:id", (req, res) => {
     }
   });
 });
-
+// team member can join a team using team code
 router.put("/:id/join", (req, res) => {
   // on click of join team front end provides team code and id from params
   const { id } = req.params;

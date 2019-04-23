@@ -14,7 +14,6 @@ const {
   serverErrorUpdate500
 } = require("./routeHelpers/helpers.js");
 
-// const type = "active_surveys";
 
 router.get("/", (req, res) => {
   db.get()

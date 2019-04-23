@@ -49,21 +49,20 @@ router.get('/created/:date',  (req, res) => {
 
 //GET by Id: LABS 11
 router.get('/:id', (req, res) => {
-      const { id } = req.params;
-
-      db
-          .getID(id)
-          .then((surveys) => {
-              if (surveys) {
-                  res.status(200).json(surveys);
-              } else {
-                  res.status(404).json({ success: false, message: 'The survey with the specified ID does not exist.' });
-              }
-          })
-          .catch((err) => {
-              res.status(500).json({ success: false, error: 'This survey could not be retrieved.' });
-          });
-  });
+  const { id } = req.params;
+    db
+      .getID(id)
+      .then((surveys) => {
+           if (surveys) {
+              res.status(200).json(surveys);
+            } else {
+                res.status(404).json({ success: false, message: 'The survey with the specified ID does not exist.' });
+            }
+        })
+        .catch((err) => {
+            res.status(500).json({ success: false, error: 'This survey could not be retrieved.' });
+        });
+});
 
   router.get("/manager/:id", (req, res) => {
     const { id } = req.params;
