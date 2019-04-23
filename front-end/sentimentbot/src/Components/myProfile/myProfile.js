@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 // import "../App.css";
+import classnames from 'classnames';
 import "./myProfile.css";
 // import FooterPage from "../Footer/footer-test";
 import {
@@ -25,6 +26,7 @@ import GenerateTeams from "./generateTeams";
 import GenerateSurveys from "./generateSurveys";
 import Happy from "../PNG/nobackgroundHappy.png";
 import loadinggif from "../callback/loading.svg";
+
 class Profile extends React.Component {
 	constructor() {
 		super();
@@ -166,7 +168,13 @@ class Profile extends React.Component {
 			[event.target.name]: event.target.value
 		});
 	};
-
+	toggle(tab) {
+		if (this.state.activeTab !== tab) {
+			this.setState({
+				activeTab: tab
+			});
+		}
+	}
 	render() {
 		if (!localStorage.getItem("email")) {
 			this.props.history.push("/home");
@@ -286,63 +294,60 @@ class Profile extends React.Component {
 							<TabContent activeTab={this.state.activeTab}>
 								<TabPane tabId="1">
 									<div>Test tab 1</div>
+									<div className="reactions">
+									{this.props.singleTeamMembers[0].type === "manager" ? (
+										<p>Your Moods:</p>
+									) : (
+										<p>Your Reactions:</p>
+									)}
+									<div className="reactions-scroll">
+										{this.props.singleTeamMembers[0].type === "manager" ? (
+											this.props.survey.length > 0 ? (
+												<p>
+													<GenerateSurveys />
+												</p>
+											) : (
+												<p>Oops! You haven't created any moods yet!</p>
+											)
+										) : this.props.feelings.length > 0 ? (
+											<p>
+												<GenerateTeams />
+											</p>
+										) : (
+											<p>Oops! You haven't responded to any moods yet!</p>
+										)}
+									</div>
+									</div>
 								</TabPane>
 								<TabPane tabId="2">
 									<div>Test tab 2</div>
+									<div className="standups">
+										{this.props.singleTeamMembers[0].type === "manager" ? (
+											<p>Your Surveys:</p>
+										) : (
+											<p>Your standups:</p>
+										)}
+										<div className="standups-scroll">
+											{this.props.singleTeamMembers[0].type === "manager" ? (
+												this.props.survey.length > 0 ? (
+													<p>
+														<GenerateSurveys />
+													</p>
+												) : (
+													<p>Oops! You haven't created any surveys yet!</p>
+												)
+											) : this.props.feelings.length > 0 ? (
+												<p>
+													<GenerateTeams />
+												</p>
+											) : (
+												<p>Oops! You haven't responded to any surveys yet!</p>
+											)}
+										</div>
+									</div>
 								</TabPane>
 							</TabContent>
 						</div>
-						<div className="reactions">
-							{this.props.singleTeamMembers[0].type === "manager" ? (
-								<p>Your Moods:</p>
-							) : (
-								<p>Your Reactions:</p>
-							)}
-							<div className="reactions-scroll">
-								{this.props.singleTeamMembers[0].type === "manager" ? (
-									this.props.survey.length > 0 ? (
-										<p>
-											<GenerateSurveys />
-										</p>
-									) : (
-										<p>Oops! You haven't created any moods yet!</p>
-									)
-								) : this.props.feelings.length > 0 ? (
-									<p>
-										<GenerateTeams />
-									</p>
-								) : (
-									<p>Oops! You haven't responded to any moods yet!</p>
-								)}
-							</div>
-						</div>
-						<div className="standups">
-							{this.props.singleTeamMembers[0].type === "manager" ? (
-								<p>Your Surveys:</p>
-							) : (
-								<p>Your standups:</p>
-							)}
-							<div className="standups-scroll">
-								{this.props.singleTeamMembers[0].type === "manager" ? (
-									this.props.survey.length > 0 ? (
-										<p>
-											<GenerateSurveys />
-										</p>
-									) : (
-										<p>Oops! You haven't created any surveys yet!</p>
-									)
-								) : this.props.feelings.length > 0 ? (
-									<p>
-										<GenerateTeams />
-									</p>
-								) : (
-									<p>Oops! You haven't responded to any surveys yet!</p>
-								)}
-							</div>
-						</div>
-						{/* <div className="btn-div">
-              <button className="btn-feel">Responed to Latest Survey</button>
-            </div> */}
 					</div>
 					{/* <FooterPage /> */}
 				</div>
@@ -415,21 +420,7 @@ class Profile extends React.Component {
 			return (
 				<div className="page-container background-color">
 					<div className="profilecontent-container">
-						{/* <p>Loading...</p> */}
 						<NavBar />
-						{/* <a
-            href={`https://slack.com/oauth/authorize?scope=commands,bot&client_id=553324377632.554405336645&redirect_uri=${uri}&state=${
-              this.props.singleTeamMembers[0].id
-            }`}
-          >
-            <img
-              alt="Add to Slack"
-              height="40"
-              width="139"
-              src="https://platform.slack-edge.com/img/add_to_slack.png"
-              srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
-            />
-          </a> */}
 						<div className="container-pandb">
 							{localStorage.getItem("team_id") !== null ? (
 								<p className="p-tag">
@@ -441,80 +432,12 @@ class Profile extends React.Component {
 								<p>Feel free to explore the site.</p>
 							)}
 							<br />
-							{/* <button
-              className="btn-feel-2 "
-              onClick={() => this.props.history.push("/loading")}
-            >
-              Here!
-            </button> */}
 						</div>
-						{/* <form onSubmit={this.submitHandler} autoComplete="nope">
-            <input
-              autoComplete="off"
-              type="text"
-              onChange={this.handleChange}
-              name="name"
-              placeholder="Add Team Name"
-              value={this.state.name}
-            />
-            <button
-              onClick={() => {
-                this.createTeam();
-              }}
-            >
-              Submit Team Title
-            </button>
-          </form> */}
 					</div>
 					{/* <FooterPage /> */}
 				</div>
 			);
 		}
-		// } else if (view === "join") {
-		//   return (
-		//     <div className="background-color">
-		//     <div className="container">
-		//       <p>Loading...</p>
-		//       {/* <NavBar />
-		//       <a
-		//         href={`https://slack.com/oauth/authorize?scope=commands&client_id=553324377632.554405336645&redirect_uri=${uri}&state=${
-		//           this.props.singleTeamMembers[0].id
-		//         }`}
-		//       >
-		//         <img
-		//           alt="Add to Slack"
-		//           height="40"
-		//           width="139"
-		//           src="https://platform.slack-edge.com/img/add_to_slack.png"
-		//           srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
-		//         />
-		//       </a>
-		//       <p>Congratulations on joining your team. Click the button above to join your team on Slack. Or, click below to see your profile.</p>
-		//       <button onClick={() => this.setState({
-		//         view: ""
-		//       })}>Here</button> */}
-		//       {/* <form onSubmit={this.submitHandler} autoComplete="nope">
-		//         <input
-		//           autoComplete="off"
-		//           type="text"
-		//           onChange={this.handleChange}
-		//           name="team_code"
-		//           placeholder="Add Team Code"
-		//           value={this.state.team_code}
-		//         />
-		//         <button
-		//           onClick={() => {
-		//             this.addCodeToMember();
-		//           }}
-		//         >
-		//           Submit Team Code
-		//         </button>
-		//       </form> */}
-		//       {/* <Footer /> */}
-		//     </div>
-		//     </div>
-		//   );
-		// }
 	}
 }
 
