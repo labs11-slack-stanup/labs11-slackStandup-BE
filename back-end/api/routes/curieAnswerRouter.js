@@ -75,6 +75,7 @@ router.get("/team/:id", (req, res) => {
 
 router.post("/", (req, res) => {
   const postInfo = req.body;
+  console.log("postInfo",postInfo)
   let answerTable = {
     answer_1: postInfo.answer_1,
     answer_2: postInfo.answer_2,
@@ -86,7 +87,7 @@ router.post("/", (req, res) => {
     .getBySurveyIdTeamMemberId(postInfo.survey_id, postInfo.team_member_id)
     .then(
       surveyCheck => {
-        console.log(surveyCheck);
+        // console.log("SurveyCheck",surveyCheck);
         if (surveyCheck.length === 0) {
           db
             .insert(answerTable)
@@ -99,7 +100,7 @@ router.post("/", (req, res) => {
         } else {
           if (
             surveyCheck[0].answer_1 &&
-            surveyCheck[0].answer_2 === "" &&
+            surveyCheck[0].answer_2 === null &&
             postInfo.answer_2
           ) {
             db
@@ -112,7 +113,7 @@ router.post("/", (req, res) => {
               });
           } else if (
             surveyCheck[0].answer_2 &&
-            surveyCheck[0].answer_3 === "" &&
+            surveyCheck[0].answer_3 === null &&
             postInfo.answer_3
           ) {
             db
