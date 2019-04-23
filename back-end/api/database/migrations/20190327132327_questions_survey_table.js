@@ -7,7 +7,6 @@ exports.up = function(knex, Promise) {
       tbl.string("question_2").notNullable();
       tbl.string("question_3").notNullable();
       tbl.integer("manager_id").notNullable();
-      tbl.integer("team_id").notNullable();
       tbl.timestamp("created_at", true).defaultTo(knex.fn.now())
       tbl.string("survey_time_stamp");
       tbl.string("ex_time");

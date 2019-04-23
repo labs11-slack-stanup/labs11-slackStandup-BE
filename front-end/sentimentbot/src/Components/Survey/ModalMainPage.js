@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import NavBar from '../NavBar/NavBar';
 import "./Modal.css";
 import ModalTitles from './ModalTitles';
-import  ModalPrefeelings from './ModalPrefeelings';
+import ModalPrefeelings from './ModalPrefeelings';
 import ModalSchedule from './ModalSchedule';
 import Confirmation from './confirmation';
 

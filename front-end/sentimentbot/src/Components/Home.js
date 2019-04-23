@@ -14,7 +14,7 @@ import {
 } from 'reactstrap';
 // import Awe from "../../PNG/nobackgroundAwe.png";
 import NavBar from "./NavBar/NavBar";
-import MoodbotCarousel from '../Components/Survey/Carousel/carousel';
+// import MoodbotCarousel from '../Components/Survey/Carousel/carousel';
 import CreatorPage from "./CreatorPage/creatorPage";
 
 class Home extends React.Component {
@@ -102,12 +102,12 @@ class Home extends React.Component {
               <h1>
                 Hello, I am the Miniature Organization Observation Drone, or M.O.O.D.
                 Let me help you enjoy working with your team.
-          </h1>
+              </h1>
               <div >
                 {localStorage.getItem('isLoggedIn') ? (null) : <Login auth={auth} />}
               </div>
             </div>
-            <MoodbotCarousel />
+            {/*<MoodbotCarousel />*/}
             {/* <div className="home-container-img">
           <img
             src={Happy}
@@ -135,7 +135,7 @@ class Home extends React.Component {
                 <CardText className="cardText">Meaningful graphs to dial it back and see the bigger picture.</CardText>
               </CardBody>
             </Card>
-            <div className="youtube"><iframe width="560" height="315" title="mood-walkthrough" src="https://www.youtube.com/embed/bLy1kzb0A_s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div className="youtube"><iframe width="560" height="315" title="mood-walkthrough" src="https://www.youtube.com/embed/bLy1kzb0A_s" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe></div>
             <div className="faq"> FAQ <br></br> <br></br>
               <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                 <DropdownToggle className="faqButton" caret>

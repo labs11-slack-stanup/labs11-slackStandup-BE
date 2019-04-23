@@ -143,7 +143,8 @@ const onServerStartScheduleSurveys = () => {
   //////////////////////////////////////////////////////////////
 };
 
-const surveyScheduler = (timeInfo, postInfo) => {
+const surveyScheduler = (timeInfo, postInfo, res) => {
+  // console.log(res)
   let hour;
   let min = timeInfo.min;
   let exTime = "";
@@ -211,7 +212,7 @@ const surveyScheduler = (timeInfo, postInfo) => {
     curieDB
       .getManagerID(manager_id)
       .then(data => {
-        console.log("survey data", data);
+        // console.log("survey data", data);
         let survey_id = Math.max.apply(
           Math,
           data.map(function(o) {
@@ -219,7 +220,7 @@ const surveyScheduler = (timeInfo, postInfo) => {
           })
         );
 
-        console.log("survey id", survey_id);
+        // console.log("survey id", survey_id);
         if (data.length === 0) {
           console.log({
             error: `Survey with Manager Id: ${manager_id} does not exist.`
@@ -231,32 +232,57 @@ const surveyScheduler = (timeInfo, postInfo) => {
           curieDB
             .update(survey_id, updatePost)
             .then((data) => {
-              console.log("Curie what ails ya", data);
+              // console.log("Curie what ails ya", data);
 
-              let botInfo = {
-                // message: true,
-                // member_id: manager_id,
-                // survey_id: survey_id,
-                // title: title,
+              let curieBotInfo = {
+                message: "curie",
+                manager_id: manager_id,
+                survey_id: survey_id,
+                title: postInfo.title,
+                question_1: postInfo.question_1,
+                question_2: postInfo.question_2,
+                question_3: postInfo.question_3
+               
 
               };
 
-              console.log("botInfo", botInfo);
+              // console.log("curieBotInfo", curieBotInfo);
               let stringSurveyId = survey_id.toString();
               stringSurveyId += 'n';
-              console.log("stringSurveyId", stringSurveyId);
+              // console.log("stringSurveyId", stringSurveyId);
 
+                // console.log("Schedule Curie Processed");
+                // console.log("CurieBotInfo2", curieBotInfo);
+                let postOptions = {
+                  uri:
+                    "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
+                  // uri:
+                  // "https://occasum.serveo.net/api/slash/send-me-buttons",
+                  method: "POST",
+                  headers: {
+                    "Content-type": "application/json"
+                  },
+                  json: curieBotInfo
+                };
+                request(postOptions, (error, response, body) => {
+                  if (error) {
+                    // handle errors as you see fit
+                    res.json({ error: "Error." });
+                  }
+                });
               // schedule.scheduleJob(stringSurveyId, exTime, function() {
-              //   console.log("Schedule Processed");
-              //   console.log("botInfo2", botInfo);
+              //   console.log("Schedule Curie Processed");
+              //   console.log("CurieBotInfo2", curieBotInfo);
               //   let postOptions = {
+              //     // uri:
+              //     //   "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
               //     uri:
-              //       "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
+              //     "https://occasum.serveo.net/api/slash/send-me-buttons",
               //     method: "POST",
               //     headers: {
               //       "Content-type": "application/json"
               //     },
-              //     json: botInfo
+              //     json: curieBotInfo
               //   };
               //   request(postOptions, (error, response, body) => {
               //     if (error) {
@@ -337,8 +363,12 @@ const surveyScheduler = (timeInfo, postInfo) => {
                     console.log("Schedule Processed");
                     console.log("botInfo2", botInfo);
                     let postOptions = {
-                      uri:
-                        "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
+                      // uri:
+                      //   "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
+                        uri:
+                        "https://occasum.serveo.net/api/slash/send-me-buttons",
+                        // uri:
+                        // "http://localhost:5003/api/slash/send-me-buttons",
                       method: "POST",
                       headers: {
                         "Content-type": "application/json"
@@ -346,10 +376,12 @@ const surveyScheduler = (timeInfo, postInfo) => {
                       json: botInfo
                     };
                     request(postOptions, (error, response, body) => {
-                      if (error) {
-                        // handle errors as you see fit
-                        res.json({ error: "Error." });
-                      }
+                      // console.log(res)
+                      // if (error) {
+                      //   // handle errors as you see fit
+                      //   res.json({ error: "Error." });
+                      //   console.log(error)
+                      // }
                     });
                   });
                 })
@@ -427,25 +459,11 @@ router.post("/", (req, res) => {
                   .then(postSuccess(res))
                   .catch(serverErrorPost(res));
 
-
-                // let answerInfo = {
-                //    answer_1: '',
-                //    answer_2: '',
-                //    answer_3: '',
-                //    team_member_id: '',
-                //    survey_id: newID
-                //   };
-
-                // curieAnswers
-                //   .insert(answerInfo)
-                //   .then(postSuccess(res))
-                //   .catch(serverErrorPost(res));
-
               });
             }) //.then for curieDB
 
             .then(() => {
-              surveyScheduler(timeInfo, curieInfo);
+              surveyScheduler(timeInfo, curieInfo, res);
             })
             .catch(serverErrorGet(res));
 
@@ -549,6 +567,27 @@ router.get("/surveys/team-member/:id", (req, res) => {
         .then(data => {
           let managerID = data[0].id;
           db.getManagerID(managerID)
+            .then(data => {
+              res.status(200).json(data);
+            })
+            .catch(serverErrorGet(res));
+        })
+        .catch(serverErrorGet(res));
+    })
+    .catch(serverErrorGet(res));
+});
+
+router.get("/curie/surveys/team-member/:id", (req, res) => {
+  const { id } = req.params;
+  teamMembersDb
+    .getID(id)
+    .then(data => {
+      let teamID = data[0].team_id;
+      teamMembersDb
+        .getManager(teamID)
+        .then(data => {
+          let managerID = data[0].id;
+          curieDB.getManagerID(managerID)
             .then(data => {
               res.status(200).json(data);
             })

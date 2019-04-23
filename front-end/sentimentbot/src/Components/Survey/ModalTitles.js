@@ -28,7 +28,7 @@ class SurveyTitles extends React.Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Survey Title and Description</ModalHeader>
           <ModalBody> */}
-          <p>Step 1/4: Enter a Title and a Question.</p>
+          <p>First, enter a Title and a Question.</p>
                 <div className="survey-inputbox">
                   <label className="survey-inputlabel title-label">Title</label>
                   <input

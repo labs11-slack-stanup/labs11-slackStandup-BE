@@ -175,7 +175,7 @@ class Profile extends React.Component {
     currentMember.type = "manager";
     // this.props.getSingleTeamMembers(localStorage.getItem("email"));
     localStorage.setItem("joined", true);
-    alert("Our Mood Bots are on it");
+    // alert("Our Mood Bots are on it");
     // localStorage.setItem('type', 'manager')
     // this.props.getTeams();
     // this.props.history.push(<Callback />);
@@ -184,10 +184,15 @@ class Profile extends React.Component {
       this.props.history.push("/loading");
     }, 500);
   };
-
+  // Mood
   goToSurveyMaker = event => {
     event.preventDefault();
     this.props.history.push("/survey");
+  }
+  // Curie
+  goToCurieSurveyMaker = event => {
+    event.preventDefault();
+    this.props.history.push("/standup");
   }
 
   addCodeToMember = event => {
@@ -229,7 +234,7 @@ class Profile extends React.Component {
     // localStorage.setItem('team_id', futureTeamId)
     // localStorage.setItem('type', 'team_member')
     localStorage.setItem("joined", true);
-    alert("Our Mood Bots are on it");
+    // alert("Our Mood Bots are on it");
 
     // window.location.reload();
     this.props.history.push("/loading");
@@ -259,11 +264,14 @@ class Profile extends React.Component {
       this.props.history.push("/home");
     }
     const view = this.state.view;
-
+               
+                    
+            // "https://slack.com/oauth/authorize?scope=commands,bot&client_id=596381005414.586225274705&redirect_uri=http://localhost:5003/api/slackauth&state="
+            // "https://slack.com/oauth/authorize?scope=commands&client_id=596381005414.586225274705&redirect_uri=http://localhost:5003/api/slackauth&state="
     const uri = "https://labs11-curie-web.herokuapp.com/api/slackauth";
     const url1 = "https://slack.com/oauth/authorize?scope=commands,bot&client_id=596381005414.586225274705";
     const url2 = "https://slack.com/oauth/authorize?scope=commands&client_id=596381005414.586225274705";
-    // const uri = "http://localhost:3000/authorization";
+    // const uri = "http://localhost:5003/api/slackauth";
     console.log(view);
     if (this.state.loading === true) {
       return <img className="loadinggif" src={loadinggif} alt="loading" />;
@@ -340,18 +348,45 @@ class Profile extends React.Component {
                     height="58"
                   />
                   <div>
-                    {localStorage.getItem('type') === 'manager' ? (<div id="gotosurveymaker" onClick={this.goToSurveyMaker}>Create Survey</div> ) : (null)}
+                    {localStorage.getItem('type') === 'manager' ? (<div id="gotosurveymaker" onClick={this.goToSurveyMaker}>Get Moods</div> ) : (null)}
+                  </div>
+                  <div>
+                    {localStorage.getItem('type') === 'manager' ? (<div id="gotosurveymaker" onClick={this.goToCurieSurveyMaker}>Start Standup</div> ) : (null)}
                   </div>
                 </div>
               </div>
             </div>
             <div className="reactions">
               {this.props.singleTeamMembers[0].type === "manager" ? (
-                <p>Your Surveys:</p>
+                <p>Your Moods:</p>
               ) : (
                 <p>Your Reactions:</p>
               )}
               <div className="reactions-scroll">
+                {this.props.singleTeamMembers[0].type === "manager" ? (
+                  this.props.survey.length > 0 ? (
+                    <p>
+                      <GenerateSurveys />
+                    </p>
+                  ) : (
+                    <p>Oops! You haven't created any moods yet!</p>
+                  )
+                ) : this.props.feelings.length > 0 ? (
+                  <p>
+                    <GenerateTeams />
+                  </p>
+                ) : (
+                  <p>Oops! You haven't responded to any moods yet!</p>
+                )}
+                </div>
+                </div>
+                <div className="standups">
+            {this.props.singleTeamMembers[0].type === "manager" ? (
+              <p>Your Surveys:</p>
+              ) : (
+                <p>Your standups:</p>
+              )}
+              <div className="standups-scroll">
                 {this.props.singleTeamMembers[0].type === "manager" ? (
                   this.props.survey.length > 0 ? (
                     <p>

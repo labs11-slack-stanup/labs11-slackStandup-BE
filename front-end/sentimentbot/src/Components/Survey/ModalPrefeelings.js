@@ -40,7 +40,7 @@ class SurveyPrefeelings extends React.Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Choose your potential responses</ModalHeader>
           <ModalBody> */}
-          <p>Step 2/4: Create four possible responses for your survey. You can decide to simply use emojis, or you can add one word in the input field along with the emoji of your choice!</p>
+          <p>Next, create four possible responses for your survey. You can decide to simply use emojis, or you can add one word in the input field along with the emoji of your choice!</p>
             <div className="survey-responsebox">
             {/* <button className="survey-modalbutton">Add a Custom Emoji <ModalEmoji state={this.props.state} addCustom={this.props.addCustom} emojiPicker={this.props.emojiPicker} /></button> */}
                 {/* <PreFeelingsChosen 
@@ -105,6 +105,6 @@ function mapStateToProps(state) {
       fetchSingleSurvey,
       addPreFeeling
     }
-  )( SurveyPrefeelings);
+  )(SurveyPrefeelings);
 
  ;
