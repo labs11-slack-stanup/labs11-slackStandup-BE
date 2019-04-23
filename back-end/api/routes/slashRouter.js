@@ -36,7 +36,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 //labs11
 let answerURl;
 if (process.env.DB_ENV === "development") {
-  answerURl = "https://occasum.serveo.net/api/curieAnswers";
+  answerURl = "localhost:5003/api/curieAnswers";
 } else if (process.env.DB_ENV === "production") {
   answerURl = "https://labs11-curie-web.herokuapp.com/api/curieAnswers";
 }
