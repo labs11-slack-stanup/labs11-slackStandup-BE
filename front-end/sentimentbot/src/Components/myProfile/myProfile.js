@@ -203,7 +203,7 @@ class Profile extends React.Component {
 						<div className="name-container">
 							{" "}
 							<h1 className="welcome-container" style={{fontFamily: 'Roboto Slab, serif', fontSize: '4rem', marginTop: '4%' }}>
-								Welcome, {this.props.singleTeamMembers[0].firstName}!
+							DASHBOARD
 							</h1>
 							{/*<p>Curie Active: {this.props.singleTeamMembers[0].status.toString()}</p>*/}
 							<div className="sub-container-1">
@@ -264,10 +264,10 @@ class Profile extends React.Component {
 										height="58"
 									/>
 									<div>
-										{localStorage.getItem('type') === 'manager' ? (<div id="gotosurveymaker" onClick={this.goToSurveyMaker}>Get Moods</div> ) : (null)}
+										{localStorage.getItem('type') === 'manager' ? (<div id="gotosurveymaker" onClick={this.goToSurveyMaker}>Create Sentiment Survey</div> ) : (null)}
 									</div>
 									<div>
-										{localStorage.getItem('type') === 'manager' ? (<div id="gotosurveymaker" onClick={this.goToCurieSurveyMaker}>Start Standup</div> ) : (null)}
+										{localStorage.getItem('type') === 'manager' ? (<div id="gotosurveymaker" onClick={this.goToCurieSurveyMaker}>Create Standup</div> ) : (null)}
 									</div>
 								</div>
 							</div>
