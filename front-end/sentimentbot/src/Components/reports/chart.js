@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from 'react-router-dom';
+import "./report.css";
 import { fetchSingleSurvey, getSingleTeamMembers, getSurvey, getSingleTeam, getFeelings } from "../../actions/index";
 import { Pie } from "react-chartjs-2";
 import { Emoji } from "emoji-mart";
@@ -509,7 +511,7 @@ class PieChart extends React.Component {
     //   return <p>Loading...</p>
     // }
     if (this.state.complete === false || this.props.loading === true || this.props.surveyIsFetching === true) {
-      return (<><p>Make surveys and get responses to see reports!</p>{/*<img className="loadinggif report-gif" src={loadinggif} alt="loading" />*/}</>)
+      return (<><Link className="btn-feel" to={"/profile"}>Create Survey</Link>{/*<img className="loadinggif report-gif" src={loadinggif} alt="loading" />*/}</>)
     } else if (
       this.props.surveyIsFetching === false &&
       this.props.survey.length === 0 &&
