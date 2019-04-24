@@ -203,13 +203,13 @@ class Profile extends React.Component {
 						<div className="name-container">
 							{" "}
 							<h1 className="welcome-container" style={{fontFamily: 'Roboto Slab, serif', fontSize: '4rem', marginTop: '4%' }}>
-							DASHBOARD
+								Dashboard
 							</h1>
 							{/*<p>Curie Active: {this.props.singleTeamMembers[0].status.toString()}</p>*/}
 							<div className="sub-container-1">
 								<div className="sub-container-2">
 									{this.props.managers.length === 0 ? (
-										<h2>Join your team on Slack!</h2>
+										<h2></h2>
 									) : (
 										<p className="optional-text">
 											You've already implemented Mood on Slack. You can update
@@ -267,7 +267,7 @@ class Profile extends React.Component {
 										{localStorage.getItem('type') === 'manager' ? (<div id="gotosurveymaker" onClick={this.goToSurveyMaker}>Create Sentiment Survey</div> ) : (null)}
 									</div>
 									<div>
-										{localStorage.getItem('type') === 'manager' ? (<div id="gotosurveymaker" onClick={this.goToCurieSurveyMaker}>Create Standup</div> ) : (null)}
+										{localStorage.getItem('type') === 'manager' ? (<div id="gotosurveymaker" onClick={this.goToCurieSurveyMaker}>Create Standup Survey</div> ) : (null)}
 									</div>
 								</div>
 							</div>
