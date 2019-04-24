@@ -59,7 +59,7 @@ class NavBar extends React.Component {
                   <Nav className="ml-auto" navbar>
                     <NavItem>
                       <NavLink>
-                        <div onClick={() => history.push('/profile')}>Profile</div>
+                        <div onClick={() => history.push('/profile')}>Dashboard</div>
                       </NavLink>
                     </NavItem>
                     <NavItem>
