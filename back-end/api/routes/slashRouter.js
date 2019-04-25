@@ -37,6 +37,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 let answerURl;
 if (process.env.DB_ENV === "development") {
   answerURl = "localhost:5003/api/curieAnswers";
+  // answerURl = "https://occasum.serveo.net/api/curieAnswers";
 } else if (process.env.DB_ENV === "production") {
   answerURl = "https://labs11-curie-web.herokuapp.com/api/curieAnswers";
 }
@@ -81,7 +82,6 @@ function postPrivateMessage(message, token) {
   });
 }
 
-
 function conversationMessage(token, channel, res) {
   const url =
     "https://slack.com/api/conversations.history?token=" +
@@ -89,22 +89,22 @@ function conversationMessage(token, channel, res) {
     "&channel=" +
     channel;
   console.log("url", url);
-  let answerOptions = {
-    uri: answerURl,
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    json: message
-  };
-  
-  request(url,(error, response, body) => {
+  // let answerOptions = {
+  //   uri: answerURl,
+  //   method: "POST",
+  //   headers: {
+  //     "Content-type": "application/json"
+  //   },
+  //   json: message
+  // };
+
+  request(url, (error, response, body) => {
     if (error) {
       res.json({ error: "Error." });
-    } else {
-      request(answerOptions, (error,response, body) => {
-         console.log("answerOptions", answerOptions)
-      })
+      // } else {
+      //   request(answerOptions, (error,response, body) => {
+      //      console.log("answerOptions", answerOptions)
+      //   })
     }
   });
 }
@@ -137,18 +137,12 @@ function postEphMessage(JSONmessage, token) {
     json: JSONmessage
   };
   request(postOptions, (error, response, body) => {
-      if (error) {
+    if (error) {
       // handle errors as you see fit
       res.json({ error: "Error." });
     }
   });
 }
-//store responses and send next question 
-// function storeResponse() {
-//   let reqBody = req.body 
-//   console.log()
-// }
-
 
 // https://slack.com/api/chat.postMessage?token=xoxb-553324377632-553511725281-WtIU01FxATAkavAPlFn6BPz2&channel=CG9EQ53QR&text=Test
 
@@ -201,7 +195,7 @@ router.post("/connect-channel-to-survey", urlencodedParser, (req, res) => {
       })
     );
 });
-
+//ssh -R 80:localhost:5003 serveo.net
 //event post
 router.post("/events", urlencodedParser, (req, res) => {
   let reqBody = req.body;
@@ -223,11 +217,10 @@ router.post("/events", urlencodedParser, (req, res) => {
           dbAuth.getByMemberId(managerIDD).then(date => {
             let botToken = date[0].bot_access_token;
             console.log("botToken", botToken);
-            
-            
-            
-            conversationMessage(botToken, conChannel, res);
-            
+  //////////////////////////////////////////////////////////////////////////
+           
+              
+       
           });
         }
       });
@@ -548,7 +541,7 @@ router.post("/send-me-buttons", urlencodedParser, (req, res) => {
         // console.log(manager);
         dbTeamMembers.getTeamMember(manager[0].team_id).then(team => {
           // console.log(team);
-          
+
           dbAuth.getByMemberId(team[0].id).then(slackUser => {
             console.log("teamMember", slackUser);
             let curieMessage = {
@@ -571,14 +564,14 @@ router.post("/send-me-buttons", urlencodedParser, (req, res) => {
                     text: `${question_1}`
                   }
                 },
-                // {
-                //   type: "section",
-                //   block_id: "question2",
-                //   text: {
-                //     type: "plain_text",
-                //     text: `${question_2}`
-                //   }
-                // },
+                {
+                  type: "section",
+                  block_id: "question2",
+                  text: {
+                    type: "plain_text",
+                    text: `${question_2}`
+                  }
+                }
                 // {
                 //   type: "section",
                 //   block_id: "question3",
@@ -617,7 +610,6 @@ router.post("/send-me-buttons", urlencodedParser, (req, res) => {
         /////////////////////////////////////////////////////////////////////////////
 
         if (callbackIDSlash.includes("button_tutorial")) {
-        
           ///////////////////////////////////////////////////////////////////////////////////////////
 
           dbAuth
@@ -871,7 +863,6 @@ router.post("/send-me-buttons", urlencodedParser, (req, res) => {
       .catch(err => console.log(err));
   }
 });
-
 
 module.exports = router;
 
