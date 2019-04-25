@@ -213,27 +213,36 @@ class Profile extends React.Component {
           <div className="profilecontent-container">
             <div className="name-container">
               {" "}
-              <h1
-                className="welcome-container"
-                style={{
-                  fontFamily: "Roboto Slab, serif",
-                  fontSize: "4rem",
-                  marginTop: "4%"
-                }}
-              >
-                Welcome, {this.props.singleTeamMembers[0].firstName}!
-              </h1>
+              <h1 className="welcome-container" style={{fontFamily: 'Roboto Slab, serif', fontSize: '4rem', marginTop: '4%' }}>
+              
+              {/* line below commented out - giving error of status undefined */}
+                Dashboard
+                </h1>
+
               {/*<p>Curie Active: {this.props.singleTeamMembers[0].status.toString()}</p>*/}
               <div className="sub-container-1">
                 <div className="sub-container-2">
-                  {this.props.managers.length === 0 ? (
+                  {/* {this.props.managers.length === 0 ? (
                     <h2>Join your team on Slack!</h2>
                   ) : (
                     <p className="optional-text">
                       You've already implemented Mood on Slack. You can update
                       your workspace by clicking the button below.
                     </p>
-                  )}
+                  )} */}
+                  
+                  {this.props.managers.length === 1 ? (
+                  this.props.singleTeamMembers[0].type === "manager" ? (
+                  <h2 className="optional-text-2">Once you're connected to a slack work space, connect your mood bot to a channel with the slash command: <span className="span">/connect_channel_to_survey</span></h2>
+                  ) : (
+                    <h2 className="optional-text-2">Hint once connected to a slack workspace, you can use the slash command: <span className="span">/send-me-buttons</span> to receive existing surveys!</h2>
+                  )
+                  ): (null)
+                  }
+                  <h3 className="team-wordbox">Team: {this.props.singleTeams[0].name}</h3>
+                </div>
+                <div className="secondcolumn">
+
                   {this.props.singleTeamMembers[0].type === "manager" ? (
                     <a
                       href={`${url1}&redirect_uri=${uri}&state=${
@@ -263,6 +272,7 @@ class Profile extends React.Component {
                       />
                     </a>
                   )}
+
                   {this.props.managers.length === 1 ? (
                     this.props.singleTeamMembers[0].type === "manager" ? (
                       <h2 className="optional-text-2">
@@ -291,7 +301,8 @@ class Profile extends React.Component {
                     width="58"
                     height="58"
                   />
-                
+                  
+
                 </div>
               </div>
             </div>
