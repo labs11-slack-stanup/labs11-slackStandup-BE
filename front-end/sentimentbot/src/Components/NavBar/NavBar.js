@@ -37,7 +37,7 @@ class NavBar extends React.Component {
   }
   render() {
     const backgroundColor = {
-      backgroundColor: "#02C8A7"
+      backgroundColor: "#efb991"
     };
 
     const fontColor = {
@@ -59,12 +59,12 @@ class NavBar extends React.Component {
                   <Nav className="ml-auto" navbar>
                     <NavItem>
                       <NavLink>
-                        <div onClick={() => history.push('/profile')}>Profile</div>
+                        <div onClick={() => history.push('/profile')}>Dashboard</div>
                       </NavLink>
                     </NavItem>
                     <NavItem>
                       <NavLink>
-                        <div onClick={() => history.push('/teamlist')}>Teamlist</div>
+                        <div onClick={() => history.push('/teamlist')}>Team List</div>
                       </NavLink>
                     </NavItem>
                     {/* <NavItem>

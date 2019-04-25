@@ -1,11 +1,12 @@
 .nav-item .nav-link div {
     text-decoration: none;
-    color: white;
+    color: black;
     cursor: pointer;
 }
 
 .navbar {
-    background-color: var(--main-btn-color);
+    /* background-color: var(--main-btn-color); */
+    background-color: #f7b37f
 }
 
 .navbar-nav {
@@ -13,14 +14,14 @@
     align-items: center;
 }
 
-/* .navbar-expand-md a {
-    color: white;
+ .navbar-expand-md a {
+    color: #f7b37f;
 }
 
-.navbar-brand a { 
-    font-family: var(--headers-font-style);
-    text-decoration: none;
-} */
+ /* .navbar-brand a { 
+     font-family: var(--headers-font-style); 
+     text-decoration: none; 
+}    */
 
 .navbot {
     height: 45px;
@@ -35,20 +36,23 @@
 }
 
 .dropdown-menu .dropdown-item {
-    background-color: #02C8A7;
+    /* background-color: #02C8A7; */
+    background-color: #efb991
 }
 
 .dropdown-menu-right {
-    background-color: #02C8A7; 
+    /* background-color: #02C8A7;  */
+    background-color: #efb991
 }
 
-/* .dropdown-menu {
-    background-color: #02C8A7;
+.dropdown-menu {
+    background-color: #efb991;
 
-} */
+}
 
 .dropdown-menu .dropdown-item:hover {
-    background-color: #5bbdc2;
+    /* background-color: #5bbdc2; */
+    background-color: #feeee1;
 }
 
 .logout-button {
