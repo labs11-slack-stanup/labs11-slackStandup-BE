@@ -96,16 +96,10 @@
 }
 
 .sub-container-2 a {
-    
-    position: fixed; 
-    display: flex;
-    justify-content: flex-end;
-    left: 60.9%;
-    top: 17.5%;
     width: 15rem;
     height: 3.5rem;
-
 }
+
 .team-wordbox {
     margin-top: 55px;
 

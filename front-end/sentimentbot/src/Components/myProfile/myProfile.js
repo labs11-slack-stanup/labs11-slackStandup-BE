@@ -289,19 +289,19 @@ class Profile extends React.Component {
               <h1 className="welcome-container" style={{fontFamily: 'Roboto Slab, serif', fontSize: '4rem', marginTop: '4%' }}>
               
               {/* line below commented out - giving error of status undefined */}
-                {/* Welcome, {this.props.singleTeamMembers[0].firstName}!   */}
+                Dashboard
                 </h1>
               {/*<p>Curie Active: {this.props.singleTeamMembers[0].status.toString()}</p>*/}
               <div className="sub-container-1">
                 <div className="sub-container-2">
-                  {this.props.managers.length === 0 ? (
+                  {/* {this.props.managers.length === 0 ? (
                     <h2>Join your team on Slack!</h2>
                   ) : (
                     <p className="optional-text">
                       You've already implemented Mood on Slack. You can update
                       your workspace by clicking the button below.
                     </p>
-                  )}
+                  )} */}
                   
                   {this.props.managers.length === 1 ? (
                   this.props.singleTeamMembers[0].type === "manager" ? (
