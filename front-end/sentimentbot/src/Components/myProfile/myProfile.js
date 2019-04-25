@@ -1,6 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
+import {
+  TabContent,
+  TabPane,
+  Nav,
+  NavItem,
+  NavLink,
+  Card,
+  Button,
+  CardTitle,
+  CardText,
+  Row,
+  Col
+} from "reactstrap";
 // import "../App.css";
+import classnames from "classnames";
 import "./myProfile.css";
 // import FooterPage from "../Footer/footer-test";
 import {
@@ -24,9 +38,11 @@ import GenerateTeams from "./generateTeams";
 import GenerateSurveys from "./generateSurveys";
 import Happy from "../PNG/nobackgroundHappy.png";
 import loadinggif from "../callback/loading.svg";
+
 class Profile extends React.Component {
   constructor() {
     super();
+    this.toggle = this.toggle.bind(this);
     this.state = {
       view: "",
       name: "",
@@ -35,12 +51,12 @@ class Profile extends React.Component {
       jointeam: "",
       createTeam: "",
       loading: true,
-      added: false
+      added: false,
+      activeTab: "1"
     };
   }
 
   componentDidMount() {
-    //new code
     this.props.getSingleTeamMembers(localStorage.getItem("email"));
     this.props.getSurvey(localStorage.getItem("id"));
     this.props.getTeams();
@@ -58,9 +74,6 @@ class Profile extends React.Component {
         loading: false
       });
     }
-    //old code
-    // this.props.getSurvey(this.props.singleTeamMembers[0].id);
-    // this.props.getPreFeeling();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -90,74 +103,7 @@ class Profile extends React.Component {
         this.props.getSingleTeamMembers(localStorage.getItem("email"));
       }
     }
-
-    // if (localStorage.getItem('team_id') === null) {
-    //   localStorage.setItem('team_id', this.props.singleTeamMembers[0].team_id)
-    //   this.props.getSingleTeam(localStorage.getItem('team_id'))
-    // }
-
-    // if(this.props.singleTeamMembers.team_id !== null) {
-    //   localStorage.setItem('team_id', this.props.singleTeamMembers[0].team_id)
-    // }
-    //   //new code
-    //   if (
-    //     this.props.singleTeamMembers.length !== prevProps.singleTeamMembers.length
-    //   ) {
-    //     this.props.getSingleTeam(localStorage.getItem('team_id'));
-    //     this.props.getFeelings(localStorage.getItem('id'));
-    //     if (this.props.survey.length > 0) {
-    //     this.props.fetchSingleSurvey(this.props.survey[0].survey_time_stamp);
-    //     this.setState({
-    //       loading: false
-    //     })
-    //     } else {
-    //     this.setState({
-    //       loading: false
-    //     })
-    //   }
   }
-
-  // if (this.props.singleTeamMembers !== prevProps.singleTeamMembers) {
-  //   this.props.getSingleTeamMembers(localStorage.getItem("email"));
-  //   console.log(this.props.singleTeamMembers);
-  // }
-  // this.props.getSingleTeamMembers(localStorage.getItem("email"));
-  // this.props.getTeamMembers();
-  // const code = this.props.match.params.code;
-  // console.log(code);
-  // if (code !== prevProps.match.params.code) {
-  //   this.fetchAuth(code);
-  // }
-
-  //old code
-  // if (
-  //   this.props.surveyIsFetching === false &&
-  //   this.props.survey.length > 0 &&
-  //   this.state.loading === true
-  // ) {
-  //   this.props.fetchSingleSurvey(this.props.survey[0].survey_time_stamp);
-  //   this.props.getSingleTeam(this.props.singleTeamMembers[0].team_id);
-  //   this.props.getSingleTeamMembers(localStorage.getItem("email"));
-  //   this.setState({
-  //     loading: false
-  //   });
-  // }
-  // }
-
-  // fetchAuth = code => {
-  //   const uri = "https://labs11-curie-web.herokuapp.com/profile";
-  //   axios
-  //     .get(
-  //       `https://slack.com/api/oauth.access?code=${code}&client_id=555765331446.554661112789&client_secret=65618f3ce7feca293e1abae74cae7afc&redirect_uri=${uri}&state=2ndstate`
-  //     )
-  //     .then(response => {
-  //       console.log("response", response);
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-  // };
-
   createTeam = event => {
     event.preventDefault();
     const name = this.state.createTeam;
@@ -173,14 +119,10 @@ class Profile extends React.Component {
     });
     let currentMember = this.props.singleTeamMembers[0];
     currentMember.type = "manager";
-    // this.props.getSingleTeamMembers(localStorage.getItem("email"));
+
     localStorage.setItem("joined", true);
-    // alert("Our Mood Bots are on it");
-    // localStorage.setItem('type', 'manager')
-    // this.props.getTeams();
-    // this.props.history.push(<Callback />);
+
     setTimeout(() => {
-      // window.location.reload();
       this.props.history.push("/loading");
     }, 500);
   };
@@ -188,24 +130,18 @@ class Profile extends React.Component {
   goToSurveyMaker = event => {
     event.preventDefault();
     this.props.history.push("/survey");
-  }
+  };
   // Curie
   goToCurieSurveyMaker = event => {
     event.preventDefault();
     this.props.history.push("/standup");
-  }
+  };
 
   addCodeToMember = event => {
     event.preventDefault();
     const code = parseInt(this.state.team_code);
     let teams = this.props.teams;
     let futureTeamId = null;
-    // let teamID = teams.map(item => {
-    //   if (item.team_code === code) {
-    //     return item.id;
-    //   }
-    // });
-
     for (let i = 0; i < teams.length; i++) {
       if (teams[i].team_code === code) {
         futureTeamId = teams[i].id;
@@ -231,16 +167,10 @@ class Profile extends React.Component {
 
     currentMember.type = member.type;
     currentMember.team_id = futureTeamId;
-    // localStorage.setItem('team_id', futureTeamId)
-    // localStorage.setItem('type', 'team_member')
-    localStorage.setItem("joined", true);
-    // alert("Our Mood Bots are on it");
 
-    // window.location.reload();
+    localStorage.setItem("joined", true);
+
     this.props.history.push("/loading");
-    // setTimeout(() => {
-    //   window.location.reload();
-    // }, 2200);
   };
 
   handleChange = event => {
@@ -248,29 +178,26 @@ class Profile extends React.Component {
       [event.target.name]: event.target.value
     });
   };
-
-  // submitHandler = event => {
-  //   event.preventDefault();
-  //   this.props.addTeamMembers(this.state);
-  //   this.setState({
-  //     ...this.state,
-  //     name: this
-  //   });
-  //   history.push("/profile");
-  // };
-
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      });
+    }
+  }
   render() {
     if (!localStorage.getItem("email")) {
       this.props.history.push("/home");
     }
     const view = this.state.view;
-               
-                    
-            // "https://slack.com/oauth/authorize?scope=commands,bot&client_id=596381005414.586225274705&redirect_uri=http://localhost:5003/api/slackauth&state="
-            // "https://slack.com/oauth/authorize?scope=commands&client_id=596381005414.586225274705&redirect_uri=http://localhost:5003/api/slackauth&state="
+
+    // "https://slack.com/oauth/authorize?scope=commands,bot&client_id=596381005414.586225274705&redirect_uri=http://localhost:5003/api/slackauth&state="
+    // "https://slack.com/oauth/authorize?scope=commands&client_id=596381005414.586225274705&redirect_uri=http://localhost:5003/api/slackauth&state="
     const uri = "https://labs11-curie-web.herokuapp.com/api/slackauth";
-    const url1 = "https://slack.com/oauth/authorize?scope=commands,bot&client_id=596381005414.586225274705";
-    const url2 = "https://slack.com/oauth/authorize?scope=commands&client_id=596381005414.586225274705";
+    const url1 =
+      "https://slack.com/oauth/authorize?scope=commands,bot&client_id=596381005414.586225274705";
+    const url2 =
+      "https://slack.com/oauth/authorize?scope=commands&client_id=596381005414.586225274705";
     // const uri = "http://localhost:5003/api/slackauth";
     console.log(view);
     if (this.state.loading === true) {
@@ -279,43 +206,50 @@ class Profile extends React.Component {
       this.props.singleTeams.length > 0 &&
       localStorage.getItem("team_id") != null
     ) {
-      console.log(this.props.singleTeamMembers[0].status)
+      console.log(this.props.singleTeamMembers[0].status);
       return (
         <div className="profilepage-container background-color">
           <NavBar />
           <div className="profilecontent-container">
             <div className="name-container">
               {" "}
-              <h1 className="welcome-container" style={{fontFamily: 'Roboto Slab, serif', fontSize: '4rem', marginTop: '4%' }}>
-              
-              {/* line below commented out - giving error of status undefined */}
+              <h1
+                className="welcome-container"
+                style={{
+                  fontFamily: "Roboto Slab, serif",
+                  fontSize: "4rem",
+                  marginTop: "4%"
+                }}
+              >
+                {/* Welcome, {this.props.singleTeamMembers[0].firstName}! */}
                 Dashboard
-                </h1>
+              </h1>
               {/*<p>Curie Active: {this.props.singleTeamMembers[0].status.toString()}</p>*/}
               <div className="sub-container-1">
                 <div className="sub-container-2">
-                  {/* {this.props.managers.length === 0 ? (
-                    <h2>Join your team on Slack!</h2>
-                  ) : (
-                    <p className="optional-text">
-                      You've already implemented Mood on Slack. You can update
-                      your workspace by clicking the button below.
-                    </p>
-                  )} */}
-                  
+                 
                   {this.props.managers.length === 1 ? (
-                  this.props.singleTeamMembers[0].type === "manager" ? (
-                  <h2 className="optional-text-2">Once you're connected to a slack work space, connect your mood bot to a channel with the slash command: <span className="span">/connect_channel_to_survey</span></h2>
-                  ) : (
-                    <h2 className="optional-text-2">Hint once connected to a slack workspace, you can use the slash command: <span className="span">/send-me-buttons</span> to receive existing surveys!</h2>
-                  )
-                  ): (null)
-                  }
-                  <h3 className="team-wordbox">Team: {this.props.singleTeams[0].name}</h3>
+                    this.props.singleTeamMembers[0].type === "manager" ? (
+                      <h2 className="optional-text-2">
+                        Once you're connected to a slack work space, connect
+                        your mood bot to a channel with the slash command:{" "}
+                        <span className="span">/connect_channel_to_survey</span>
+                      </h2>
+                    ) : (
+                      <h2 className="optional-text-2">
+                        Hint once connected to a slack workspace, you can use
+                        the slash command:{" "}
+                        <span className="span">/send-me-buttons</span> to
+                        receive existing surveys!
+                      </h2>
+                    )
+                  ) : null}
+                  <h3 className="team-wordbox">
+                    Team: {this.props.singleTeams[0].name}
+                  </h3>
                 </div>
                 <div className="secondcolumn">
-
-                  {this.props.singleTeamMembers[0].type === "manager" ? (
+                {this.props.singleTeamMembers[0].type === "manager" ? (
                     <a
                       href={`${url1}&redirect_uri=${uri}&state=${
                         this.props.singleTeamMembers[0].id
@@ -343,7 +277,7 @@ class Profile extends React.Component {
                         srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
                       />
                     </a>
-                  )}
+                  )} 
 
                   <img
                     className="happy"
@@ -352,61 +286,116 @@ class Profile extends React.Component {
                     width="58"
                     height="58"
                   />
-                  
+                
                 </div>
               </div>
             </div>
-            <div className="reactions">
-              {this.props.singleTeamMembers[0].type === "manager" ? (
-                <p>Your Moods:</p>
-              ) : (
-                <p>Your Reactions:</p>
-              )}
-              <div className="reactions-scroll">
-                {this.props.singleTeamMembers[0].type === "manager" ? (
-                  this.props.survey.length > 0 ? (
-                    <p>
-                      <GenerateSurveys />
-                    </p>
-                  ) : (
-                    <p>Oops! You haven't created any moods yet!</p>
-                  )
-                ) : this.props.feelings.length > 0 ? (
-                  <p>
-                    <GenerateTeams />
-                  </p>
-                ) : (
-                  <p>Oops! You haven't responded to any moods yet!</p>
-                )}
-                </div>
-                </div>
-                <div className="standups">
-            {this.props.singleTeamMembers[0].type === "manager" ? (
-              <p>Your Surveys:</p>
-              ) : (
-                <p>Your standups:</p>
-              )}
-              <div className="standups-scroll">
-                {this.props.singleTeamMembers[0].type === "manager" ? (
-                  this.props.survey.length > 0 ? (
-                    <p>
-                      <GenerateSurveys />
-                    </p>
-                  ) : (
-                    <p>Oops! You haven't created any surveys yet!</p>
-                  )
-                ) : this.props.feelings.length > 0 ? (
-                  <p>
-                    <GenerateTeams />
-                  </p>
-                ) : (
-                  <p>Oops! You haven't responded to any surveys yet!</p>
-                )}
-              </div>
+            <div >
+              <Nav tabs>
+                <NavItem>
+                  <NavLink
+                    className={classnames({
+                      active: this.state.activeTab === "1"
+                    })}
+                    onClick={() => {
+                      this.toggle("1");
+                    }}
+                  >
+                    Mood
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink
+                    className={classnames({
+                      active: this.state.activeTab === "2"
+                    })}
+                    onClick={() => {
+                      this.toggle("2");
+                    }}
+                  >
+                    Curie
+                  </NavLink>
+                </NavItem>
+              </Nav>
+              <TabContent activeTab={this.state.activeTab}>
+                <TabPane tabId="1">
+                  <div>Test tab 1</div>
+                  <div className="reactions">
+                    {this.props.singleTeamMembers[0].type === "manager" ? (
+                      <p>Your Moods:</p>
+                    ) : (
+                      <p>Your Reactions:</p>
+                    )}
+                    <div className="reactions-scroll">
+                      {this.props.singleTeamMembers[0].type === "manager" ? (
+                        this.props.survey.length > 0 ? (
+                          <p>
+                            <GenerateSurveys />
+                          </p>
+                        ) : (
+                          <p>Oops! You haven't created any moods yet!</p>
+                        )
+                      ) : this.props.feelings.length > 0 ? (
+                        <p>
+                          <GenerateTeams />
+                        </p>
+                      ) : (
+                        <p>Oops! You haven't responded to any moods yet!</p>
+                      )}
+                    </div>
+					{/* survey buttons */}
+                    <div>
+                      {localStorage.getItem("type") === "manager" ? (
+                        <div
+                          id="gotosurveymaker"
+                          onClick={this.goToSurveyMaker}
+                        >
+                          Get Moods
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                </TabPane>
+                <TabPane tabId="2">
+                  <div>Test tab 2</div>
+                  <div className="standups">
+                    {this.props.singleTeamMembers[0].type === "manager" ? (
+                      <p>Your Surveys:</p>
+                    ) : (
+                      <p>Your standups:</p>
+                    )}
+                    <div className="standups-scroll">
+                      {this.props.singleTeamMembers[0].type === "manager" ? (
+                        this.props.survey.length > 0 ? (
+                          <p>
+                            <GenerateSurveys />
+                          </p>
+                        ) : (
+                          <p>Oops! You haven't created any surveys yet!</p>
+                        )
+                      ) : this.props.feelings.length > 0 ? (
+                        <p>
+                          <GenerateTeams />
+                        </p>
+                      ) : (
+                        <p>Oops! You haven't responded to any surveys yet!</p>
+                      )}
+                    </div>
+					{/* survey buttons */}
+                    <div>
+                      {localStorage.getItem("type") === "manager" ? (
+                        <div
+                          id="gotosurveymaker"
+                          onClick={this.goToCurieSurveyMaker}
+                        >
+                          Start Standup
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                </TabPane>
+              </TabContent>
             </div>
-            {/* <div className="btn-div">
-              <button className="btn-feel">Responed to Latest Survey</button>
-            </div> */}
           </div>
           {/* <FooterPage /> */}
         </div>
@@ -435,11 +424,7 @@ class Profile extends React.Component {
                 team code provided by you're project manager inside the team
                 code input and click the "Join A Team" button.
               </p>
-              <p className="p-con-4">
-                If you wish to create a team as a team manager, place you're
-                team name inside the team name input and click the "Create A
-                Team" button.
-              </p>
+              
               <div className="sub-container-5">
                 <div className="input-div">
                   <h3>Join a Team!</h3>
@@ -479,21 +464,7 @@ class Profile extends React.Component {
       return (
         <div className="page-container background-color">
           <div className="profilecontent-container">
-            {/* <p>Loading...</p> */}
             <NavBar />
-            {/* <a
-            href={`https://slack.com/oauth/authorize?scope=commands,bot&client_id=553324377632.554405336645&redirect_uri=${uri}&state=${
-              this.props.singleTeamMembers[0].id
-            }`}
-          >
-            <img
-              alt="Add to Slack"
-              height="40"
-              width="139"
-              src="https://platform.slack-edge.com/img/add_to_slack.png"
-              srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
-            />
-          </a> */}
             <div className="container-pandb">
               {localStorage.getItem("team_id") !== null ? (
                 <p className="p-tag">
@@ -505,80 +476,12 @@ class Profile extends React.Component {
                 <p>Feel free to explore the site.</p>
               )}
               <br />
-              {/* <button
-              className="btn-feel-2 "
-              onClick={() => this.props.history.push("/loading")}
-            >
-              Here!
-            </button> */}
             </div>
-            {/* <form onSubmit={this.submitHandler} autoComplete="nope">
-            <input
-              autoComplete="off"
-              type="text"
-              onChange={this.handleChange}
-              name="name"
-              placeholder="Add Team Name"
-              value={this.state.name}
-            />
-            <button
-              onClick={() => {
-                this.createTeam();
-              }}
-            >
-              Submit Team Title
-            </button>
-          </form> */}
           </div>
           {/* <FooterPage /> */}
         </div>
       );
     }
-    // } else if (view === "join") {
-    //   return (
-    //     <div className="background-color">
-    //     <div className="container">
-    //       <p>Loading...</p>
-    //       {/* <NavBar />
-    //       <a
-    //         href={`https://slack.com/oauth/authorize?scope=commands&client_id=553324377632.554405336645&redirect_uri=${uri}&state=${
-    //           this.props.singleTeamMembers[0].id
-    //         }`}
-    //       >
-    //         <img
-    //           alt="Add to Slack"
-    //           height="40"
-    //           width="139"
-    //           src="https://platform.slack-edge.com/img/add_to_slack.png"
-    //           srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
-    //         />
-    //       </a>
-    //       <p>Congratulations on joining your team. Click the button above to join your team on Slack. Or, click below to see your profile.</p>
-    //       <button onClick={() => this.setState({
-    //         view: ""
-    //       })}>Here</button> */}
-    //       {/* <form onSubmit={this.submitHandler} autoComplete="nope">
-    //         <input
-    //           autoComplete="off"
-    //           type="text"
-    //           onChange={this.handleChange}
-    //           name="team_code"
-    //           placeholder="Add Team Code"
-    //           value={this.state.team_code}
-    //         />
-    //         <button
-    //           onClick={() => {
-    //             this.addCodeToMember();
-    //           }}
-    //         >
-    //           Submit Team Code
-    //         </button>
-    //       </form> */}
-    //       {/* <Footer /> */}
-    //     </div>
-    //     </div>
-    //   );
-    // }
   }
 }
 
