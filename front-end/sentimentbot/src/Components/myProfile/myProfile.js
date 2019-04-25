@@ -287,7 +287,9 @@ class Profile extends React.Component {
             <div className="name-container">
               {" "}
               <h1 className="welcome-container" style={{fontFamily: 'Roboto Slab, serif', fontSize: '4rem', marginTop: '4%' }}>
-                Welcome, {this.props.singleTeamMembers[0].firstName}!
+              
+              {/* line below commented out - giving error of status undefined */}
+                {/* Welcome, {this.props.singleTeamMembers[0].firstName}!   */}
                 </h1>
               {/*<p>Curie Active: {this.props.singleTeamMembers[0].status.toString()}</p>*/}
               <div className="sub-container-1">
@@ -300,6 +302,19 @@ class Profile extends React.Component {
                       your workspace by clicking the button below.
                     </p>
                   )}
+                  
+                  {this.props.managers.length === 1 ? (
+                  this.props.singleTeamMembers[0].type === "manager" ? (
+                  <h2 className="optional-text-2">Once you're connected to a slack work space, connect your mood bot to a channel with the slash command: <span className="span">/connect_channel_to_survey</span></h2>
+                  ) : (
+                    <h2 className="optional-text-2">Hint once connected to a slack workspace, you can use the slash command: <span className="span">/send-me-buttons</span> to receive existing surveys!</h2>
+                  )
+                  ): (null)
+                  }
+                  <h3 className="team-wordbox">Team: {this.props.singleTeams[0].name}</h3>
+                </div>
+                <div className="secondcolumn">
+
                   {this.props.singleTeamMembers[0].type === "manager" ? (
                     <a
                       href={`${url1}&redirect_uri=${uri}&state=${
@@ -329,17 +344,7 @@ class Profile extends React.Component {
                       />
                     </a>
                   )}
-                  {this.props.managers.length === 1 ? (
-                  this.props.singleTeamMembers[0].type === "manager" ? (
-                  <h2 className="optional-text-2">Once you're connected to a slack work space, connect your mood bot to a channel with the slash command: <span className="span">/connect_channel_to_survey</span></h2>
-                  ) : (
-                    <h2 className="optional-text-2">Hint once connected to a slack workspace, you can use the slash command: <span className="span">/send-me-buttons</span> to receive existing surveys!</h2>
-                  )
-                  ): (null)
-                  }
-                  <h3 className="team-wordbox">Team: {this.props.singleTeams[0].name}</h3>
-                </div>
-                <div className="secondcolumn">
+
                   <img
                     className="happy"
                     src={Happy}
@@ -347,12 +352,7 @@ class Profile extends React.Component {
                     width="58"
                     height="58"
                   />
-                  <div>
-                    {localStorage.getItem('type') === 'manager' ? (<div id="gotosurveymaker" onClick={this.goToSurveyMaker}>Get Moods</div> ) : (null)}
-                  </div>
-                  <div>
-                    {localStorage.getItem('type') === 'manager' ? (<div id="gotosurveymaker" onClick={this.goToCurieSurveyMaker}>Start Standup</div> ) : (null)}
-                  </div>
+                  
                 </div>
               </div>
             </div>
