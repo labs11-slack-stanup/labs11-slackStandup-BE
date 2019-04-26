@@ -17,6 +17,7 @@ const surveyAcitveDb = require("../database/helpers/surveysActiveDb");
 const curieDB = require("../database/helpers/questionSurveyDb.js");
 const curieActive = require("../database/helpers/curieSurveyActiveDb.js"); //this is the helper for curieSurveyActive
 const curieAnswers = require("../database/helpers/curieAnswersDb.js");
+const slashRouter = require("../routes/slashRouter.js");
 
 const {
   postSuccess,
@@ -208,7 +209,7 @@ const surveyScheduler = (timeInfo, postInfo, res) => {
   console.log("exTime", exTime);
 
   if (postInfo.question_1) {
-    console.log("testing this", postInfo.question_1)
+    console.log("testing this", postInfo.question_1);
     curieDB
       .getManagerID(manager_id)
       .then(data => {
@@ -231,7 +232,7 @@ const surveyScheduler = (timeInfo, postInfo, res) => {
           };
           curieDB
             .update(survey_id, updatePost)
-            .then((data) => {
+            .then(data => {
               // console.log("Curie what ails ya", data);
 
               let curieBotInfo = {
@@ -242,22 +243,19 @@ const surveyScheduler = (timeInfo, postInfo, res) => {
                 question_1: postInfo.question_1,
                 question_2: postInfo.question_2,
                 question_3: postInfo.question_3
-               
-
               };
 
               // console.log("curieBotInfo", curieBotInfo);
               let stringSurveyId = survey_id.toString();
-              stringSurveyId += 'n';
-              // console.log("stringSurveyId", stringSurveyId);
+              stringSurveyId += "n";
 
-                // console.log("Schedule Curie Processed");
-                // console.log("CurieBotInfo2", curieBotInfo);
+              schedule.scheduleJob(stringSurveyId, exTime, function() {
+                console.log("Schedule Curie Processed");
+                console.log("CurieBotInfo2", curieBotInfo);
                 let postOptions = {
                   uri:
                     "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
-                  // uri:
-                  // " https://occasum.serveo.net/api/slash/send-me-buttons",
+                  // uri: "https://occasum.serveo.net/api/slash/send-me-buttons",
                   method: "POST",
                   headers: {
                     "Content-type": "application/json"
@@ -270,27 +268,7 @@ const surveyScheduler = (timeInfo, postInfo, res) => {
                     res.json({ error: "Error." });
                   }
                 });
-              // schedule.scheduleJob(stringSurveyId, exTime, function() {
-              //   console.log("Schedule Curie Processed");
-              //   console.log("CurieBotInfo2", curieBotInfo);
-              //   let postOptions = {
-              //     // uri:
-              //     //   "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
-              //     uri:
-              //     "https://occasum.serveo.net/api/slash/send-me-buttons",
-              //     method: "POST",
-              //     headers: {
-              //       "Content-type": "application/json"
-              //     },
-              //     json: curieBotInfo
-              //   };
-              //   request(postOptions, (error, response, body) => {
-              //     if (error) {
-              //       // handle errors as you see fit
-              //       res.json({ error: "Error." });
-              //     }
-              //   });
-              // });
+              });
             })
             .catch(err => console.log(err));
         }
@@ -365,10 +343,10 @@ const surveyScheduler = (timeInfo, postInfo, res) => {
                     let postOptions = {
                       uri:
                         "https://labs11-curie-web.herokuapp.com/api/slash/send-me-buttons",
-                        // uri:
-                        // "https://occasum.serveo.net/api/slash/send-me-buttons",
-                        // uri:
-                        // "http://localhost:5003/api/slash/send-me-buttons",
+                      // uri:
+                      //   "https://occasum.serveo.net/api/slash/send-me-buttons",
+                      // uri:
+                      // "http://localhost:5003/api/slash/send-me-buttons",
                       method: "POST",
                       headers: {
                         "Content-type": "application/json"
@@ -410,6 +388,81 @@ const surveyScheduler = (timeInfo, postInfo, res) => {
 //   }
 // });
 // }
+
+const sendNextQuestion = (team_member_ID, survey_ID, req,res) => {
+  // Get the wyrvey question object for the id
+  const id = survey_ID;
+  curieDB.getID(id).then(survey => {
+    // Get the answer object for the user
+    curieAnswers
+      .getBySurveyIdTeamMemberId(survey_ID, team_member_ID)
+      // console.log("getSuveyId",survey_ID, team_member_ID)
+      .then(answers => {
+        // Determine the latest answer
+        let question = survey.question_1;
+      
+        if (answers.answer_1 === null) {
+          question = survey.question_1;
+        } else if (answers.answer_2 === null) {
+          question = survey.question_2;
+        } else if (answers.answer_3 === null) {
+          question = survey.question_3;
+        } else {
+          question = null;
+        }
+
+        // Send a DM with the next question to user
+
+        // console.log("curieBotInfo", curieBotInfo);
+        // let stringSurveyId = survey_id.toString();
+        // stringSurveyId += "n";
+        // console.log("stringSurveyId", stringSurveyId);
+
+        dbAuth
+          .getByMemberId(managerID)
+          .then(managerSlack => {
+            // console.log("managerslack", managerSlack);
+            const curieBotToken = managerSlack[0].bot_access_token;
+
+            dbAuth
+              .getByMemberId(team_member_ID)
+              .then(slackUser => {
+                console.log("teamMember", slackUser);
+                let randomColor = Math.floor(Math.random() * 16777215).toString(
+                  16
+                );
+
+                let curieMessage = {
+                  channel: slackUser[0].user_id,
+                  as_user: true,
+                  reply_broadcast: true,
+                  text: `*${
+                    manager[0].firstName
+                  }* posted an update for *${title}*`,
+
+                  attachments: [
+                    {
+                      text: ` *${question}*`,
+                      color: randomColor
+                    }
+                  ]
+                };
+                console.log("posting private message");
+                slashRouter.postPrivateMessage(curieMessage, curieBotToken);
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
+};
 
 router.post("/", (req, res) => {
   const postInfo = req.body;
@@ -458,7 +511,6 @@ router.post("/", (req, res) => {
                   .insert(postCurieActive)
                   .then(postSuccess(res))
                   .catch(serverErrorPost(res));
-
               });
             }) //.then for curieDB
 
@@ -466,7 +518,6 @@ router.post("/", (req, res) => {
               surveyScheduler(timeInfo, curieInfo, res);
             })
             .catch(serverErrorGet(res));
-
         } else {
           let insertInfo = {
             title: postInfo.title,
@@ -552,8 +603,6 @@ router.get("/manager/:id", (req, res) => {
     .catch(serverErrorGet(res));
 });
 
-
-
 //1 / ios/ surveyRouter
 
 router.get("/surveys/team-member/:id", (req, res) => {
@@ -587,7 +636,8 @@ router.get("/curie/surveys/team-member/:id", (req, res) => {
         .getManager(teamID)
         .then(data => {
           let managerID = data[0].id;
-          curieDB.getManagerID(managerID)
+          curieDB
+            .getManagerID(managerID)
             .then(data => {
               res.status(200).json(data);
             })
@@ -598,8 +648,7 @@ router.get("/curie/surveys/team-member/:id", (req, res) => {
     .catch(serverErrorGet(res));
 });
 
-const sur = (res, surveyData, preFeelingsArray ) => {
-
+const sur = (res, surveyData, preFeelingsArray) => {
   let resultObject = {
     survey_id: surveyData[0].id,
     title: surveyData[0].title,
@@ -611,8 +660,7 @@ const sur = (res, surveyData, preFeelingsArray ) => {
     answers: preFeelingsArray
   };
   res.status(200).json(resultObject);
-}
-
+};
 
 router.get("/surveys/survey-id/:id", (req, res) => {
   const { id } = req.params;
@@ -622,29 +670,25 @@ router.get("/surveys/survey-id/:id", (req, res) => {
         .getSurveyID(id)
         .then(fsData => {
           let preFeelingsArray = [];
-          for(let f = 0; f < fsData.length; f++){
-             let preFeelID = fsData[f].feelings_id;
-              preFeelingsDb
+          for (let f = 0; f < fsData.length; f++) {
+            let preFeelID = fsData[f].feelings_id;
+            preFeelingsDb
               .getID(preFeelID)
-              .then(preData=>{
+              .then(preData => {
                 let preText = preData[0].feeling_text;
                 preFeelingsArray.push(preText);
-                
-                if(f === fsData.length - 1 ) {
-                    sur(res, surveyData, preFeelingsArray);
+
+                if (f === fsData.length - 1) {
+                  sur(res, surveyData, preFeelingsArray);
                 }
               })
               .catch(serverErrorGet(res));
-              
           }
-          
-          
         })
         .catch(serverErrorGet(res));
     })
     .catch(serverErrorGet(res));
 });
-
 
 router.get("/:id", (req, res) => {
   const { id } = req.params;
@@ -768,4 +812,8 @@ router.get("/changeActivity/:id", (req, res) => {
 //   res.json(time);
 // });
 
-module.exports = { router, onServerStartScheduleSurveys };
+module.exports = {
+  router: router,
+  onServerStartScheduleSurveys: onServerStartScheduleSurveys,
+  sendNextQuestion: sendNextQuestion
+};

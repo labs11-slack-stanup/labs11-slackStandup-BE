@@ -6,6 +6,8 @@ const router = express.Router();
 const db = require("../database/helpers/curieAnswersDb.js");
 const questionsDb = require("../database/helpers/questionSurveyDb");
 const teamMembersDb = require("../database/helpers/teamMembersDb");
+const dbAuth = require("../database/helpers/slackAuthDb");
+const surveyRouter = require("../routes/surveyRouter.js");
 
 //GET
 router.get("/", (req, res) => {
@@ -76,62 +78,102 @@ router.get("/team/:id", (req, res) => {
 //PUT
 //third update
 
-router.post("/", (req, res) => {
+
+
+const writeSlackAnswerAndSendNextQuestion = (req, res) => {
   const postInfo = req.body;
+  
   console.log("postInfo",postInfo)
-  let answerTable = {
-    answer_1: postInfo.answer_1,
-    answer_2: postInfo.answer_2,
-    answer_3: postInfo.answer_3,
-    survey_id: postInfo.survey_id,
-    team_member_id: postInfo.team_member_id
-  };
+  
+  
+  // Find team member id for the slack id
+  let teamMemberId =  3
+  // // // Find latest Survey id for a team member id
+  let surveyId = 229
+  // Store text for the latest answer
+  let answer = postInfo.event.text;
+
   db
-    .getBySurveyIdTeamMemberId(postInfo.survey_id, postInfo.team_member_id)
+    .getBySurveyIdTeamMemberId(surveyId, teamMemberId)
     .then(
-      surveyCheck => {
-        // console.log("SurveyCheck",surveyCheck);
-        if (surveyCheck.length === 0) {
+      answerCheck => {
+         console.log("answerCheck",answerCheck);
+        if (answerCheck.length === 0) {
+
+          let answerTable = {
+            answer_1: answer,
+            survey_id: surveyId,
+            team_member_id: teamMemberId
+          };
+
           db
             .insert(answerTable)
-            .then(postAnswer => {
-              res.status(201).json({ answerTable, postAnswer });
+            .then(postAnswer => { 
+              // Send second question
+              surveyRouter.sendNextQuestion(teamMemberId, surveyId);
+              // res.status(201).json({ search, postAnswer });
             })
             .catch(err => {
-              res.status(500).json(err);
+              // Send  message that it failed
+              //res.status(500).json(err);
             });
         } else {
           if (
-            surveyCheck[0].answer_1 &&
-            surveyCheck[0].answer_2 === null &&
-            postInfo.answer_2
+            answerCheck[0].answer_1 &&
+            answerCheck[0].answer_2 === null &&
+            answer
           ) {
+
+            let answerTable2 = {
+              answer_2: answer,
+              survey_id: surveyId,
+              team_member_id: teamMemberId
+            };  
+
             db
-              .update(surveyCheck[0].id, { answer_2: postInfo.answer_2 })
+              .update(answerCheck[0].id, { answer_2: answer })
               .then(updateAnswer => {
-                res.status(200).json({ answerTable, updateAnswer });
+                // Send third quetsion
+                surveyRouter.sendNextQuestion(teamMemberId, surveyId);
+                //res.status(200).json({ answerTable2, updateAnswer });
               })
               .catch(err => {
-                res.status(500).json(err);
+                // Send  message that it failed
+                // res.status(500).json(err);
               });
           } else if (
-            surveyCheck[0].answer_2 &&
-            surveyCheck[0].answer_3 === null &&
-            postInfo.answer_3
+            answerCheck[0].answer_2 &&
+            answerCheck[0].answer_3 === null &&
+            answer
           ) {
+
+            let answerTable3 = {
+              answer_3: answer,
+              survey_id: surveyId,
+              team_member_id: teamMemberId
+            };
+  
             db
-              .update(surveyCheck[0].id, { answer_3: postInfo.answer_3 })
+              .update(answerCheck[0].id, { answer_3: answer })
               .then(lastUpdate => {
-                res.status(200).json({ answerTable, lastUpdate });
+                // Send success message
+                //res.status(200).json({ answerTable3, lastUpdate });
               })
               .catch(err => {
-                res.status(500).json(err);
+                // send message that it failed
+                // res.status(500).json(err);
               });
           }
         }
       } //.then
     );
+}
+
+
+router.post("/", (req, res) => {
+  writeSlackAnswerAndSendNextQuestion(req, res);
 }); // end post
+
 
 //Ios route for posting answers
 
@@ -159,6 +201,7 @@ router.post("/ios", (req, res) => {
     });
 });
 
-module.exports = router;
+module.exports =   {router:router, writeAnswer:writeSlackAnswerAndSendNextQuestion};
+
 
 // API/curieAnswers is the route for testing

@@ -18,6 +18,8 @@ const surveysActiveDb = require("../database/helpers/surveysActiveDb");
 const questionDb = require("../database/helpers/questionSurveyDb.js");
 const activeCurieDb = require("../database/helpers/curieSurveyActiveDb");
 const curieAnswerDb = require("../database/helpers/curieAnswersDb.js");
+const curieAnswerRouter = require("../routes/curieAnswerRouter.js");
+const surveyRouter = require("../routes/surveyRouter.js");
 
 const {
   postSuccess,
@@ -37,7 +39,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 let answerURl;
 if (process.env.DB_ENV === "development") {
   answerURl = "localhost:5003/api/curieAnswers";
-  // answerURl = "https://occasum.serveo.net/api/curieAnswers";
+  // answerURl = "https://alterum.serveo.net/api/curieAnswers";
 } else if (process.env.DB_ENV === "production") {
   answerURl = "https://labs11-curie-web.herokuapp.com/api/curieAnswers";
 }
@@ -64,8 +66,9 @@ function sendMessageToSlackResponseURL(responseURL, JSONmessage) {
     }
   });
 }
+
 // part 1 add a function for direct message
-function postPrivateMessage(message, token) {
+const postPrivateMessage = (message, token) => {
   let postMessage = {
     uri: `https://slack.com/api/chat.postMessage`,
     method: "POST",
@@ -83,28 +86,18 @@ function postPrivateMessage(message, token) {
 }
 
 function conversationMessage(token, channel, res) {
+  res.status(200).json(req.body.challenge)
   const url =
     "https://slack.com/api/conversations.history?token=" +
     token +
     "&channel=" +
     channel;
   console.log("url", url);
-  // let answerOptions = {
-  //   uri: answerURl,
-  //   method: "POST",
-  //   headers: {
-  //     "Content-type": "application/json"
-  //   },
-  //   json: message
-  // };
-
+  
   request(url, (error, response, body) => {
     if (error) {
       res.json({ error: "Error." });
-      // } else {
-      //   request(answerOptions, (error,response, body) => {
-      //      console.log("answerOptions", answerOptions)
-      //   })
+  
     }
   });
 }
@@ -211,16 +204,16 @@ router.post("/events", urlencodedParser, (req, res) => {
     for (let i = 0; i < data.length; i++) {
       dbTeamMembers.getID(data[i].member_id).then(loop => {
         console.log("loop", loop);
-        if (loop[0].type === "manager") {
+        if (loop[0].type === "manager") {3
           managerIDD = loop[0].id;
         } else if (i === data.length - 1) {
           dbAuth.getByMemberId(managerIDD).then(date => {
             let botToken = date[0].bot_access_token;
             console.log("botToken", botToken);
-  //////////////////////////////////////////////////////////////////////////
-           
-              
-       
+
+            curieAnswerRouter.writeAnswer(req, res);
+
+            //////////////////////////////////////////////////////////////////////////
           });
         }
       });
@@ -523,71 +516,11 @@ router.post("/send-me-buttons", urlencodedParser, (req, res) => {
       })
       .catch(err => err);
   } else if (reqBody.message === "curie") {
-    // console.log("testing curie"); //grabbing data from survey router
-    let curieSurveyId = reqBody.survey_id;
-    let managerID = reqBody.manager_id;
-    // console.log("managerId", managerID);
-    // console.log("curieSurveyId", curieSurveyId);
-    let title = reqBody.title;
-    let question_1 = reqBody.question_1;
-    let question_2 = reqBody.question_2;
-    let question_3 = reqBody.question_3;
 
-    dbAuth.getByMemberId(managerID).then(managerSlack => {
-      // console.log("mangerslack", managerSlack);
-      const curieBotToken = managerSlack[0].bot_access_token;
-      // console.log("curieBotToken", curieBotToken);
-      dbTeamMembers.getManager(managerID).then(manager => {
-        // console.log(manager);
-        dbTeamMembers.getTeamMember(manager[0].team_id).then(team => {
-          // console.log(team);
+    // Pull out here
 
-          dbAuth.getByMemberId(team[0].id).then(slackUser => {
-            console.log("teamMember", slackUser);
-            let curieMessage = {
-              channel: slackUser[0].user_id,
-              as_user: true,
-              reply_broadcast: true,
-              blocks: [
-                {
-                  type: "section",
-                  text: {
-                    type: "plain_text",
-                    text: `${title}`
-                  }
-                },
-                {
-                  type: "section",
-                  block_id: "question1",
-                  text: {
-                    type: "plain_text",
-                    text: `${question_1}`
-                  }
-                },
-                {
-                  type: "section",
-                  block_id: "question2",
-                  text: {
-                    type: "plain_text",
-                    text: `${question_2}`
-                  }
-                }
-                // {
-                //   type: "section",
-                //   block_id: "question3",
-                //   text: {
-                //     type: "plain_text",
-                //     text: `${question_3}`
-                //   }
-                // }
-              ]
-            };
-            console.log("posting private message");
-            postPrivateMessage(curieMessage, curieBotToken);
-          });
-        });
-      });
-    });
+    surveyRouter.sendNextQuestion(req,res)
+    
   } else if (reqBody.payload) {
     let jsonPayload = JSON.parse(reqBody.payload);
     let userIdSlack = jsonPayload.user.id;
@@ -864,7 +797,7 @@ router.post("/send-me-buttons", urlencodedParser, (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = {router:router, postPrivateMessage: postPrivateMessage};
 
 // heroku logs --tail -a botsentiment
 
