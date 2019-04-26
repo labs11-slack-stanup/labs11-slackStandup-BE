@@ -212,7 +212,7 @@ class Profile extends React.Component {
           <NavBar />
           <div className="profilecontent-container">
             <div className="name-container">
-              {" "}
+              {/* {" "} */}
               <h1 className="welcome-container" style={{fontFamily: 'Roboto Slab, serif', fontSize: '4rem', marginTop: '4%' }}>
               
               {/* line below commented out - giving error of status undefined */}
@@ -239,7 +239,7 @@ class Profile extends React.Component {
                   )
                   ): (null)
                   }
-                  <h3 className="team-wordbox">Team: {this.props.singleTeams[0].name}</h3>
+                  {/* <h3 className="team-wordbox">Team: {this.props.singleTeams[0].name}</h3> */}
                 </div>
                 <div className="secondcolumn">
 
