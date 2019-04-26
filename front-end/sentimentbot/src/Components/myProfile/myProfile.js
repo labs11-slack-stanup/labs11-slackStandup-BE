@@ -212,16 +212,11 @@ class Profile extends React.Component {
           <NavBar />
           <div className="profilecontent-container">
             <div className="name-container">
-              {" "}
-              <h1
-                className="welcome-container"
-                style={{
-                  fontFamily: "Roboto Slab, serif",
-                  fontSize: "4rem",
-                  marginTop: "4%"
-                }}
-              >
-                {/* Welcome, {this.props.singleTeamMembers[0].firstName}! */}
+              {/* {" "} */}
+              <h1 className="welcome-container" style={{fontFamily: 'Roboto Slab, serif', fontSize: '4rem', marginTop: '4%' }}>
+              
+              {/* line below commented out - giving error of status undefined */}
+
                 Dashboard
               </h1>
               {/*<p>Curie Active: {this.props.singleTeamMembers[0].status.toString()}</p>*/}
@@ -229,24 +224,15 @@ class Profile extends React.Component {
                 <div className="sub-container-2">
                  
                   {this.props.managers.length === 1 ? (
-                    this.props.singleTeamMembers[0].type === "manager" ? (
-                      <h2 className="optional-text-2">
-                        Once you're connected to a slack work space, connect
-                        your mood bot to a channel with the slash command:{" "}
-                        <span className="span">/connect_channel_to_survey</span>
-                      </h2>
-                    ) : (
-                      <h2 className="optional-text-2">
-                        Hint once connected to a slack workspace, you can use
-                        the slash command:{" "}
-                        <span className="span">/send-me-buttons</span> to
-                        receive existing surveys!
-                      </h2>
-                    )
-                  ) : null}
-                  <h3 className="team-wordbox">
-                    Team: {this.props.singleTeams[0].name}
-                  </h3>
+                  this.props.singleTeamMembers[0].type === "manager" ? (
+                  <h2 className="optional-text-2">Once you're connected to a slack work space, connect your mood bot to a channel with the slash command: <span className="span">/connect_channel_to_survey</span></h2>
+                  ) : (
+                    <h2 className="optional-text-2">Hint once connected to a slack workspace, you can use the slash command: <span className="span">/send-me-buttons</span> to receive existing surveys!</h2>
+                  )
+                  ): (null)
+                  }
+                  {/* <h3 className="team-wordbox">Team: {this.props.singleTeams[0].name}</h3> */}
+                  
                 </div>
                 <div className="secondcolumn">
                 {this.props.singleTeamMembers[0].type === "manager" ? (
