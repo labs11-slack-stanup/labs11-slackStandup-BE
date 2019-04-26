@@ -5,7 +5,7 @@ require('dotenv').config();
 // const managerRouter = require("./routes/managerRouter.js");
 const teamMemberRouter = require("./routes/teamMemberRouter.js");
 const teamRouter = require("./routes/teamRouter.js");
-const {router} = require("./routes/surveyRouter.js");
+const surveyRouter = require("./routes/surveyRouter.js");
 const feelingRouter = require("./routes/feelingRouter.js");
 const preFeelingRouter = require("./routes/preFeelingRouter");
 const surveyFeelingRouter = require("./routes/survey_feelingsRouter");
@@ -35,17 +35,17 @@ server.use(bodyParser.text());
 // server.use("/api/managers", managerRouter);
 server.use("/api/team_members", teamMemberRouter);
 server.use("/api/teams", teamRouter);
-server.use("/api/surveys", router);
+server.use("/api/surveys", surveyRouter.router);
 server.use("/api/feelings", feelingRouter);
 server.use("/api/pre-set-feelings", preFeelingRouter);
 server.use("/api/survey_feelings", surveyFeelingRouter);
 server.use("/api/stripe", stripeRouter);
-server.use("/api/slash", slashRouter);
+server.use("/api/slash", slashRouter.router);
 server.use("/api/slackauth", slackAuth);
 server.use("/api/survey_active", surveyActiveRouter);
 server.use("/api/questionSurvey", questionSurveyRouter); //labs11
 server.use("/api/curieActiveSurvey", curieActiveSurveyRouter); //labs11
-server.use("/api/curieAnswers", curieAnswers); //labs11
+server.use("/api/curieAnswers", curieAnswers.router); //labs11
 
 
 server.get("/", (req, res) => {
